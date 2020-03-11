@@ -23,7 +23,7 @@ var ec_l1_option = {
 	},
 	//图形位置
 	grid: {
-		left: '7%',
+		left: '8%',
 		right:'4%',
 		bottom:'8%',
 		top:50,
@@ -53,7 +53,7 @@ var ec_l1_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
-				color:'#17273B',
+				color:'#83bff6',
 				width:1,
 				type:'solid',
 			}
