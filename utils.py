@@ -95,11 +95,47 @@ def get_c2_data():
     return res
 
 
+def get_r1_data():
+    """
+
+    :return:返回各省数据
+    """
+    sql ='select city,confirm from ' \
+         '(select city,confirm from details where update_time =' \
+         '(select update_time from details order by update_time desc limit 1)' \
+         'and province not in ("湖北","北京","上海","重庆","天津")union all ' \
+         'select province as city,sum(confirm) as confirm from details ' \
+         'where update_time =(select update_time from details order by update_time desc limit 1) ' \
+         'and province in("北京","上海","重庆","天津") group by province) ' \
+         'as a order by confirm desc limit 10'
+
+    res = query(sql)
+    return res
+
+
+def get_r2_data():
+    """
+
+    :return:返回各省数据
+    """
+    sql ='select country, confirm ,confirm_add, heal, dead from fforeign ' \
+         'where update_time =(select update_time from fforeign ' \
+         'order by update_time desc limit 1) order by confirm  desc limit 5'
+
+    res = query(sql)
+    return res
+
+
 if __name__ == '__main__':
     print(get_time())
-    data = get_l2_data()
-    print(type(data))
-    print(data)
-
-    # print(type(int(data[0])))
+    data = get_r2_data()
+    i = data[0]
+    print(i)
+    print(type(i))
+    print('city', (i[0]))
+    print(type(i[0]))
+    print('num', int(i[1]))
+    print(type(i[1]))
+    print('num', int(i[2]))
+    print(type(int(i[2])))
 
