@@ -61,8 +61,8 @@ function get_c2_data() {
     $.ajax({
         url:'/c2',
         success:function(data){
-           ec_c2_option.series[0].data = data.data
-		   ec_c2.setOption(ec_c2_option)
+           ec_center_option.series[0].data = data.data
+		   ec_center.setOption(ec_center_option)
         },
         error:function f() {
 

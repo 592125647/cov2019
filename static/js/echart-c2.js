@@ -14,10 +14,10 @@ var ec_center_option = {
     // 左侧小导航图标
     visualMap:{
         show:true,
-        x:'left',
-        y:'bottom',
+        x:'22%',
+        y:'73%',
         textStyle:{
-            fontSize:8,
+            fontSize:18,
         },
         splitList:[
             {start:1,end:9},
@@ -26,7 +26,7 @@ var ec_center_option = {
             {start:1000,end:9999},
             {start:10000}
         ],
-        color:['#8A3310','#C64918','#E55b25','#F2AD92','#F9DCD1']
+        color:['#CA1110','#C63920','#E55b25','#F2AD92','#F9DCD1']
     },
 
     series:[{
@@ -49,11 +49,11 @@ var ec_center_option = {
         label:{
             normal:{
                 show :true,//省份名称
-                fontSize:8,
+                fontSize:18,
             },
             emphasis:{
                 show :true,
-                fontSize:8,
+                fontSize:18,
             }
         },
         data: mydata //数据

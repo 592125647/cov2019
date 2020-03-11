@@ -93,7 +93,7 @@ def get_r2_data():
     data = utils.get_r2_data()
     country, confirm, confirm_add, heal, dead = [], [], [], [], []
     for i in data:
-        country.append(i[0] + '   ')  # 国家
+        country.append(i[0] + '     ')  # 国家
         confirm.append(int(i[1]))  # 累计确诊
         confirm_add.append(int(i[2]))  # 新增确诊
         heal.append(int(i[3]))  # 治愈

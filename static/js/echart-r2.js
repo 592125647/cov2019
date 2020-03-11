@@ -1,4 +1,4 @@
-var ec_c2 = echarts.init(document.getElementById('r2'),'dark')
+var ec_r2 = echarts.init(document.getElementById('r2'),'dark')
 ec_r2_option = {
     tooltip: {
         trigger: 'axis',
@@ -66,4 +66,4 @@ ec_r2_option = {
         }
     ]
 };
-ec_c2.setOption(ec_r2_option);
+ec_r2.setOption(ec_r2_option);

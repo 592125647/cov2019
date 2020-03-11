@@ -16,7 +16,7 @@ ec_r1_option = {
     },
     //图形位置
 	grid: {
-		left: '8%',
+		left: '4%',
 		// right:'4%',
 		bottom:'2%',
 		top:-8,
