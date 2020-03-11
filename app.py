@@ -4,7 +4,6 @@ from flask import request
 from flask import jsonify
 from datetime import timedelta
 import utils
-import time
 
 app = Flask(__name__)
 
@@ -35,6 +34,7 @@ def get_time():
 
 @app.route('/l1')
 def get_l1_data():
+    # 获取累计新增、疑似、治愈、死亡人数
     data = utils.get_l1_data()
     day, confirm, suspect, heal, dead = [], [], [], [], []
     for a, b, c, d, e in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
@@ -48,6 +48,7 @@ def get_l1_data():
 
 @app.route('/l2')
 def get_l2_data():
+    # 获取每日新增确诊、疑似人数
     data = utils.get_l2_data()
     day, confirm_add, suspect_add = [], [], []
     for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
@@ -59,17 +60,46 @@ def get_l2_data():
 
 @app.route('/c1')
 def get_c1_data():
+    # 获取累计确诊疑似、治愈、死亡人数
     data = utils.get_c1_data()
     return jsonify({'confirm': int(data[0]), 'suspect': int(data[1]), 'heal': int(data[2]), 'dead': int(data[3])})
 
 
 @app.route('/c2')
 def get_c2_data():
+    # 获取中国各省累计确诊人数
     res = []
     for tup in utils.get_c2_data():
         # print(tup)
         res.append({'name': tup[0], 'value': int(tup[1])})
     return jsonify({'data': res})
+
+
+@app.route('/r1')
+def get_r1_data():
+    # 获取除湖北省外累计确诊最多的10个城市
+    data = utils.get_r1_data()
+    city, confirm = [], []
+    for i in data:
+        city.append(i[0])  # 城市
+        confirm.append(int(i[1]))  # 累计确诊人数
+        # print(city, confirm)
+    return jsonify({'city': city, 'confirm': confirm})
+
+
+@app.route('/r2')
+def get_r2_data():
+    # 获取国外确诊人数最多的10个国家
+    data = utils.get_r2_data()
+    country, confirm, confirm_add, heal, dead = [], [], [], [], []
+    for i in data:
+        country.append(i[0] + '   ')  # 国家
+        confirm.append(int(i[1]))  # 累计确诊
+        confirm_add.append(int(i[2]))  # 新增确诊
+        heal.append(int(i[3]))  # 治愈
+        dead.append(int(i[4]))  # 死亡
+        print(country, confirm, confirm_add, heal, dead)
+    return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
 
 
 @app.route('/test')
