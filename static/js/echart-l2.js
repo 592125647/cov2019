@@ -53,7 +53,7 @@ var ec_l2_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
-				color:'#17273B',
+				color:'#83bff6',
 				width:1,
 				type:'solid',
 			}
