@@ -4,6 +4,7 @@ from flask import request
 from flask import jsonify
 from datetime import timedelta
 import utils
+import time
 
 app = Flask(__name__)
 
@@ -30,6 +31,30 @@ def ajax():
 def get_time():
     # print(utils.get_time())
     return utils.get_time()
+
+
+@app.route('/l1')
+def get_l1_data():
+    data = utils.get_l1_data()
+    day, confirm, suspect, heal, dead = [], [], [], [], []
+    for a, b, c, d, e in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
+        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        confirm.append(b)
+        suspect.append(c)
+        heal.append(d)
+        dead.append(e)
+    return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
+
+
+@app.route('/l2')
+def get_l2_data():
+    data = utils.get_l2_data()
+    day, confirm_add, suspect_add = [], [], []
+    for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
+        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        confirm_add.append(b)
+        suspect_add.append(c)
+    return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
 @app.route('/c1')

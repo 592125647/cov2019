@@ -1,10 +1,10 @@
-var ec_l1 = echarts.init(document.getElementById('l1'),'dark')
+var ec_l2 = echarts.init(document.getElementById('l2'),'dark')
 
-var ec_l1_option = {
+var ec_l2_option = {
     title:{
-        text:'全国累计趋势',
+        text:'全国新增趋势',
         textStyle:{
-			
+
 		},
 		left:'left',
 	},
@@ -18,7 +18,7 @@ var ec_l1_option = {
 		},
     },
 	legend:{
-		data:['累计确诊','现有疑似','累计治愈','累计死亡'],
+		data:['新增确诊','新增疑似'],
 		left:'right',
 	},
 	//图形位置
@@ -28,7 +28,7 @@ var ec_l1_option = {
 		bottom:'8%',
 		top:50,
 		containLable:true
-	}, 
+	},
 	xAxis: [{
 	    type:'category',
 		data:['01.20','01.21','01.22']
@@ -60,28 +60,16 @@ var ec_l1_option = {
 		}
 	}],
 	series:[{
-		name:'累计确诊',
+		name:'新增确诊',
 		type:'line',
 		smooth:true,
 		data:[260,406,529]
 	},{
-		name:'现有疑似',
+		name:'新增疑似',
 		type:'line',
 		smooth:true,
 		data:[52,37,3935]
-	},
-	{
-		name:'累计治愈',
-		type:'line',
-		smooth:true,
-		data:[26,26,26]
-	},
-	{
-		name:'累计死亡',
-		type:'line',
-		smooth:true,
-		data:[6,9,17]
 	}],
 };
-    
-ec_l1.setOption(ec_l1_option)
+
+ec_l2.setOption(ec_l1_option)

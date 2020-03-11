@@ -45,6 +45,26 @@ def query(sql, *args):
     return res
 
 
+def get_l1_data():
+    """
+
+    :return:
+    """
+    sql = 'select ds,confirm,suspect,heal,dead from history'
+    res = query(sql)
+    return res
+
+
+def get_l2_data():
+    """
+
+    :return:
+    """
+    sql = 'select ds,confirm_add,suspect_add from history'
+    res = query(sql)
+    return res
+
+
 def get_c1_data():
     """
 
@@ -77,9 +97,9 @@ def get_c2_data():
 
 if __name__ == '__main__':
     print(get_time())
-    # data = get_c2_data()
-    # print(type(data))
-    # print(data)
+    data = get_l2_data()
+    print(type(data))
+    print(data)
 
     # print(type(int(data[0])))
 
