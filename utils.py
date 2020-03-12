@@ -105,7 +105,7 @@ def update_history():
     cursor = None
     conn = None
     try:
-        dic = get_tencent_data()[0]   # 0是历史数据，1是当日更新具体数据, 2是外国数据
+        dic = get_tencent_data()[0]  # 0是历史数据，1是当日更新具体数据, 2是外国数据
 
         conn, cursor = get_conn()
         sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
@@ -152,8 +152,6 @@ def update_details():
     )engine=InnoDB default charset=utf8mb4;
 
     """
-
-
 
     cursor = None
     conn = None
@@ -271,14 +269,14 @@ def get_r1_data():
 
     :return:返回各省数据
     """
-    sql ='select city,confirm from ' \
-         '(select city,confirm from details where update_time =' \
-         '(select update_time from details order by update_time desc limit 1)' \
-         'and province not in ("湖北","北京","上海","重庆","天津") union all ' \
-         'select province as city,sum(confirm) as confirm from details ' \
-         'where update_time =(select update_time from details order by update_time desc limit 1) ' \
-         'and province in("北京","上海","重庆","天津") group by province) ' \
-         'as a order by confirm desc limit 10'
+    sql = 'select city,confirm from ' \
+          '(select city,confirm from details where update_time =' \
+          '(select update_time from details order by update_time desc limit 1)' \
+          'and province not in ("湖北","北京","上海","重庆","天津") union all ' \
+          'select province as city,sum(confirm) as confirm from details ' \
+          'where update_time =(select update_time from details order by update_time desc limit 1) ' \
+          'and province in("北京","上海","重庆","天津") group by province) ' \
+          'as a order by confirm desc limit 10'
 
     res = query(sql)
     return res
@@ -306,16 +304,15 @@ def get_l2_data():
     return res
 
 
-
 # 获取第二页右侧国外排行数据
 def get_r2_data():
     """
 
     :return:返回各省数据
     """
-    sql ='select country, confirm ,confirm_add, heal, dead  from fforeign ' \
-         'where update_time =(select update_time from fforeign ' \
-         'order by update_time desc limit 1) order by confirm  desc limit 5'
+    sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
+          'where update_time =(select update_time from fforeign ' \
+          'order by update_time desc limit 1) order by confirm  desc limit 5'
 
     res = query(sql)
     return res
@@ -329,5 +326,5 @@ if __name__ == '__main__':
     # data = get_c2_data()
     # print(data)
 
-    # 建立好数据库和表后，执行插入历史数据， 只需执行一次
+    # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
     insert_history()

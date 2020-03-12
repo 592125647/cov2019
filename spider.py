@@ -2,6 +2,7 @@ import requests
 import json
 import time
 
+
 def get_tencent_data():
     # 当日之前的历史数据
     url_history = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
