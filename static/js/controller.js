@@ -90,10 +90,9 @@ function get_r2_data() {
         url:'/r2',
         success:function(data){
             ec_r2_option.yAxis.data = data.country
-            ec_r2_option.series[3].data = data.confirm
-            ec_r2_option.series[2].data = data.confirm_add
+            ec_r2_option.series[0].data = data.confirm
             ec_r2_option.series[1].data = data.heal
-            ec_r2_option.series[0].data = data.dead
+            ec_r2_option.series[2].data = data.dead
 		    ec_r2.setOption(ec_r2_option)
         },
         error:function f() {
