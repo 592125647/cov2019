@@ -35,7 +35,7 @@ def close_conn(conn, cursor):
 #  插入历史数据
 def insert_history():
     """
-    插入历史数据
+    初始化数据库和表后，插入历史数据，只需执行一次，执行第二次就会报错
     :return:
     """
     cursor = None
@@ -65,28 +65,32 @@ def insert_history():
 # 更新历史数据
 def update_history():
     """
-    更新历史数据
+    先执行插入历史数据操作，之后每次更新历史数据，执行此方法
     :return:
     """
     cursor = None
     conn = None
     try:
         dic = get_tencent_data()[0]   # 0是历史数据，1是当日更新具体数据, 2是外国数据
-        print(f'{time.asctime()}开始更新历史数据')
+
         conn, cursor = get_conn()
         sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from history where ds=%s'
         for k, v in dic.items():
             # item{'2020-1-20':{'confirm':,'suspect':,'heal':,'dead':}}
             if not cursor.execute(sql_query, k):
+                print(f'{time.asctime()}开始更新全国历史数据')
                 cursor.execute(sql, [k, v.get('confirm'), v.get('confirm_add'),
                                      v.get('suspect'), v.get('suspect_add'),
                                      v.get('heal'), v.get('heal_add'),
                                      v.get('dead'), v.get('dead_add')
                                      ])
-
-        conn.commit()  # 提交事务
-        print(f'{time.asctime()}历史数据更新完毕')
+                conn.commit()  # 提交事务
+            else:
+                print(f'{time.asctime()}已是最新全国历史数据')
+                break
+        # conn.commit()  # 提交事务
+        print(f'{time.asctime()}全国历史数据更新完毕')
     except:
         traceback.print_exc()
 
@@ -97,7 +101,7 @@ def update_history():
 # 更新当日各城市数据
 def update_details():
     '''
-    更新details表
+    更新details表，更新当日各城市数据
     '''
 
     cursor = None
@@ -109,13 +113,13 @@ def update_details():
         sql_query = 'select %s=(select update_time from details order by id desc limit 1)'
         cursor.execute(sql_query, li[0][0])
         if not cursor.fetchone()[0]:
-            print(f'{time.asctime()}开始更新最新数据')
+            print(f'{time.asctime()}开始更新今日最新数据')
             for item in li:
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
-            print(f'{time.asctime()}最新数据更新完毕')
+            print(f'{time.asctime()}今日最新数据更新完毕')
         else:
-            print(f'{time.asctime()}已是最新数据')
+            print(f'{time.asctime()}已是今日最新数据')
     except:
         traceback.print_exc()
     finally:
@@ -125,7 +129,7 @@ def update_details():
 # 更新外国数据
 def update_fforeign():
     """
-    插入国外数据
+    插入国外数据，更新当日国外各数据
     :return:
     """
     cursor = None
@@ -137,13 +141,13 @@ def update_fforeign():
         sql_query = 'select %s=(select update_time from fforeign order by id desc limit 1)'
         cursor.execute(sql_query, li[0][0])
         if not cursor.fetchone()[0]:
-            print(f'{time.asctime()}开始更新最新数据')
+            print(f'{time.asctime()}开始更新国外数据')
             for item in li:
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
-            print(f'{time.asctime()}最新数据更新完毕')
+            print(f'{time.asctime()}国外数据更新完毕')
         else:
-            print(f'{time.asctime()}已是最新数据')
+            print(f'{time.asctime()}已是国外最新数据')
     except:
         traceback.print_exc()
     finally:
@@ -256,6 +260,8 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    data = get_c2_data()
-    print(data)
+    # data = get_c2_data()
+    # print(data)
 
+    # 建立好数据库和表后，执行插入历史数据， 只需执行一次
+    insert_history()
