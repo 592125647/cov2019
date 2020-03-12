@@ -34,12 +34,7 @@ ec_r2_option = {
         bottom:30,
         right:40
     },
-    // toolbox: {
-    //     show: true,
-    //     feature: {
-    //         saveAsImage: {}
-    //     }
-    // },
+
     xAxis: {
         type: 'value',
         name: '人',
