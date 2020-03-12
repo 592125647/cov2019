@@ -30,7 +30,7 @@ def close_conn(conn, cursor):
         conn.close()
 
 
-# 查询
+# sql查询
 def query(sql, *args):
     """
     :param sql:
@@ -45,6 +45,7 @@ def query(sql, *args):
     return res
 
 
+# 获取第二页左上角数据
 def get_l1_data():
     """
 
@@ -55,6 +56,7 @@ def get_l1_data():
     return res
 
 
+# 获取第二页左下角数据
 def get_l2_data():
     """
 
@@ -65,6 +67,7 @@ def get_l2_data():
     return res
 
 
+# 获取第一页疫情情况数据
 def get_c1_data():
     """
 
@@ -80,6 +83,7 @@ def get_c1_data():
     return res[0]
 
 
+# 获取第一页中国地图数据
 def get_c2_data():
     """
 
@@ -93,6 +97,7 @@ def get_c2_data():
     return res
 
 
+# 获取第一页右侧城市排行数据
 def get_r1_data():
     """
 
@@ -111,6 +116,7 @@ def get_r1_data():
     return res
 
 
+# 获取第二页右侧国外排行数据
 def get_r2_data():
     """
 
@@ -125,15 +131,7 @@ def get_r2_data():
 
 
 if __name__ == '__main__':
+    # 测试sql查询返回的数据
     data = get_c2_data()
     print(data)
-    # i = data[0]
-    # print(i)
-    # print(type(i))
-    # print('city', (i[0]))
-    # print(type(i[0]))
-    # print('num', int(i[1]))
-    # print(type(i[1]))
-    # print('num', int(i[2]))
-    # print(type(int(i[2])))
 

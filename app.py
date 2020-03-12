@@ -8,26 +8,14 @@ import utils
 app = Flask(__name__)
 
 
-# @app.route('/')
-# def hello_world():
-#     return 'Hello World!'
-
-
 @app.route('/')
 def hello_world():
     return render_template('index.html')
 
 
-@app.route('/ajax', methods=['get', 'post'])
-def ajax():
-    name = request.values.get('name')
-    score = request.values.get('score')
-    print(f'name:{name}, score:{score}')
-    return '10000'
-
-
 @app.route('/time')
 def get_time():
+    # 获取当地时间
     # print(utils.get_time())
     return utils.get_time()
 
@@ -100,12 +88,6 @@ def get_r2_data():
         dead.append(int(i[4]))  # 死亡
         print(country, confirm, confirm_add, heal, dead)
     return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
-
-
-@app.route('/test')
-def test():
-    # print(utils.get_time())
-    return render_template('test.html')
 
 
 if __name__ == '__main__':
