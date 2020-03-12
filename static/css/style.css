@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    height: 700px;
+    margin: 0;
+    background: #333;
+}
+
+ul,li,i{
+    list-style: none;
+}
+
+/* 标题 */
+#title{
+    width: 40%;
+    height: 10%;
+    position: absolute;
+    left: 30%;
+    font-size: 30px;
+    color: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+/* 时间戳 */
+#time{
+    height: 8%;
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    text-align: center;
+    font-size: 20px;
+    color: #78e08f;
+    z-index: 5;
+}
+
+/* 左一 */
+#l1{
+    width: 38%;
+    height: 45%;
+    position: absolute;
+    top: 105%;
+    left: 0;
+    background-color: #341f97;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    z-index: 20;
+}
+/* 左二 */
+#l2{
+    width: 38%;
+    height: 45%;
+    position: absolute;
+    top: 155%;
+    left:0%;
+    background-color: #f368e0;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    z-index: 20;
+}
+/* 中一 */
+#c1{
+    width: 40%;
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    background-color: #2C3A47;
+    text-align: center;
+    color: #efefef;
+}
+/* 数字 */
+.num{
+    width: 25%;
+    float: left;
+    font-size: 18px;
+    color: #ffb142;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+/* 数字介绍 */
+.text{
+    color: #d1ccc0;
+
+}
+/* 中二 */
+#c2{
+    width: 100%;
+    height: 110%;
+    position: absolute;
+    /*top:20%;*/
+    left: -22%;
+    background-color: #9AECDB;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    /*z-index:2;*/
+}
+/* 右一 */
+#r1{
+    width: 46%;
+    height: 45%;
+    position: absolute;
+    top: 37%;
+    right: 0%;
+    background-color: #CAD3C8;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    z-index: 1;
+}
+/* 右二 */
+#r2{
+    width: 60%;
+    height: 95%;
+    position: absolute;
+    top: 105%;
+    right: 1%;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+}
