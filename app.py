@@ -13,6 +13,15 @@ def hello_index():
     return render_template('index.html')
 
 
+@app.route('/updatedata')
+def update_data():
+    utils.update_history()
+    utils.update_details()
+    utils.update_fforeign()
+    print('数据库更新数据成功')
+    return render_template('index.html')
+
+
 @app.route('/time')
 def get_time():
     # 获取当地时间
@@ -86,7 +95,7 @@ def get_r2_data():
         confirm_add.append(int(i[2]))  # 新增确诊
         heal.append(int(i[3]))  # 治愈
         dead.append(int(i[4]))  # 死亡
-        print(country, confirm, confirm_add, heal, dead)
+        # print(country, confirm, confirm_add, heal, dead)
     return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
 
 
