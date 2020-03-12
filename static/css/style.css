@@ -31,11 +31,11 @@ ul,li,i{
 #time{
     height: 8%;
     position: absolute;
-    top: 5%;
-    right: 3%;
+    top: 3%;
+    left: 1%;
     text-align: center;
     font-size: 20px;
-    color: #78e08f;
+    color: #ffffff;
     z-index: 5;
 }
 
@@ -69,9 +69,8 @@ ul,li,i{
 #c1{
     width: 40%;
     position: absolute;
-    top: 10%;
-    left: 30%;
-    background-color: #2C3A47;
+    top: 15%;
+    right: 4%;
     text-align: center;
     color: #efefef;
 }
