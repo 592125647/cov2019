@@ -58,7 +58,7 @@ var ec_l1_option = {
 			lineStyle:{
 				color:'#83bff6',
 				width:1,
-				type:'solid',
+				type:'dashed',
 			}
 		}
 	}],

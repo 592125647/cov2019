@@ -120,8 +120,17 @@ function get_r2_data() {
     })
 }
 
+get_time()  // 启动时获取数据
+get_c1_data()
+get_c2_data()
+get_l1_data()
+get_l2_data()
+get_r1_data()
+get_r2_data()
+update_time()
+
 setInterval(get_time,1000);
-setInterval(get_c1_data,1000*60*60);  // 每隔1小时刷新数据一次
+setInterval(get_c1_data,1000*60*60);  // 启动之后之后，每隔1小时刷新数据一次
 setInterval(get_c2_data,1000*60*60);
 setInterval(get_r1_data,1000*60*60);
 setInterval(get_l1_data,1000*60*60);

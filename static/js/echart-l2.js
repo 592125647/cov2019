@@ -13,8 +13,10 @@ var ec_l2_option = {
 		axisPointer:{
 			type:'line',
 			lineStyle:{
-				color:'#7171C6'
+				color:'#7171C6',
+
 			}
+
 		},
     },
 	legend:{
@@ -56,9 +58,9 @@ var ec_l2_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
-				color:'#83bff6',
+				color:'#95afc0',
 				width:1,
-				type:'solid',
+				type:'dashed'
 			}
 		}
 	}],
