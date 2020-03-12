@@ -131,5 +131,8 @@ static目录存放各类静态文件
 * 国外累计确诊排行数据图 -- echart-r2.js
 
 ***  
+## 效果预览
+
+![view1](https://github.com/huyinhao/cov2019/raw/master/view1.png)
 
 
