@@ -121,7 +121,7 @@ function get_r2_data() {
 }
 
 setInterval(get_time,1000);
-setInterval(get_c1_data,1000*60*60);  // 1小时刷新数据一次
+setInterval(get_c1_data,1000*60*60);  // 每隔1小时刷新数据一次
 setInterval(get_c2_data,1000*60*60);
 setInterval(get_r1_data,1000*60*60);
 setInterval(get_l1_data,1000*60*60);
