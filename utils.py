@@ -45,28 +45,6 @@ def query(sql, *args):
     return res
 
 
-# 获取第二页左上角数据
-def get_l1_data():
-    """
-
-    :return:
-    """
-    sql = 'select ds,confirm,suspect,heal,dead from history'
-    res = query(sql)
-    return res
-
-
-# 获取第二页左下角数据
-def get_l2_data():
-    """
-
-    :return:
-    """
-    sql = 'select ds,confirm_add,suspect_add from history'
-    res = query(sql)
-    return res
-
-
 # 获取第一页疫情情况数据
 def get_c1_data():
     """
@@ -114,6 +92,29 @@ def get_r1_data():
 
     res = query(sql)
     return res
+
+
+# 获取第二页左上角数据
+def get_l1_data():
+    """
+
+    :return:
+    """
+    sql = 'select ds,confirm,suspect,heal,dead from history'
+    res = query(sql)
+    return res
+
+
+# 获取第二页左下角数据
+def get_l2_data():
+    """
+
+    :return:
+    """
+    sql = 'select ds,confirm_add,suspect_add from history'
+    res = query(sql)
+    return res
+
 
 
 # 获取第二页右侧国外排行数据

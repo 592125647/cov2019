@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def hello_index():
     return render_template('index.html')
 
 
@@ -18,32 +18,6 @@ def get_time():
     # 获取当地时间
     # print(utils.get_time())
     return utils.get_time()
-
-
-@app.route('/l1')
-def get_l1_data():
-    # 获取累计新增、疑似、治愈、死亡人数
-    data = utils.get_l1_data()
-    day, confirm, suspect, heal, dead = [], [], [], [], []
-    for a, b, c, d, e in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
-        day.append(a.strftime('%m-%d'))  # a是datatime类型
-        confirm.append(b)
-        suspect.append(c)
-        heal.append(d)
-        dead.append(e)
-    return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
-
-
-@app.route('/l2')
-def get_l2_data():
-    # 获取每日新增确诊、疑似人数
-    data = utils.get_l2_data()
-    day, confirm_add, suspect_add = [], [], []
-    for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
-        day.append(a.strftime('%m-%d'))  # a是datatime类型
-        confirm_add.append(b)
-        suspect_add.append(c)
-    return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
 @app.route('/c1')
@@ -73,6 +47,32 @@ def get_r1_data():
         confirm.append(int(i[1]))  # 累计确诊人数
         # print(city, confirm)
     return jsonify({'city': city, 'confirm': confirm})
+
+
+@app.route('/l1')
+def get_l1_data():
+    # 获取累计新增、疑似、治愈、死亡人数
+    data = utils.get_l1_data()
+    day, confirm, suspect, heal, dead = [], [], [], [], []
+    for a, b, c, d, e in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
+        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        confirm.append(b)
+        suspect.append(c)
+        heal.append(d)
+        dead.append(e)
+    return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
+
+
+@app.route('/l2')
+def get_l2_data():
+    # 获取每日新增确诊、疑似人数
+    data = utils.get_l2_data()
+    day, confirm_add, suspect_add = [], [], []
+    for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
+        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        confirm_add.append(b)
+        suspect_add.append(c)
+    return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
 @app.route('/r2')
