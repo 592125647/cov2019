@@ -12,7 +12,18 @@ for (var i = 0; i < data.length; i++) {
 ec_r1_option = {
     title: {
         text: '除湖北省外累计确诊最多的10城市',
-        left:100,
+        left:200,
+    },
+    tooltip:{
+		axisPointer:{
+			type:'cross',
+			lineStyle:{
+				color:'#7171C6'
+			},
+            crossStyle:{
+			    type:'dashed',
+            }
+		},
     },
     //图形位置
 	grid: {
@@ -38,6 +49,9 @@ ec_r1_option = {
             show: false
         },
         z: 10,
+        axisPointer:{
+            type: 'none',
+        }
     },
     yAxis: {
         axisLine: {
@@ -50,7 +64,11 @@ ec_r1_option = {
             textStyle: {
                 color: '#999'
             }
-        }
+        },
+        splitLine:{
+			show:false,
+		},
+
     },
     dataZoom: [
         {
