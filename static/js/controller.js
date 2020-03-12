@@ -1,3 +1,16 @@
+//更新数据库(history、details、fforeign三张表)
+function update_time(){
+    $.ajax({
+        url:'/updatedata',
+        success:function (data) {
+
+        },error:function () {
+
+        }
+    })
+}
+
+// 更新时间戳
 function get_time(){
     $.ajax({
         url:'/time',
@@ -10,6 +23,7 @@ function get_time(){
     })
 }
 
+// 更新中国累计数据
 function get_c1_data() {
     $.ajax({
         url:'/c1',
@@ -25,6 +39,7 @@ function get_c1_data() {
     })
 }
 
+// 更新中国疫情地图
 function get_c2_data() {
     $.ajax({
         url:'/c2',
@@ -38,6 +53,7 @@ function get_c2_data() {
     })
 }
 
+// 更新城市疫情排行
 function get_r1_data() {
     $.ajax({
         url:'/r1',
@@ -53,6 +69,7 @@ function get_r1_data() {
     })
 }
 
+// 更新累计疫情趋势图
 function get_l1_data() {
     $.ajax({
         url:'/l1',
@@ -70,6 +87,7 @@ function get_l1_data() {
     })
 }
 
+// 更新疫情更新图
 function get_l2_data() {
     $.ajax({
         url:'/l2',
@@ -85,6 +103,7 @@ function get_l2_data() {
     })
 }
 
+// 更新国外疫情排行
 function get_r2_data() {
     $.ajax({
         url:'/r2',
@@ -101,10 +120,11 @@ function get_r2_data() {
     })
 }
 
-get_time()
-get_c1_data()
-get_c2_data()
-get_r1_data()
-get_l1_data()
-get_l2_data()
-get_r2_data()
+setInterval(get_time,1000);
+setInterval(get_c1_data,1000*60*60);  // 1小时刷新数据一次
+setInterval(get_c2_data,1000*60*60);
+setInterval(get_r1_data,1000*60*60);
+setInterval(get_l1_data,1000*60*60);
+setInterval(get_l2_data,1000*60*60);
+setInterval(get_r2_data,1000*60*60);
+setInterval(update_time,1000*60*60);
