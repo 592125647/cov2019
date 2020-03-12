@@ -4,7 +4,7 @@ var ec_l2_option = {
     title:{
         text:'全国新增趋势',
         textStyle:{
-
+            fontSize : 24,
 		},
 		left:'left',
 	},
@@ -20,6 +20,9 @@ var ec_l2_option = {
 	legend:{
 		data:['新增确诊','新增疑似'],
 		left:'right',
+		textStyle:{
+            fontSize : 14,
+        } ,
 	},
 	//图形位置
 	grid: {

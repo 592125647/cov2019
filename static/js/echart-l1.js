@@ -4,7 +4,7 @@ var ec_l1_option = {
     title:{
         text:'全国累计趋势',
         textStyle:{
-			
+			fontSize:24,
 		},
 		left:'left',
 	},
@@ -20,6 +20,9 @@ var ec_l1_option = {
 	legend:{
 		data:['累计确诊','现有疑似','累计治愈','累计死亡'],
 		left:'right',
+		textStyle:{
+            fontSize : 14,
+        } ,
 	},
 	//图形位置
 	grid: {
