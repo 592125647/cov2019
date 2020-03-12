@@ -82,9 +82,7 @@ def get_c1_data():
 
 def get_c2_data():
     """
-    'where update_time=(select update_time from details)'\
-    'order by update_time desc limit 1'\
-    'group by province'
+
     :return:返回各省数据
     """
     sql = 'select province, sum(confirm) from details ' \
@@ -103,7 +101,7 @@ def get_r1_data():
     sql ='select city,confirm from ' \
          '(select city,confirm from details where update_time =' \
          '(select update_time from details order by update_time desc limit 1)' \
-         'and province not in ("湖北","北京","上海","重庆","天津")union all ' \
+         'and province not in ("湖北","北京","上海","重庆","天津") union all ' \
          'select province as city,sum(confirm) as confirm from details ' \
          'where update_time =(select update_time from details order by update_time desc limit 1) ' \
          'and province in("北京","上海","重庆","天津") group by province) ' \
@@ -118,7 +116,7 @@ def get_r2_data():
 
     :return:返回各省数据
     """
-    sql ='select country, confirm ,confirm_add, heal, dead from fforeign ' \
+    sql ='select country, confirm ,confirm_add, heal, dead  from fforeign ' \
          'where update_time =(select update_time from fforeign ' \
          'order by update_time desc limit 1) order by confirm  desc limit 5'
 
@@ -127,15 +125,15 @@ def get_r2_data():
 
 
 if __name__ == '__main__':
-    print(get_time())
-    data = get_r2_data()
-    i = data[0]
-    print(i)
-    print(type(i))
-    print('city', (i[0]))
-    print(type(i[0]))
-    print('num', int(i[1]))
-    print(type(i[1]))
-    print('num', int(i[2]))
-    print(type(int(i[2])))
+    data = get_c2_data()
+    print(data)
+    # i = data[0]
+    # print(i)
+    # print(type(i))
+    # print('city', (i[0]))
+    # print(type(i[0]))
+    # print('num', int(i[1]))
+    # print(type(i[1]))
+    # print('num', int(i[2]))
+    # print(type(int(i[2])))
 
