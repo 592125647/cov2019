@@ -12,6 +12,9 @@ ec_r2_option = {
     title: {
         text: '国外疫情严重国家排行',
         left: 15 ,
+        textStyle:{
+            fontSize: 24,
+        }
     },
     tooltip: {
         trigger: 'axis',
@@ -21,20 +24,22 @@ ec_r2_option = {
     },
     legend: {
         data: ['累计确诊', '累计治愈', '累计死亡'],
+        right:0,
         textStyle:{
             fontSize : 16,
         } ,
     },
     grid: {
         left: 60,
-        bottom:30
+        bottom:30,
+        right:40
     },
-    toolbox: {
-        show: true,
-        feature: {
-            saveAsImage: {}
-        }
-    },
+    // toolbox: {
+    //     show: true,
+    //     feature: {
+    //         saveAsImage: {}
+    //     }
+    // },
     xAxis: {
         type: 'value',
         name: '人',
