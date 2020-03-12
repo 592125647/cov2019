@@ -133,6 +133,6 @@ static目录存放各类静态文件
 ***  
 ## 效果预览
 
-![view1](https://github.com/huyinhao/cov2019/raw/master/view1.png)
+![imgs view1](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view1.png)
 
-
+![imgs view2](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view2.png)
