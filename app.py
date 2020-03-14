@@ -1,9 +1,9 @@
 from flask import Flask
 from flask import render_template
-from flask import request
 from flask import jsonify
 from datetime import timedelta
 import utils
+import nameMap
 
 app = Flask(__name__)
 
@@ -97,6 +97,19 @@ def get_r2_data():
         dead.append(int(i[4]))  # 死亡
         # print(country, confirm, confirm_add, heal, dead)
     return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
+
+
+@app.route('/world')
+def get_world_data():
+    # 获取除中国外各国累计确诊人数
+    res = []
+    for tup in utils.get_world_data():
+        # print(tup)
+        res.append({'name': tup[0], 'value': int(tup[1])})
+    # 获取中国累计确诊人数
+    data = utils.get_c1_data()
+    res.append({'name': '中国', 'value': int(data[0])})
+    return jsonify({'data': res, 'name': nameMap.namemap})
 
 
 if __name__ == '__main__':
