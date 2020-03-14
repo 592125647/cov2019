@@ -10,8 +10,9 @@ var seriesLabel = {
 
 ec_r2_option = {
     title: {
-        text: '国外疫情严重国家排行',
-        left: 15 ,
+        text: '外国疫情严重排行',
+        left: 'right' ,
+        top:'3%',
         textStyle:{
             fontSize: 24,
         }
@@ -24,7 +25,8 @@ ec_r2_option = {
     },
     legend: {
         data: ['累计确诊', '累计治愈', '累计死亡'],
-        right:0,
+        left:'6%',
+        top:'3%',
         textStyle:{
             fontSize : 16,
         } ,

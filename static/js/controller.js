@@ -122,11 +122,28 @@ function get_r2_data() {
 
 function get_world_data() {
     $.ajax({
-        url:'/world',
+        url:'/worlddata',
         success:function(data){
             world_option.series[0].nameMap = data.name
             world_option.series[0].data = data.data
 		    world.setOption(world_option)
+        },
+        error:function f() {
+
+        }
+    })
+}
+
+function get_world_confirm() {
+    $.ajax({
+        url:'/worldconfirm',
+        success:function(data){
+            world_confirm_option.xAxis[0].data = data.day
+            world_confirm_option.series[0].data = data.confirm
+            world_confirm_option.series[1].data = data.new
+            world_confirm_option.series[2].data = data.heal
+            world_confirm_option.series[3].data = data.dead
+		    world_confirm.setOption(world_confirm_option)
         },
         error:function f() {
 
@@ -144,6 +161,7 @@ get_r1_data()
 get_r2_data()
 update_data()
 get_world_data()
+get_world_confirm()
 
 setInterval(get_time,1000);
 setInterval(get_c1_data,1000*60*60);  // 启动之后之后，每隔1小时刷新数据一次
@@ -154,3 +172,4 @@ setInterval(get_l2_data,1000*60*60);
 setInterval(get_r2_data,1000*60*60);
 setInterval(update_data,1000*60*60);
 setInterval(get_world_data,1000*60*60);
+
