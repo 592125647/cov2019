@@ -143,3 +143,5 @@ static目录存放各类静态文件
 ![imgs view2](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view2.png)
 
 ![imgs view3](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view3.png)
+
+![imgs view4](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view4.png)
