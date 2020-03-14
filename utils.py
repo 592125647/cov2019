@@ -105,26 +105,21 @@ def update_history():
     cursor = None
     conn = None
     try:
-        dic = get_tencent_data()[0]  # 0是历史数据，1是当日更新具体数据, 2是外国数据
-
+        dic = get_tencent_data()[0]
+        print(f'{time.asctime()}开始更新历史数据')
         conn, cursor = get_conn()
         sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from history where ds=%s'
         for k, v in dic.items():
             # item{'2020-1-20':{'confirm':,'suspect':,'heal':,'dead':}}
             if not cursor.execute(sql_query, k):
-                print(f'{time.asctime()}开始更新全国历史数据')
                 cursor.execute(sql, [k, v.get('confirm'), v.get('confirm_add'),
                                      v.get('suspect'), v.get('suspect_add'),
                                      v.get('heal'), v.get('heal_add'),
                                      v.get('dead'), v.get('dead_add')
                                      ])
-                conn.commit()  # 提交事务
-            else:
-                print(f'{time.asctime()}已是最新全国历史数据')
-                break
-        # conn.commit()  # 提交事务
-        print(f'{time.asctime()}全国历史数据更新完毕')
+        conn.commit()  # 提交事务
+        print(f'{time.asctime()}历史数据更新完毕')
     except:
         traceback.print_exc()
 
@@ -308,11 +303,25 @@ def get_l2_data():
 def get_r2_data():
     """
 
-    :return:返回各省数据
+    :return:返回国外数据
     """
     sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
           'where update_time =(select update_time from fforeign ' \
           'order by update_time desc limit 1) order by confirm  desc limit 5'
+
+    res = query(sql)
+    return res
+
+
+# 获取第三页世界地图数据
+def get_world_data():
+    """
+
+    :return:返回世界各国数据
+    """
+    sql = 'select country,confirm from fforeign ' \
+          'where update_time=' \
+          '(select update_time from fforeign order by update_time desc limit 1) '
 
     res = query(sql)
     return res
@@ -323,7 +332,7 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    # data = get_c2_data()
+    # data = get_c1_data()
     # print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
