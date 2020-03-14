@@ -1,5 +1,5 @@
 //更新数据库(history、details、fforeign三张表)
-function update_time(){
+function update_data(){
     $.ajax({
         url:'/updatedata',
         success:function (data) {
@@ -120,6 +120,21 @@ function get_r2_data() {
     })
 }
 
+function get_world_data() {
+    $.ajax({
+        url:'/world',
+        success:function(data){
+            world_option.series[0].nameMap = data.name
+            world_option.series[0].data = data.data
+		    world.setOption(world_option)
+        },
+        error:function f() {
+
+        }
+    })
+}
+
+
 get_time()  // 启动时获取数据
 get_c1_data()
 get_c2_data()
@@ -127,7 +142,8 @@ get_l1_data()
 get_l2_data()
 get_r1_data()
 get_r2_data()
-update_time()
+update_data()
+get_world_data()
 
 setInterval(get_time,1000);
 setInterval(get_c1_data,1000*60*60);  // 启动之后之后，每隔1小时刷新数据一次
@@ -136,4 +152,5 @@ setInterval(get_r1_data,1000*60*60);
 setInterval(get_l1_data,1000*60*60);
 setInterval(get_l2_data,1000*60*60);
 setInterval(get_r2_data,1000*60*60);
-setInterval(update_time,1000*60*60);
+setInterval(update_data,1000*60*60);
+setInterval(get_world_data,1000*60*60);
