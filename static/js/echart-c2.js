@@ -34,6 +34,7 @@ var ec_center_option = {
         type:'map',
         mapType:'china',
         roam:false, //拖放和缩放
+        // 地图区域的多边形 图形样式
         itemStyle:{
             normal:{
                 borderWidth:.5, // 区域边框宽度
