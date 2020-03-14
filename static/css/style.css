@@ -30,41 +30,16 @@ ul,li,i{
 /* 时间戳 */
 #time{
     height: 8%;
-    position: absolute;
+    position: fixed;
     top: 3%;
     left: 1%;
     text-align: center;
     font-size: 20px;
     color: #ffffff;
-    z-index: 5;
+    z-index: 55;
 }
 
-/* 左一 */
-#l1{
-    width: 38%;
-    height: 45%;
-    position: absolute;
-    top: 105%;
-    left: 0;
-    background-color: #341f97;
-    text-align: center;
-    font-size: 24px;
-    color: #efefef;
-    z-index: 20;
-}
-/* 左二 */
-#l2{
-    width: 38%;
-    height: 45%;
-    position: absolute;
-    top: 155%;
-    left:0%;
-    background-color: #f368e0;
-    text-align: center;
-    font-size: 24px;
-    color: #efefef;
-    z-index: 20;
-}
+
 /* 中一 */
 #c1{
     width: 40%;
@@ -98,7 +73,6 @@ ul,li,i{
     position: absolute;
     /*top:20%;*/
     left: -22%;
-    background-color: #9AECDB;
     text-align: center;
     font-size: 24px;
     color: #efefef;
@@ -111,18 +85,43 @@ ul,li,i{
     position: absolute;
     top: 37%;
     right: 0%;
-    background-color: #CAD3C8;
     text-align: center;
     font-size: 24px;
     color: #efefef;
     z-index: 1;
 }
+
+/* 左一 */
+#l1{
+    width: 38%;
+    height: 45%;
+    position: absolute;
+    top: 8%;
+    left: 0;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    z-index: 20;
+}
+/* 左二 */
+#l2{
+    width: 38%;
+    height: 45%;
+    position: absolute;
+    top: 55%;
+    left:0%;
+    text-align: center;
+    font-size: 24px;
+    color: #efefef;
+    z-index: 20;
+}
+
 /* 右二 */
 #r2{
     width: 60%;
     height: 95%;
     position: absolute;
-    top: 105%;
+    top: 5%;
     right: 1%;
     text-align: center;
     font-size: 24px;
@@ -134,10 +133,26 @@ ul,li,i{
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 200%;
-    right: 0%;
     text-align: center;
     font-size: 24px;
-    background-color: #efefef;
+}
 
+/*世界累计确诊排行*/
+#world_confirm{
+    width: 50%;
+    height: 90%;
+    position: absolute;
+    top: 305%;
+    text-align: center;
+    font-size: 24px;
+}
+
+/*世界累计确诊排行*/
+#world_confirm{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 300%;
+    text-align: center;
+    font-size: 24px;
 }

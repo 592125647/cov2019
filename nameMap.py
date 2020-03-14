@@ -82,7 +82,7 @@ namemap = {
     "Italy": "意大利",
     "Ivory Coast": "象牙海岸",
     "Jamaica": "牙买加",
-    "Japan": "日本",
+    "Japan": "日本本土",
     "Jordan": "乔丹",
     "Kashmir": "克什米尔",
     "Kazakhstan": "哈萨克斯坦",

@@ -327,13 +327,25 @@ def get_world_data():
     return res
 
 
+# 获取第三页世界地图数据
+def get_world_confirm():
+    """
+
+    :return:返回世界各国数据
+    """
+    sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
+
+    res = query(sql)
+    return res
+
+
 if __name__ == '__main__':
     # 测试sql查询返回的数据
     # update_details()
     # update_history()
     # update_fforeign()
-    # data = get_c1_data()
-    # print(data)
+    data = get_world_confirm()
+    print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
     insert_history()

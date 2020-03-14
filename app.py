@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_index():
-    return render_template('index.html')
+    return render_template('china.html')
 
 
 @app.route('/updatedata')
@@ -19,7 +19,7 @@ def update_data():
     utils.update_details()
     utils.update_fforeign()
     print('数据库更新数据成功')
-    return render_template('index.html')
+    return render_template('china.html')
 
 
 @app.route('/time')
@@ -56,6 +56,11 @@ def get_r1_data():
         confirm.append(int(i[1]))  # 累计确诊人数
         # print(city, confirm)
     return jsonify({'city': city, 'confirm': confirm})
+
+
+@app.route('/trend')
+def trend():
+    return render_template('trend.html')
 
 
 @app.route('/l1')
@@ -100,6 +105,11 @@ def get_r2_data():
 
 
 @app.route('/world')
+def world():
+    return render_template('world.html')
+
+
+@app.route('/worlddata')
 def get_world_data():
     # 获取除中国外各国累计确诊人数
     res = []
@@ -110,6 +120,26 @@ def get_world_data():
     data = utils.get_c1_data()
     res.append({'name': '中国', 'value': int(data[0])})
     return jsonify({'data': res, 'name': nameMap.namemap})
+
+
+@app.route('/worldconfirm')
+def get_world_confirm():
+    # 获取世界累计新增治愈死亡人数
+    data = utils.get_world_confirm()
+    day, confirm, heal, dead = [], [], [], []
+    for a, b, c, d in data:
+        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        confirm.append(int(b))
+        heal.append(int(c))
+        dead.append(int(d))
+    i = 1
+    new = ['0']
+    while 1:
+        new.append(confirm[i]-confirm[i-1])
+        i = i + 1
+        if i >= len(confirm):
+            break
+    return jsonify({'day': day, 'confirm': confirm, 'new': new, 'heal': heal, 'dead': dead})
 
 
 if __name__ == '__main__':
