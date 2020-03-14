@@ -14,7 +14,7 @@ ec_r2_option = {
         left: 'right' ,
         top:'3%',
         textStyle:{
-            fontSize: 24,
+            fontSize: 21,
         }
     },
     tooltip: {

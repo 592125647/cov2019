@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/echarts.min.js"></script>
     <script src="../static/js/jquery.min.js"></script>
+    <style>
+        .tips{
+            top: 1%;
+            right: 11%;
+        }
+    </style>
 </head>
 <body>
     <div id="title">Cov2019全国疫情追踪</div>
@@ -13,6 +19,13 @@
     <div id='l1'>左一</div>
     <div id='l2'>左二</div>
     <div id='r2'>右2</div>
+    <div class="tips">
+        更多疫情信息
+        <a class='china world' href="/">China</a>
+        <a class='trend world' href="trend">Trend</a>
+        <a class='world' href="world">World</a>
+        <a class='country world' href="country">Country</a>
+    </div>
     <script src="../static/js/echart-l1.js"></script>
     <script src="../static/js/echart-l2.js"></script>
     <script src="../static/js/echart-r2.js"></script>

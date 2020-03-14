@@ -122,6 +122,11 @@ def get_world_data():
     return jsonify({'data': res, 'name': nameMap.namemap})
 
 
+@app.route('/country')
+def country():
+    return render_template('country.html')
+
+
 @app.route('/worldconfirm')
 def get_world_confirm():
     # 获取世界累计新增治愈死亡人数

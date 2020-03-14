@@ -1,14 +1,14 @@
 var world_confirm = echarts.init(document.getElementById('world_confirm'),'dark')
 var world_confirm_option = {
     title:{
-        text:'国外累计趋势',
+        text:'国外各项累计趋势',
         textStyle:{
 			fontSize:28,
 		},
 		left:'5%',
-        top:50,
+        top:'3%'
 	},
-    backgroundColor:'#666',
+    backgroundColor:'#333',
     tooltip:{
         trigger:'axis',
 		axisPointer:{
@@ -23,16 +23,17 @@ var world_confirm_option = {
     },
 	legend:{
 		data:['累计确诊','新增确诊','累计治愈','累计死亡'],
-		left:'right',
+		left:'center',
 		textStyle:{
             fontSize : 18,
         } ,
-        top:50,
+        top:'3%'
 	},
 	//图形位置
 	grid: {
 		left: '6%',
 		right:'6%',
+        top:'3%',
 		bottom:'6%',
 		top:100,
 		containLable:true
