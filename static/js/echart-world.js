@@ -14,16 +14,16 @@ data = {
 world_option = {
 // 图表主标题
     title: {
-      text: '世界疫情地图', // 主标题文本，支持使用 \n 换行
+      // text: '世界疫情地图', // 主标题文本，支持使用 \n 换行
       top: 20, // 定位 值: 'top', 'middle', 'bottom' 也可以是具体的值或者百分比
-      left: 'left', // 值: 'left', 'center', 'right' 同上
+      left: 'center', // 值: 'left', 'center', 'right' 同上
       textStyle: { // 文本样式
         fontSize: 28,
         fontWeight: 600,
         color: '#333'
       }
     },
-    backgroundColor:'#82ccdd',
+    backgroundColor:'#333',
     // 提示框组件
     tooltip: {
       trigger: 'item', // 触发类型, 数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用
@@ -37,7 +37,7 @@ world_option = {
         fontSize: 18,
         color: '#fff'
       },
-        backgroundColor:'#333',
+        // backgroundColor:'#FD6666',
 
       realtime: false, // 拖拽时，是否实时更新
       calculable: true, // 是否显示拖拽用的手柄
@@ -49,7 +49,9 @@ world_option = {
         {start:1000,end:9999},
         {start:10000}],
       inRange: {
-        color: ['#a4b0be', '#F5DEB3','#F0E68C','#FF6347', '#FFFF00', '#FD7272'] // 图元的颜色#F9DCD1
+        // color: ['#a4b0be', '#F5DEB3','#F0E68C','#FF6347', '#FFFF00', '#FD7272'] // 图元的颜色#F9DCD1
+        //   color: ['#60a3bc', '#6a89cc','#4a69bd','#1e3799', '#0c2461']
+          color: ['#f8c291', '#f6b93b','#e55039','#e58e26', '#eb2f06']
       }
     },
     series: [
@@ -64,7 +66,7 @@ world_option = {
                 zoom : 1.2,
                 // 地图区域的多边形 图形样式
                 itemStyle: {
-                  areaColor: '#6a89cc', // 地图区域的颜色 如果设置了visualMap，areaColor属性将不起作用
+                  areaColor: '#fad390', // 地图区域的颜色 如果设置了visualMap，areaColor属性将不起作用
                   borderWidth: 0.5, // 描边线宽 为 0 时无描边
                   borderColor: '#333', // 图形的描边颜色 支持的颜色格式同 color，不支持回调函数
                   borderType: 'solid' // 描边类型，默认为实线，支持 'solid', 'dashed', 'dotted'
@@ -74,10 +76,12 @@ world_option = {
                   label: {
                         show: true, // 是否显示标签
                         fontSize:16,
-                        color: '#FD3232' // 文字的颜色 如果设置为 'auto'，则为视觉映射得到的颜色，如系列色
+                        fontWeight:600,
+                        color: '#fff' // 文字的颜色 如果设置为 'auto'，则为视觉映射得到的颜色，如系列色FD6666
                   },
+
                   itemStyle: {
-                    areaColor: '#fff' // 地图区域的颜色
+                    areaColor: '#FD6666' // 地图区域的颜色
                   }
                 },
 
@@ -121,4 +125,4 @@ setInterval(function () {
   if (index > data.length - 1) {
     index = -1
   }
-}, 2000)
+}, 1500)
