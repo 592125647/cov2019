@@ -27,6 +27,7 @@ static目录存放各类静态文件
 ##### c1--第一页累计数据页面，c2--第一页中国地图
 ##### r1--第一页城市排行图，l1--第二页累计数据图
 ##### l2--第二页当日新增图，r2--第二页国外排行图
+##### world--第三页世界地图
 ***
 
 ## 注意事项（必读!)
@@ -78,7 +79,7 @@ static目录存放各类静态文件
 
 * 更新fforeign表，更新国外疫情数据  -- update_fforeign
 
-* 执行sql语句，获取相应页面所需的数据 -- get_l1_data, get_l2_data,...get_r2_data
+* 执行sql语句，获取相应页面所需的数据 -- get_l1_data, get_l2_data,...get_world_data
 
 ***
 
@@ -108,6 +109,8 @@ static目录存放各类静态文件
 
 * 返回第二页国外累计确诊排行数据 -- '/r2'
 
+* 返回第三页世界疫情地图数据 -- '/world'
+
 ***
 
 ### 静态文件介绍
@@ -130,9 +133,13 @@ static目录存放各类静态文件
 
 * 国外累计确诊排行数据图 -- echart-r2.js
 
+* 世界疫情地图 -- world.js, echart-world.js
+
 ***  
 ## 效果预览
 
 ![imgs view1](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view1.png)
 
 ![imgs view2](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view2.png)
+
+![imgs view2](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view3.png)
