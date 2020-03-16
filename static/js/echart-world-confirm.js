@@ -22,7 +22,7 @@ var world_confirm_option = {
         } ,
     },
 	legend:{
-		data:['累计确诊','新增确诊','累计治愈','累计死亡'],
+		data:['累计确诊','累计治愈','累计死亡'],
 		left:'center',
 		textStyle:{
             fontSize : 18,
@@ -75,11 +75,6 @@ var world_confirm_option = {
 		type:'line',
 		smooth:true,
 		data:[260,406,529]
-	},{
-		name:'新增确诊',
-		type:'line',
-		smooth:true,
-		data:[52,37,3935]
 	},
 	{
 		name:'累计治愈',

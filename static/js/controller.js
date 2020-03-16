@@ -140,9 +140,8 @@ function get_world_confirm() {
         success:function(data){
             world_confirm_option.xAxis[0].data = data.day
             world_confirm_option.series[0].data = data.confirm
-            world_confirm_option.series[1].data = data.new
-            world_confirm_option.series[2].data = data.heal
-            world_confirm_option.series[3].data = data.dead
+            world_confirm_option.series[1].data = data.heal
+            world_confirm_option.series[2].data = data.dead
 		    world_confirm.setOption(world_confirm_option)
         },
         error:function f() {

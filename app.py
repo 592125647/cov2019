@@ -137,14 +137,7 @@ def get_world_confirm():
         confirm.append(int(b))
         heal.append(int(c))
         dead.append(int(d))
-    i = 1
-    new = ['0']
-    while 1:
-        new.append(confirm[i]-confirm[i-1])
-        i = i + 1
-        if i >= len(confirm):
-            break
-    return jsonify({'day': day, 'confirm': confirm, 'new': new, 'heal': heal, 'dead': dead})
+    return jsonify({'day': day, 'confirm': confirm,  'heal': heal, 'dead': dead})
 
 
 if __name__ == '__main__':

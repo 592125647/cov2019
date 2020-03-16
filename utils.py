@@ -196,8 +196,10 @@ def update_fforeign():
     try:
         li = get_tencent_data()[2]  # 0是历史数据，1是当日更新具体数据, 2是外国数据
         conn, cursor = get_conn()
-        sql = 'insert into fforeign(update_time,country,confirm,confirm_add,suspect,heal,dead) values(%s,%s,%s,%s,%s,%s,%s)'
-        sql_query = 'select %s=(select update_time from fforeign order by id desc limit 1)'
+        sql = 'insert into fforeign(update_time,country,confirm,confirm_add,suspect,heal,dead) ' \
+              'values(%s,%s,%s,%s,%s,%s,%s)'
+        sql_query = 'select %s=(select update_time from fforeign ' \
+                    'where update_time=(select update_time from fforeign order by update_time desc limit 1)limit 1)'
         cursor.execute(sql_query, li[0][0])
         if not cursor.fetchone()[0]:
             print(f'{time.asctime()}开始更新国外数据')
@@ -321,13 +323,13 @@ def get_world_data():
     """
     sql = 'select country,confirm from fforeign ' \
           'where update_time=' \
-          '(select update_time from fforeign order by update_time desc limit 1) '
+          '(select update_time from fforeign order by update_time desc limit 1)  GROUP BY country'
 
     res = query(sql)
     return res
 
 
-# 获取第三页世界地图数据
+# 获取第四页世界确诊数据
 def get_world_confirm():
     """
 
@@ -344,8 +346,8 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    data = get_world_confirm()
+    data = get_world_data()
     print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
-    insert_history()
+    # insert_history()
