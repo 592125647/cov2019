@@ -171,4 +171,5 @@ setInterval(get_l2_data,1000*60*60);
 setInterval(get_r2_data,1000*60*60);
 setInterval(update_data,1000*60*60);
 setInterval(get_world_data,1000*60*60);
+setInterval(get_world_confirm,1000*60*60);
 
