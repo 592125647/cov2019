@@ -172,7 +172,7 @@ namemap = {
     "Uganda": "乌干达",
     "Ukraine": "乌克兰",
     "United Arab Emirates": "阿拉伯联合酋长国",
-    "United Kingdom": "大不列颠联合王国",
+    "United Kingdom": "英国",
     "United Republic of Tanzania": "坦桑尼亚联合共和国",
     "United States": "美国",
     "United States of America": "美利坚合众国",
