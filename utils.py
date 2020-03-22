@@ -269,8 +269,8 @@ def get_r1_data():
     sql = 'select city,confirm from ' \
           '(select city,confirm from details where update_time =' \
           '(select update_time from details order by update_time desc limit 1)' \
-          'and province not in ("湖北","北京","上海","重庆","天津") union all ' \
-          'select province as city,sum(confirm) as confirm from details ' \
+          'and province not in ("湖北","北京","上海","重庆","天津")and city != "地区待确认" ' \
+          'union all select province as city,sum(confirm) as confirm from details ' \
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
           'and province in("北京","上海","重庆","天津") group by province) ' \
           'as a order by confirm desc limit 10'
@@ -346,7 +346,7 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    data = get_world_data()
+    data = get_r1_data()
     print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！

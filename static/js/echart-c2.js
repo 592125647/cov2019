@@ -15,7 +15,7 @@ var ec_center_option = {
     visualMap:{
         show:true,
         x:'22%',
-        y:'73%',
+        y:'80%',
         textStyle:{
             fontSize:18,
         },
@@ -33,6 +33,7 @@ var ec_center_option = {
         name:'累计确诊人数',
         type:'map',
         mapType:'china',
+        zoom : 1.1,
         roam:false, //拖放和缩放
         // 地图区域的多边形 图形样式
         itemStyle:{
