@@ -383,12 +383,5 @@ def get_world_confirm():
 
 
 if __name__ == '__main__':
-    # 测试sql查询返回的数据
-    # update_details()
-    # update_history()
-    # update_fforeign()
-    data = get_world_confirm()
-    print(data)
-
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
-    # insert_history()
+    insert_history()
