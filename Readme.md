@@ -6,7 +6,11 @@
 
 1、 爬虫爬取腾讯新闻数据并筛选关键数据
 
-* 数据来源 https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
+* 数据来源 
+   
+      https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
+      https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
+      https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign
 
 2、 使用Mysql建立数据库和关键表，存储爬取的数据
 
@@ -14,20 +18,22 @@
 static目录存放各类静态文件
 (static/css存放css样式，static/js存放js文件)
 
-4、 使用 echarts 框架绘制中国疫情地图，
-全国疫情累计趋势图、全国疫情新增趋势图、
-除湖北省外城市累计确诊排行图、以及国外累计确诊排行图
+4、 使用 echarts 框架绘制
 
-5、 部署项目定时刷新页面数据，1小时使用一次爬虫刷新数据库数据
+* 中国疫情地图、中国疫情趋势图、
+* 全球疫情地图、全球疫情趋势图、
+* 国内城市累计确诊排行图、国外累计确诊排行图
+
+5、 部署项目定时刷新页面数据，1小时使用一次爬虫刷新数据库数据，也可以手动ctrl+f5清除浏览器缓存达到刷新页面的效果
 
 6、 启动项目前请仔细阅读注意事项！
 
 ***
 ### 基本函数名、文件名定义介绍
-##### c1--第一页累计数据页面，c2--第一页中国地图
-##### r1--第一页城市排行图，l1--第二页累计数据图
-##### l2--第二页当日新增图，r2--第二页国外排行图
+##### c1--第一页累计数据页面，c2--第一页中国地图、r1--第一页城市排行图
+##### l1--第二页累计数据图、l2--第二页当日新增图、r2--第二页国外排行图
 ##### world--第三页世界地图
+##### world-confirm--第四页世界趋势图
 ***
 
 ## 注意事项（必读!)
@@ -42,7 +48,9 @@ static目录存放各类静态文件
 
 * 建立fforeign表，用于存放国外疫情数据
 
-* 上述所需建立表的sql语句，均存放于utils模块中
+* 建立global表，用于存放全球疫情趋势数据
+
+* 上述所需建立表的sql语句，均存放tables.md文件中，也可于utils模块中查找到
 
 * 当然可以自行修改表名，只需要修改utils模块中所有涉及的sql语句中相应的表名
 
@@ -51,11 +59,11 @@ static目录存放各类静态文件
 * 启动项目前，必须先初始化history表
 
 * 具体操作：先执行一次utils模块中的insert_history()方法，使history表不为空，
-后续更新history会自动调用更新方法
+history表后续的更新会自动调用更新方法
 
 * 注意：执行两次即以上insert_history()会提示数据已存在报错信息
 
-* 浏览器数据刷新未生效，ctrl+f5清除缓存，重新刷新数据
+* 浏览器数据刷新未生效，ctrl+f5清除缓存，重新获取数据
 
 * 下面具体介绍各模块
 
@@ -81,7 +89,9 @@ static目录存放各类静态文件
 
 * 更新fforeign表，更新国外疫情数据  -- update_fforeign
 
-* 执行sql语句，获取相应页面所需的数据 -- get_l1_data, get_l2_data,...get_world_data
+* 更新global表，更新国外疫情数据  -- update_global
+
+* 执行sql语句，获取相应页面所需的数据 -- get_l1_data, get_l2_data,...get_world_confirm
 
 ***
 
@@ -93,7 +103,13 @@ static目录存放各类静态文件
 
 #### app模块 -- 路由介绍
 
-* 访问主页，即根目录 -- '/'
+* 访问主页，即第一页，根目录 -- '/'
+
+* 访问第二页 -- '/trend'
+
+* 访问第三页 -- '/world'
+
+* 访问第四页 -- '/country'
 
 * 刷新数据库数据 -- '/updatedata'
 
@@ -111,13 +127,15 @@ static目录存放各类静态文件
 
 * 返回第二页国外累计确诊排行数据 -- '/r2'
 
-* 返回第三页世界疫情地图数据 -- '/world'
+* 返回第三页世界疫情地图数据 -- '/worlddata'
+
+* 返回第四页世界疫情趋势 -- '/worldconfirm'
 
 ***
 
 ### 静态文件介绍
 
-* 主页 -- index.html
+* 各页面模板 -- china.html, trend.html, world.html, country.html
 
 * 导入jquery资源 -- jquery.min.js
 
