@@ -116,7 +116,6 @@ def get_world_data():
     for tup in global_dict:
         # print(tup)
         res.append({'name': tup, 'value': global_dict[tup]})
-        print(res)
     # 获取中国累计确诊人数
     data = utils.get_c1_data()
     res.append({'name': '中国', 'value': int(data[0])})
@@ -132,13 +131,16 @@ def country():
 def get_world_confirm():
     # 获取世界累计新增治愈死亡人数
     data = utils.get_world_confirm()
-    day, confirm, heal, dead = [], [], [], []
-    for a, b, c, d in data:
+    print(data)
+    day, confirm, confirm_add, heal, dead = [], [], [], [], []
+    for a, b, c, d, e in data:
         day.append(a.strftime('%m-%d'))  # a是datatime类型
         confirm.append(int(b))
-        heal.append(int(c))
-        dead.append(int(d))
-    return jsonify({'day': day, 'confirm': confirm,  'heal': heal, 'dead': dead})
+        confirm_add.append(int(c))
+        heal.append(int(d))
+        dead.append(int(e))
+        print(confirm_add)
+    return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
 
 
 if __name__ == '__main__':

@@ -340,8 +340,8 @@ def get_world_confirm():
 
     :return:返回世界各国数据
     """
-    sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
-
+    # sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
+    sql = 'SELECT * FROM global'
     res = query(sql)
     return res
 
@@ -351,7 +351,7 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    data = get_world_data()
+    data = get_world_confirm()
     print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
