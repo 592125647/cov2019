@@ -8,6 +8,8 @@ def get_tencent_data():
     url_history = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
     # 当日更新数据
     url_details = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
+    # 全球数据
+    url_global = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign'
     header = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
     }
@@ -19,6 +21,10 @@ def get_tencent_data():
     res_details = requests.get(url_details, headers=header)
     res_details = json.loads(res_details.text)  # 转换json内容为字典
     data_details = json.loads(res_details['data'])  # 筛选当日更新的数据
+
+    res_global = requests.get(url_global, headers=header)
+    res_global = json.loads(res_global.text)  # 转换json内容为字典
+    data_global = json.loads(res_global['data'])  # 筛选data内的内容为
 
     # 历史数据
     history = {}  # 存放历史数据
@@ -73,7 +79,18 @@ def get_tencent_data():
         dead = i['dead']
         fforeign.append([update_time, country, confirm, confirm_add, suspect, heal, dead])
 
-    return history, details, fforeign
+    global_dict = []
+    for i in data_global['globalDailyHistory']:
+        ds = '2020' + i['date']
+        tup = time.strptime(ds, '%Y%m.%d')
+        update_time = time.strftime('%Y-%m-%d', tup)  # 改变时间格式，不然插入数据库会报错
+        confirm = i['all']['confirm']
+        confirm_add = i['all']['newAddConfirm']
+        heal = i['all']['heal']
+        dead = i['all']['dead']
+        global_dict.append([update_time, confirm, confirm_add, heal, dead])
+
+    return history, details, fforeign,global_dict
 
 
 if __name__ == '__main__':

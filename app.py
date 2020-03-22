@@ -18,6 +18,7 @@ def update_data():
     utils.update_history()
     utils.update_details()
     utils.update_fforeign()
+    utils.update_global()
     print('数据库更新数据成功')
     return render_template('china.html')
 
@@ -131,7 +132,6 @@ def country():
 def get_world_confirm():
     # 获取世界累计新增治愈死亡人数
     data = utils.get_world_confirm()
-    print(data)
     day, confirm, confirm_add, heal, dead = [], [], [], [], []
     for a, b, c, d, e in data:
         day.append(a.strftime('%m-%d'))  # a是datatime类型
@@ -139,7 +139,6 @@ def get_world_confirm():
         confirm_add.append(int(c))
         heal.append(int(d))
         dead.append(int(e))
-        print(confirm_add)
     return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
 
 

@@ -216,6 +216,42 @@ def update_fforeign():
         close_conn(conn, cursor)
 
 
+def update_global():
+    """
+    更新global表
+
+    create table global(
+    update_time datetime  comment '数据最后更新时间',
+    confirm int(11) default null comment'累计确诊',
+    confirm_add int(11) default null comment'新增确诊',
+    heal int(11) default null comment'累计治愈',
+    dead int(11) default null comment'累计死亡',
+    primary key(update_time)
+    )engine=InnoDB default charset=utf8mb4;
+    """
+    cursor = None
+    conn = None
+    try:
+        li = get_tencent_data()[3]  # 0是历史数据，1是当日更新具体数据, 2是外国数据, 3是全球数据
+        conn, cursor = get_conn()
+        sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
+        sql_query = 'select %s=(select update_time from global order by update_time desc limit 1)'
+        cursor.execute(sql_query, li[len(li) - 1][0])
+        print(li[len(li) - 1][0])
+        if not cursor.fetchone()[0]:
+            print(f'{time.asctime()}开始更新全球数据')
+            for item in li:
+                cursor.execute(sql, item)
+            conn.commit()  # 提交事务
+            print(f'{time.asctime()}全球数据更新完毕')
+        else:
+            print(f'{time.asctime()}已是最新全球数据')
+    except:
+        traceback.print_exc()
+    finally:
+        close_conn(conn, cursor)
+
+
 # sql查询
 def query(sql, *args):
     """
