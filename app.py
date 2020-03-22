@@ -111,11 +111,12 @@ def world():
 
 @app.route('/worlddata')
 def get_world_data():
-    # 获取除中国外各国累计确诊人数
     res = []
-    for tup in utils.get_world_data():
+    global_dict = utils.get_world_data()
+    for tup in global_dict:
         # print(tup)
-        res.append({'name': tup[0], 'value': int(tup[1])})
+        res.append({'name': tup, 'value': global_dict[tup]})
+        print(res)
     # 获取中国累计确诊人数
     data = utils.get_c1_data()
     res.append({'name': '中国', 'value': int(data[0])})

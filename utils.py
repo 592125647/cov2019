@@ -1,6 +1,7 @@
 import traceback
 import pymysql
 from spider import *
+import nameMap
 
 
 # 获取时间
@@ -321,12 +322,16 @@ def get_world_data():
 
     :return:返回世界各国数据
     """
-    sql = 'select country,confirm from fforeign ' \
-          'where update_time=' \
-          '(select update_time from fforeign order by update_time desc limit 1)  GROUP BY country'
-
-    res = query(sql)
-    return res
+    conn, cursor = get_conn()
+    country_list = list(nameMap.namemap.values())
+    global_dict = {}
+    for item in country_list:
+        sql = 'select confirm from fforeign where country = %s order by update_time desc limit 1'
+        if cursor.execute(sql, item):
+            res = cursor.fetchall()
+            global_dict[item] = res[0][0]
+    close_conn(conn, cursor)
+    return global_dict
 
 
 # 获取第四页世界确诊数据
@@ -346,7 +351,7 @@ if __name__ == '__main__':
     # update_details()
     # update_history()
     # update_fforeign()
-    data = get_r1_data()
+    data = get_world_data()
     print(data)
 
     # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
