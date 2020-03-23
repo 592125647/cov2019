@@ -35,57 +35,9 @@ def close_conn(conn, cursor):
         conn.close()
 
 
-#  插入历史数据
-def insert_history():
-    """
-    初始化数据库和表后，插入历史数据，只需执行一次，执行第二次就会报错
-
-    mysql建立history表的sql语句
-
-    create table history(
-    ds datetime not null comment'日期',
-    confirm int(11) default null comment'累计确诊',
-    confirm_add int(11) default null comment'当日新增确诊',
-    suspect int(11) default null comment'剩余疑似',
-    suspect_add int(11) default null comment'当日新增疑似',
-    heal int(11) default null comment'累计治愈',
-    heal_add int(11) default null comment'当日新增治愈',
-    dead int(11) default null comment'累计死亡',
-    dead_add int(11) default null comment'当日新增死亡',
-    primary key(ds) using btree
-    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    :return:
-    """
-    cursor = None
-    conn = None
-    try:
-        dic = get_tencent_data()[0]  # 0是历史数据，1是当日更新具体数据, 2是外国数据
-        print(f'{time.asctime()}开始插入历史数据')
-        conn, cursor = get_conn()
-        sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-        for k, v in dic.items():
-            # item{'2020-1-20':{'confirm':,'suspect':,'heal':,'dead':}}
-            cursor.execute(sql, [k, v.get('confirm'), v.get('confirm_add'),
-                                 v.get('suspect'), v.get('suspect_add'),
-                                 v.get('heal'), v.get('heal_add'),
-                                 v.get('dead'), v.get('dead_add')
-                                 ])
-
-        conn.commit()  # 提交事务
-        print(f'{time.asctime()}插入历史数据完毕')
-    except:
-        traceback.print_exc()
-
-    finally:
-        close_conn(conn, cursor)
-
-
 # 更新历史数据
 def update_history():
     """
-    先执行插入历史数据操作(insert_history)，之后每次更新历史数据，只需执行此方法
-
     mysql建立history表的sql语句
 
     create table history(
@@ -232,20 +184,17 @@ def update_global():
     cursor = None
     conn = None
     try:
-        li = get_tencent_data()[3]  # 0是历史数据，1是当日更新具体数据, 2是外国数据, 3是全球数据
+        li = get_tencent_data()[3]  # 0是历史数据，1是更新具体数据， 2是外国数据，3是全球排行数据
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
-        sql_query = 'select %s=(select update_time from global order by update_time desc limit 1)'
-        cursor.execute(sql_query, li[len(li) - 1][0])
-        print(li[len(li) - 1][0])
-        if not cursor.fetchone()[0]:
-            print(f'{time.asctime()}开始更新全球数据')
-            for item in li:
+        sql_query = 'select confirm from global where update_time=%s'
+        print(f'{time.asctime()}开始更新全球趋势数据')
+        for item in li:
+            cursor.execute(sql_query, item[0])
+            if not cursor.fetchone():
                 cursor.execute(sql, item)
-            conn.commit()  # 提交事务
-            print(f'{time.asctime()}全球数据更新完毕')
-        else:
-            print(f'{time.asctime()}已是最新全球数据')
+                conn.commit()  # 提交事务
+        print(f'{time.asctime()}全球趋势数据更新完毕')
     except:
         traceback.print_exc()
     finally:
@@ -346,7 +295,7 @@ def get_r2_data():
     """
     sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
           'where update_time =(select update_time from fforeign ' \
-          'order by update_time desc limit 1) order by confirm  desc limit 5'
+          'order by update_time desc limit 1) order by confirm  desc limit 7'
 
     res = query(sql)
     return res
@@ -380,8 +329,3 @@ def get_world_confirm():
     sql = 'SELECT * FROM global'
     res = query(sql)
     return res
-
-
-if __name__ == '__main__':
-    # 建立好数据库和表后，执行插入历史数据， 只需执行一次！
-    insert_history()
