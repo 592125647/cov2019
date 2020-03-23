@@ -38,7 +38,6 @@ world_option = {
         color: '#fff'
       },
         // backgroundColor:'#FD6666',
-
       realtime: false, // 拖拽时，是否实时更新
       calculable: true, // 是否显示拖拽用的手柄
       // 定义 在选中范围中 的视觉元素
