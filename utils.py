@@ -184,7 +184,7 @@ def update_global():
     cursor = None
     conn = None
     try:
-        li = get_tencent_data()[3]  # 0是历史数据，1是更新具体数据
+        li = get_tencent_data()[3]  # 0是历史数据，1是更新具体数据，2是外国数据，3是全球趋势数据
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from global where update_time=%s'
