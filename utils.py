@@ -184,16 +184,24 @@ def update_global():
     cursor = None
     conn = None
     try:
-        li = get_tencent_data()[3]  # 0是历史数据，1是更新具体数据， 2是外国数据，3是全球排行数据
+        li = get_tencent_data()[3]  # 0是历史数据，1是更新具体数据
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from global where update_time=%s'
+        sql_update_query = 'select %s =(select confirm_add from global where update_time=%s)'
+        update = 'update global set confirm_add=%s where update_time =%s'
         print(f'{time.asctime()}开始更新全球趋势数据')
-        for item in li:
+        for item in li:  # 更新当日数据
             cursor.execute(sql_query, item[0])
             if not cursor.fetchone():
                 cursor.execute(sql, item)
-                conn.commit()  # 提交事务
+            else:
+                for temp in li[len(li) - 4:]:  # 更新新增确诊数
+                    update_temp = [temp[2], temp[0]]
+                    cursor.execute(sql_update_query, update_temp)
+                    if not cursor.fetchone()[0]:
+                        cursor.execute(update, update_temp)
+            conn.commit()  # 提交事务
         print(f'{time.asctime()}全球趋势数据更新完毕')
     except:
         traceback.print_exc()
