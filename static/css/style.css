@@ -156,17 +156,18 @@ a{
     top: 4%;
     right: 5%;
     width: 400px;
-    height: 200px;
+    height: 80px;
     text-align: center;
     font-size: 22px;
     color: #f8c291;
+    z-index:6;
 }
 .world{
     width: 100px;
     color: #63cdda;
     font-size: 20px;
     position: absolute;
-    top:25%;
+    top:60%;
     text-align:left;
     left: 0%;
 }

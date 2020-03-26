@@ -163,8 +163,8 @@ update_data()
 get_world_data()
 get_world_confirm()
 
-setInterval(get_time,1000);
-setInterval(get_c1_data,1000*60*60);  // 启动之后之后，每隔1小时刷新数据一次
+setInterval(get_time,1000*60*60); // 启动之后之后，每隔1小时刷新数据一次
+setInterval(get_c1_data,1000*60*60);
 setInterval(get_c2_data,1000*60*60);
 setInterval(get_r1_data,1000*60*60);
 setInterval(get_l1_data,1000*60*60);

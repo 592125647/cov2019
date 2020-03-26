@@ -67,7 +67,7 @@ def get_tencent_data():
 
     # 国外数据
     fforeign = []  # 存放国外数据
-    for i in data_history['foreignList']:  # 外国列表
+    for i in data_global['foreignList']:  # 外国列表
         ds = '2020' + i['date']  # data格式为'01.20'
         tup = time.strptime(ds, '%Y%m.%d')
         update_time = time.strftime('%Y-%m-%d', tup)  # 改变时间格式为'2020-01-20'，不然插入数据库会报错
