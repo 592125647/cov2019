@@ -46,11 +46,13 @@ world_option = {
         {start:10,end:99},
         {start:100,end:999},
         {start:1000,end:9999},
-        {start:10000}],
+        {start:10000,end:49999},
+          {start:50000},
+      ],
       inRange: {
         // color: ['#a4b0be', '#F5DEB3','#F0E68C','#FF6347', '#FFFF00', '#FD7272'] // 图元的颜色#F9DCD1
         //   color: ['#60a3bc', '#6a89cc','#4a69bd','#1e3799', '#0c2461']
-          color: ['#f8c291', '#f6b93b','#e58e26','#e55039', '#eb2f06']
+          color: ['#f8c291', '#f6b93b','#e58e26','#e55039', '#eb2f06', '#9B1A1A']
       }
     },
     series: [
