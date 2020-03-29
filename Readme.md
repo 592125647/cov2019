@@ -113,7 +113,7 @@ static目录存放各类静态文件
 
 ### app模块 -- 路由介绍
 
-* ####模板
+* #### 模板
     * 主页，即中国疫情地图、国内城市排行 -- '/'
     
     * 中国疫情趋势、外国累计确诊排行 -- '/china-trend'
@@ -123,7 +123,8 @@ static目录存放各类静态文件
     * 国外疫情趋势 -- '/world-trend'
        
 * #### 数据库
-    * 刷新数据库各表数据 -- '/update_sql'
+
+    * 刷新数据库各表数据 -- '/update_china', update_china_trend, update_world, update_world_trend
 
 * #### 数据获取    
     * 刷新时间 -- '/get_time'
@@ -159,11 +160,14 @@ static目录存放各类静态文件
     * echarts.min.js, dark.js
 
 * 数据动态刷新 
-    * controller.js
+    * china-controller.js
+    * china-trend-controller.js
+    * world-controller.js
+    * world-trend-controller.js
 
 * 中国疫情地图相关
     * china.js, china-left.js
-
+    
 * 除湖北省外城市累计确诊排行 
     * china-bottom-right.js
 
