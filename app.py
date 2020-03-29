@@ -7,15 +7,31 @@ import nameMap
 
 app = Flask(__name__)
 
-# 更新数据库各表
-@app.route('/update_sql')
-def update_sql():
+# 更新history表和details
+@app.route('/update_china')
+def update_china():
     utils.update_history()
     utils.update_details()
-    utils.update_fforeign()
-    utils.update_global()
-    print('数据库更新数据成功')
     return render_template('china.html')
+
+# 更新history表和fforeign
+@app.route('/update_china_trend')
+def update_china_trend():
+    utils.update_history()
+    utils.update_fforeign()
+    return render_template('china-trend.html')
+
+# 更新fforeign表
+@app.route('/update_world')
+def update_world():
+    utils.update_fforeign()
+    return render_template('world.html')
+
+# 更新global表
+@app.route('/update_world_trend')
+def update_world_trend():
+    utils.update_global()
+    return render_template('world-trend.html')
 
 
 # 主页，中国疫情地图、国内城市排行

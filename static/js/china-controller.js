@@ -1,3 +1,28 @@
+// 更新时间戳
+function get_time(){
+    $.ajax({
+        url:'/get_time',
+        timeout: 10000,
+        success:function (data) {
+            $('#time').html(data)
+        },error:function () {
+
+        }
+    })
+}
+
+//更新数据库(history、details、fforeign三张表)
+function update_sql(){
+    $.ajax({
+        url:'/update_china',
+        success:function (data) {
+
+        },error:function () {
+
+        }
+    })
+}
+
 // 更新中国疫情地图
 function get_china_left() {
     $.ajax({
@@ -46,6 +71,11 @@ function get_china_bottom_right() {
     })
 }
 
+update_sql();
+get_time();
+
+setInterval(update_sql,1000*60*60);
+setInterval(get_time,1000);
 get_china_left();
 get_china_top_right();
 get_china_bottom_right();
