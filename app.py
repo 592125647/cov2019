@@ -13,8 +13,8 @@ def hello_index():
     return render_template('china.html')
 
 
-@app.route('/updatedata')
-def update_data():
+@app.route('/update_sql')
+def update_sql():
     utils.update_history()
     utils.update_details()
     utils.update_fforeign()
@@ -23,13 +23,13 @@ def update_data():
     return render_template('china.html')
 
 
-@app.route('/time')
+@app.route('/get_time')
 def get_time():
     # 获取当地时间
     return utils.get_time()
 
 
-@app.route('/c2')
+@app.route('/get_china_left')
 def get_china_left():
     # 获取中国各省累计确诊人数
     res = []
@@ -39,14 +39,14 @@ def get_china_left():
     return jsonify({'data': res})
 
 
-@app.route('/c1')
+@app.route('/get_china_top_right')
 def get_china_top_right():
     # 获取累计确诊疑似、治愈、死亡人数
     data = utils.get_china_top_right()
     return jsonify({'confirm': int(data[0]), 'suspect': int(data[1]), 'heal': int(data[2]), 'dead': int(data[3])})
 
 
-@app.route('/r1')
+@app.route('/get_china_bottom_right')
 def get_china_bottom_right():
     # 获取除湖北省外累计确诊最多的10个城市
     data = utils.get_china_bottom_right()
@@ -58,12 +58,12 @@ def get_china_bottom_right():
     return jsonify({'city': city, 'confirm': confirm})
 
 
-@app.route('/trend')
-def trend():
+@app.route('/china-trend')
+def china_trend():
     return render_template('china-trend.html')
 
 
-@app.route('/l1')
+@app.route('/get_china_trend_top_left')
 def get_china_trend_top_left():
     # 获取累计新增、疑似、治愈、死亡人数
     data = utils.get_china_trend_top_left()
@@ -77,7 +77,7 @@ def get_china_trend_top_left():
     return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
 
 
-@app.route('/l2')
+@app.route('/get_china_trend_bottom_left')
 def get_china_trend_bottom_left():
     # 获取每日新增确诊、疑似人数
     data = utils.get_china_trend_bottom_left()
@@ -89,7 +89,7 @@ def get_china_trend_bottom_left():
     return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
-@app.route('/r2')
+@app.route('/get_china_trend_right')
 def get_china_trend_right():
     # 获取国外确诊人数最多的10个国家
     data = utils.get_china_trend_right()
@@ -109,7 +109,7 @@ def world():
     return render_template('world.html')
 
 
-@app.route('/worlddata')
+@app.route('/get_world')
 def get_world():
     res = []
     global_dict = utils.get_world()
@@ -122,12 +122,12 @@ def get_world():
     return jsonify({'data': res, 'name': nameMap.namemap})
 
 
-@app.route('/country')
-def country():
+@app.route('/world-trend')
+def world_trend():
     return render_template('world-trend.html')
 
 
-@app.route('/worldconfirm')
+@app.route('/get_world_trend')
 def get_world_trend():
     # 获取世界累计新增治愈死亡人数
     data = utils.get_world_trend()

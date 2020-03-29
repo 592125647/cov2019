@@ -162,25 +162,25 @@ a{
     color: #f8c291;
     z-index:6;
 }
-.world{
+.china{
     width: 100px;
     color: #63cdda;
     font-size: 20px;
     position: absolute;
     top:60%;
     text-align:left;
-    left: 0%;
+    left: 6%;
 }
-.china{
-    left: 25%;
+.chinaTrend{
+    left: 28%;
 }
-.trend{
-    left: 50%;
+.world{
+    left: 54%;
 }
-.country{
-    left: 75%;
+.worldTrend{
+    left: 79%;
 }
-.world:hover{
+.china:hover{
     color: #f8c291;
     transition: 0.6s;
 }
