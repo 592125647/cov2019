@@ -46,6 +46,8 @@ function get_china_top_right() {
             $('.num h1').eq(1).text(data.suspect)
             $('.num h1').eq(2).text(data.heal)
             $('.num h1').eq(3).text(data.dead)
+            $('.num h1').eq(4).text(data.import_confirm)
+            $('.num h1').eq(5).text(data.import_confirm_add)
         },
         error:function f() {
 
@@ -152,26 +154,26 @@ function get_world_trend() {
 }
 
 // 启动时获取数据
-update_sql()
-get_time()
+// update_sql();
+// get_time();
+// get_china_left();
 get_china_top_right();
-get_china_left();
-get_china_trend_top_left();
-get_china_trend_bottom_left();
 get_china_bottom_right();
-get_china_trend_right();
-get_world();
-get_world_trend();
+// get_china_trend_top_left();
+// get_china_trend_bottom_left();
+// get_china_trend_right();
+// get_world();
+// get_world_trend();
 
 // 启动之后之后，每隔1小时刷新数据一次
-setInterval(update_sql,1000*60*60);
-setInterval(get_time,1000);
-setInterval(get_china_top_right,1000*60*60);
-setInterval(get_china_left,1000*60*60);
-setInterval(get_china_bottom_right,1000*60*60);
-setInterval(get_china_trend_top_left,1000*60*60);
-setInterval(get_china_trend_bottom_left,1000*60*60);
-setInterval(get_china_trend_right,1000*60*60);
-setInterval(get_world,1000*60*60);
-setInterval(get_world_trend,1000*60*60);
+// setInterval(update_sql,1000*60*60);
+// setInterval(get_time,1000);
+// setInterval(get_china_left,1000*60*60);
+// setInterval(get_china_top_right,1000*60*60);
+// setInterval(get_china_bottom_right,1000*60*60);
+// setInterval(get_china_trend_top_left,1000*60*60);
+// setInterval(get_china_trend_bottom_left,1000*60*60);
+// setInterval(get_china_trend_right,1000*60*60);
+// setInterval(get_world,1000*60*60);
+// setInterval(get_world_trend,1000*60*60);
 

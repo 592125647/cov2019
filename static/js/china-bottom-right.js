@@ -11,8 +11,11 @@ for (var i = 0; i < data.length; i++) {
 
 ec_r1_option = {
     title: {
-        text: '除湖北省外累计确诊最多的10城市',
-        left:200,
+        text: '除湖北省外累计确诊最多的12城市',
+        left:'center',
+        textStyle:{
+            fontSize : 22,
+		},
     },
     tooltip:{
 		axisPointer:{
@@ -27,8 +30,8 @@ ec_r1_option = {
     },
     //图形位置
 	grid: {
-		left: '4%',
-		// right:'4%',
+		left: '1',
+		right:'1',
 		bottom:'2%',
 		top:-8,
 		containLable:true

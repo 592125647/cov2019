@@ -14,8 +14,8 @@ var ec_center_option = {
     // 左侧小导航图标
     visualMap:{
         show:true,
-        x:'22%',
-        y:'80%',
+        x:'20%',
+        y:'76%',
         textStyle:{
             fontSize:18,
         },
