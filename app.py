@@ -8,11 +8,6 @@ import nameMap
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_index():
-    return render_template('china.html')
-
-
 @app.route('/update_sql')
 def update_sql():
     utils.update_history()
@@ -20,6 +15,11 @@ def update_sql():
     utils.update_fforeign()
     utils.update_global()
     print('数据库更新数据成功')
+    return render_template('china.html')
+
+
+@app.route('/')
+def hello_index():
     return render_template('china.html')
 
 
