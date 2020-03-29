@@ -3,6 +3,27 @@ import json
 import time
 
 
+# 发送请求
+def get_url(url):
+    header = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
+    }
+    res = requests.get(url, headers=header)
+    res = json.loads(res.text)  # 转换json内容为字典
+    data = json.loads(res['data'])  # 筛选历史数据
+    return data
+
+
+# 获取境外输入数据
+def get_import_case():
+    url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
+    data = get_url(url)
+    import_confirm = data['chinaTotal']['importedCase']  # 累计境外输入
+    import_confirm_add = data['chinaAdd']['importedCase']  # 新增境外输入
+    return import_confirm, import_confirm_add
+
+
+# 获取更新数据
 def get_tencent_data():
     # 当日之前的历史数据
     url_history = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
@@ -10,21 +31,10 @@ def get_tencent_data():
     url_details = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
     # 全球数据
     url_global = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign'
-    header = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
-    }
 
-    res_history = requests.get(url_history, headers=header)
-    res_history = json.loads(res_history.text)  # 转换json内容为字典
-    data_history = json.loads(res_history['data'])  # 筛选历史数据
-
-    res_details = requests.get(url_details, headers=header)
-    res_details = json.loads(res_details.text)  # 转换json内容为字典
-    data_details = json.loads(res_details['data'])  # 筛选当日更新的数据
-
-    res_global = requests.get(url_global, headers=header)
-    res_global = json.loads(res_global.text)  # 转换json内容为字典
-    data_global = json.loads(res_global['data'])  # 筛选data内的内容为
+    data_history = get_url(url_history)
+    data_details = get_url(url_details)
+    data_global = get_url(url_global)
 
     # 历史数据
     history = {}  # 存放历史数据
@@ -53,6 +63,7 @@ def get_tencent_data():
     # 当日各城市数据
     details = []  # 存放当日详细数据
     update_time = data_details['lastUpdateTime']
+
     data_country = data_details['areaTree']  # 其余国家和地区
     data_province = data_country[0]['children']  # 获取中国各省
     for pro_infos in data_province:
@@ -90,7 +101,7 @@ def get_tencent_data():
         dead = i['all']['dead']
         global_dict.append([update_time, confirm, confirm_add, heal, dead])
 
-    return history, details, fforeign,global_dict
+    return history, details, fforeign, global_dict
 
 
 if __name__ == '__main__':

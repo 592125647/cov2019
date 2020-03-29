@@ -250,13 +250,10 @@ def get_china_top_right():
           'sum(dead)' \
           'from details ' \
           'where update_time=(select update_time from details order by update_time desc limit 1)'
-    res1 = query(sql)
-
-    # 获取境外输入的累计确诊和新增确诊
-    sql_import = 'SELECT sum(confirm),sum(confirm_add) FROM details WHERE city = "境外输入" ' \
-                 'and update_time=(select update_time from details order by update_time desc limit 1)'
-    res2 = query(sql_import)
-    return res1[0], res2[0]
+    res = query(sql)
+    # 获取累计境外输入和新增境外输入
+    import_confirm, import_confirm_add = get_import_case()
+    return res[0], import_confirm, import_confirm_add
 
 
 # 获取china右下侧数据，城市排行
@@ -342,8 +339,3 @@ def get_world_trend():
     sql = 'SELECT * FROM global'
     res = query(sql)
     return res
-
-
-if __name__ == '__main__':
-    data, confirm = get_china_top_right()
-    print(data, confirm)
