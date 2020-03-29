@@ -30,13 +30,16 @@ static目录存放各类静态文件
 
 ***
 ### 基本函数名、文件名定义介绍
-##### c1--第一页累计数据页面，c2--第一页中国地图、r1--第一页城市排行图
-##### l1--第二页累计数据图、l2--第二页当日新增图、r2--第二页国外排行图
-##### world--第三页世界地图
-##### world-confirm--第四页世界趋势图
+
+* ##### left--左侧、right--右侧、top-left--左上侧、bottom-left--左下侧、bottom-right--右下侧
+* ##### china--中国疫情地图、国内城市排行
+* ##### china-trend--中国疫情趋势、外国累计确诊排行
+* ##### world--世界疫情地图
+* ##### world-trend--世界疫情趋势
+ 
 ***
 
-## 注意事项（必读!)
+## 注意事项（请仔细阅读!)
 
 * 数据库相关操作封装于utils.py文件，连接数据库前，请仔细阅读下列注意事项
 
@@ -50,17 +53,17 @@ static目录存放各类静态文件
 
 * 建立global表，用于存放全球疫情趋势数据
 
-* 上述所需建立表的sql语句，均存放tables.md文件中，也可于utils模块中查找到
+* 上述所需建立表的sql语句，均存放tables.md文件中，也可于utils模块更新相应表方法中查找到
 
 * 当然可以自行修改表名，只需要修改utils模块中所有涉及的sql语句中相应的表名
 
 * 因此不推荐自定义表名
 
-* 第一次启动项目，执行app.py会报错，提示数据不存在，属于正常现象
+* 第一次启动项目(执行app.py)会报错，提示数据不存在，是因为数据库操作还未执行，数据表内容为空，属于正常现象
 
 * 等待出现提示"数据库更新数据成功"后，重新启动项目就解决了
 
-* 第三页世界疫情地图如若未显示数据，可能是数据加载缓慢，需要等待几秒，属于正常情况
+* 世界疫情地图(world)如若未显示数据，可能是数据加载缓慢，需要等待几秒，属于正常情况
 
 * 数据刷新未生效，在浏览器中按 ctrl+f5 清除缓存，重新获取数据
 
@@ -68,89 +71,116 @@ static目录存放各类静态文件
 
 *** 
 
-### 模块介绍
+## 模块介绍
 
-#### utils模块
+### utils模块
 
-* 存放了数据库操作的所有方法
+* 封装了所有的数据库操作和获取数据的方法
 
-* 动态刷新时间 -- get_time
+* 刷新时间 -- get_time
 
-* 连接和关闭数据库 -- get_conn，close_conn
+* 连接数据库和更新表数据
+    * 连接和关闭数据库 -- get_conn，close_conn
 
-* 进行sql查询 -- query
-
-* 更新history表，更新历史疫情数据  -- update_history
-
-* 更新details表，更新当日疫情数据  -- update_details
-
-* 更新fforeign表，更新国外疫情数据  -- update_fforeign
-
-* 更新global表，更新国外疫情数据  -- update_global
-
-* 执行sql语句，获取相应页面所需的数据 -- get_l1_data, get_l2_data,...get_world_confirm
+    * 进行sql查询 -- query
+    
+    * 更新history表，更新历史疫情数据  -- update_history
+    
+    * 更新details表，更新当日疫情数据  -- update_details
+    
+    * 更新fforeign表，更新国外疫情数据  -- update_fforeign
+    
+    * 更新global表，更新国外疫情数据  -- update_global
+    
+* 查询各项数据
+    * 执行sql语句，获取各页面对应区域所需的数据 
+    * 获取china左侧数据，中国疫情地图 -- get_china_left,
+    * 获取china右上侧数据，疫情数据 -- get_china_top_right
+    * 获取china右下侧数据，城市排行 -- get_china_bottom_right
+    * 获取china-trend左上侧数据，全国累计趋势 -- get_china_trend_top_left
+    * 获取china-trend左下侧数据，全国新增趋势 -- get_china_trend_bottom_left
+    * 获取china-trend右侧数据，国家排行 -- get_china_trend_right
+    * 获取world数据，世界疫情地图 -- get_world
+    * 获取world-trend数据，世界趋势 -- get_world_trend
 
 ***
 
-#### spider模块 -- 爬虫
+### spider模块 -- 爬虫
 
 * 获取腾讯新闻数据，筛选并返回疫情的历史数据、当日数据、国外数据
 
 ***
 
-#### app模块 -- 路由介绍
+### app模块 -- 路由介绍
 
-* 访问主页，即第一页，根目录 -- '/'
+* ####模板
+    * 主页，即中国疫情地图、国内城市排行 -- '/'
+    
+    * 中国疫情趋势、外国累计确诊排行 -- '/china-trend'
+    
+    * 世界疫情地图 -- '/world'
+    
+    * 世界疫情趋势 -- '/world-trend'
+       
+* #### 数据库
+    * 刷新数据库各表数据 -- '/update_sql'
 
-* 访问第二页 -- '/trend'
-
-* 访问第三页 -- '/world'
-
-* 访问第四页 -- '/country'
-
-* 刷新数据库数据 -- '/updatedata'
-
-* 使用ajax技术刷新时间 -- '/time'
-
-* 返回第一页中国累计疫情各项数据 -- '/c1'
-
-* 返回第一页中国疫情地图数据 -- '/c2'
-
-* 返回第一页除湖北省外城市累计确诊排行数据 -- '/r1'
-
-* 返回第二页中国累计确诊数据 -- '/l1'
-
-* 返回第二页中国新增确诊数据 -- '/l2'
-
-* 返回第二页国外累计确诊排行数据 -- '/r2'
-
-* 返回第三页世界疫情地图数据 -- '/worlddata'
-
-* 返回第四页世界疫情趋势 -- '/worldconfirm'
+* #### 数据获取    
+    * 刷新时间 -- '/get_time'
+    
+    * 主页-国内累计确诊疑似、治愈、死亡人数 -- '/get_china_top_right'
+    
+    * 主页-中国各省累计确诊数据 -- '/get_china_left'
+    
+    * 主页-除湖北省外城市累计确诊排行数据 -- '/get_china_bottom_right'
+    
+    * 中国累计确诊趋势 -- '/get_china_trend_top_left'
+    
+    * 中国新增确诊趋势 -- '/get_china_trend_bottom_left'
+    
+    * 国外累计确诊排行 -- '/get_china_trend_right'
+    
+    * 世界疫情地图数据 -- '/get_world'
+    
+    * 世界疫情趋势 -- '/get_world_trend'
 
 ***
 
-### 静态文件介绍
+## 静态文件介绍
 
-* 各页面模板 -- china.html, trend.html, world.html, country.html
+* 各页面模板 
+    * china.html, trend.html, world.html, country.html
+    * 位于templates目录
+    
+* jquery资源 
+    * jquery.min.js
 
-* 导入jquery资源 -- jquery.min.js
+* echarts资源 
+    * echarts.min.js, dark.js
 
-* 导入echarts资源 -- echarts.min.js, dark.js
+* 数据动态刷新 
+    * controller.js
 
-* 使用ajax技术动态刷新各类数据 -- controller.js
+* 中国疫情地图相关
+    * china.js, china-left.js
 
-* 中国疫情地图 -- china.js, china-left.js
+* 除湖北省外城市累计确诊排行 
+    * china-bottom-right.js
 
-* 除湖北省外城市累计确诊排行图 -- china-bottom-right.js
+* 中国累计确诊趋势
+    * china-trend-top-left.js
 
-* 中国累计确诊数据图 -- china-trend-top-left.js
+* 中国新增确诊趋势
+    * china-trend-bottom-left.js
 
-* 中国新增确诊数据图 -- china-trend-bottom-left.js
+* 国外累计确诊排行数据图
+    * china-trend-right.js
 
-* 国外累计确诊排行数据图 -- china-trend-right.js
-
-* 世界疫情地图 -- world.js, world-map.js
+* 世界疫情地图
+    * world.js, world-map.js
+    
+* 世界累计、新增趋势
+    * world-trend.js
 
 ***  
 ## 效果预览
