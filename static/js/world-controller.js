@@ -38,10 +38,12 @@ function get_world() {
     })
 }
 
+//访问时获取数据
 update_sql();
 get_time();
+get_world();
 
+//停留页面时每一小时刷新一次数据
 setInterval(update_sql,1000*60*60);
 setInterval(get_time,1000);
-get_world();
 setInterval(get_world,1000*60*60);
