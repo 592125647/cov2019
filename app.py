@@ -7,7 +7,7 @@ import nameMap
 
 app = Flask(__name__)
 
-
+# 更新数据库各表
 @app.route('/update_sql')
 def update_sql():
     utils.update_history()
@@ -18,17 +18,20 @@ def update_sql():
     return render_template('china.html')
 
 
+# 主页，中国疫情地图、国内城市排行
 @app.route('/')
 def hello_index():
     return render_template('china.html')
 
 
+# 动态刷新时间
 @app.route('/get_time')
 def get_time():
     # 获取当地时间
     return utils.get_time()
 
 
+# 获取china左侧数据，中国疫情地图
 @app.route('/get_china_left')
 def get_china_left():
     # 获取中国各省累计确诊人数
@@ -39,13 +42,16 @@ def get_china_left():
     return jsonify({'data': res})
 
 
+# 获取china右上侧数据，疫情数据
 @app.route('/get_china_top_right')
 def get_china_top_right():
     # 获取累计确诊疑似、治愈、死亡人数
-    data = utils.get_china_top_right()
-    return jsonify({'confirm': int(data[0]), 'suspect': int(data[1]), 'heal': int(data[2]), 'dead': int(data[3])})
+    data, import_data = utils.get_china_top_right()
+    return jsonify({'confirm': int(data[0]), 'suspect': int(data[1]), 'heal': int(data[2]), 'dead': int(data[3]),
+                    'import_confirm': int(import_data[0]), 'import_confirm_add': int(import_data[1])})
 
 
+# 获取china右下侧数据，城市排行
 @app.route('/get_china_bottom_right')
 def get_china_bottom_right():
     # 获取除湖北省外累计确诊最多的10个城市
@@ -58,11 +64,13 @@ def get_china_bottom_right():
     return jsonify({'city': city, 'confirm': confirm})
 
 
+# 中国新增、累计确诊趋势，国外累计确诊排行
 @app.route('/china-trend')
 def china_trend():
     return render_template('china-trend.html')
 
 
+# 获取china-trend左上侧数据，全国累计趋势
 @app.route('/get_china_trend_top_left')
 def get_china_trend_top_left():
     # 获取累计新增、疑似、治愈、死亡人数
@@ -77,6 +85,7 @@ def get_china_trend_top_left():
     return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
 
 
+# 获取china-trend左下侧数据，全国新增趋势
 @app.route('/get_china_trend_bottom_left')
 def get_china_trend_bottom_left():
     # 获取每日新增确诊、疑似人数
@@ -89,6 +98,7 @@ def get_china_trend_bottom_left():
     return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
+# 获取china-trend右侧数据，国家排行
 @app.route('/get_china_trend_right')
 def get_china_trend_right():
     # 获取国外确诊人数最多的10个国家
@@ -104,11 +114,13 @@ def get_china_trend_right():
     return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
 
 
+# 世界疫情地图
 @app.route('/world')
 def world():
     return render_template('world.html')
 
 
+# 获取world数据，世界疫情地图
 @app.route('/get_world')
 def get_world():
     res = []
@@ -117,16 +129,18 @@ def get_world():
         # print(tup)
         res.append({'name': tup, 'value': global_dict[tup]})
     # 获取中国累计确诊人数
-    data = utils.get_china_top_right()
-    res.append({'name': '中国', 'value': int(data[0])})
+    china_data = utils.get_china_top_right()
+    res.append({'name': '中国', 'value': int(china_data[0])})
     return jsonify({'data': res, 'name': nameMap.namemap})
 
 
+# 获取world-trend数据，世界趋势
 @app.route('/world-trend')
 def world_trend():
     return render_template('world-trend.html')
 
 
+# 世界累计确诊、新增确诊、累计死亡、累计治愈数据
 @app.route('/get_world_trend')
 def get_world_trend():
     # 获取世界累计新增治愈死亡人数
@@ -138,6 +152,11 @@ def get_world_trend():
         confirm_add.append(int(c))
         heal.append(int(d))
         dead.append(int(e))
+    # china_data = utils.get_china_top_right()
+    # confirm.append(int(china_data[0]))
+    # confirm.append(int(china_data[0]))
+    # heal.append(int(china_data[0]))
+    # dead.append(int(china_data[0]))
     return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
 
 

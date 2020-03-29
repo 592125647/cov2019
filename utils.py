@@ -247,11 +247,16 @@ def get_china_top_right():
     sql = 'select sum(confirm),' \
           '(select suspect from history order by ds desc limit 1),' \
           'sum(heal),' \
-          'sum(dead) ' \
+          'sum(dead)' \
           'from details ' \
           'where update_time=(select update_time from details order by update_time desc limit 1)'
-    res = query(sql)
-    return res[0]
+    res1 = query(sql)
+
+    # 获取境外输入的累计确诊和新增确诊
+    sql_import = 'SELECT sum(confirm),sum(confirm_add) FROM details WHERE city = "境外输入" ' \
+                 'and update_time=(select update_time from details order by update_time desc limit 1)'
+    res2 = query(sql_import)
+    return res1[0], res2[0]
 
 
 # 获取china右下侧数据，城市排行
@@ -266,8 +271,8 @@ def get_china_bottom_right():
           'and province not in ("湖北","北京","上海","重庆","天津")and city != "地区待确认" ' \
           'union all select province as city,sum(confirm) as confirm from details ' \
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
-          'and province in("北京","上海","重庆","天津") group by province) ' \
-          'as a order by confirm desc limit 10'
+          'and province in("北京","上海","重庆","天津","澳门","香港","台湾") group by province) ' \
+          'as a order by confirm desc limit 12'
 
     res = query(sql)
     return res
@@ -337,3 +342,8 @@ def get_world_trend():
     sql = 'SELECT * FROM global'
     res = query(sql)
     return res
+
+
+if __name__ == '__main__':
+    data, confirm = get_china_top_right()
+    print(data, confirm)
