@@ -142,7 +142,7 @@ static目录存放各类静态文件
 
 * 中国疫情地图 -- china.js, china-left.js
 
-* 除湖北省外城市累计确诊排行图 -- china-right.js
+* 除湖北省外城市累计确诊排行图 -- china-bottom-right.js
 
 * 中国累计确诊数据图 -- china-trend-top-left.js
 

@@ -224,24 +224,8 @@ def query(sql, *args):
     return res
 
 
-# 获取第一页疫情情况数据
-def get_c1_data():
-    """
-
-    :return:返回全国数据
-    """
-    sql = 'select sum(confirm),' \
-          '(select suspect from history order by ds desc limit 1),' \
-          'sum(heal),' \
-          'sum(dead) ' \
-          'from details ' \
-          'where update_time=(select update_time from details order by update_time desc limit 1)'
-    res = query(sql)
-    return res[0]
-
-
-# 获取第一页中国地图数据
-def get_c2_data():
+# 获取china左侧数据，中国疫情地图
+def get_china_left():
     """
 
     :return:返回各省数据
@@ -254,11 +238,27 @@ def get_c2_data():
     return res
 
 
-# 获取第一页右侧城市排行数据
-def get_r1_data():
+# 获取china右上侧数据，疫情数据
+def get_china_top_right():
     """
 
-    :return:返回各省数据
+    :return:返回全国累计数据
+    """
+    sql = 'select sum(confirm),' \
+          '(select suspect from history order by ds desc limit 1),' \
+          'sum(heal),' \
+          'sum(dead) ' \
+          'from details ' \
+          'where update_time=(select update_time from details order by update_time desc limit 1)'
+    res = query(sql)
+    return res[0]
+
+
+# 获取china右下侧数据，城市排行
+def get_china_bottom_right():
+    """
+
+    :return:返回城市排行数据
     """
     sql = 'select city,confirm from ' \
           '(select city,confirm from details where update_time =' \
@@ -273,33 +273,33 @@ def get_r1_data():
     return res
 
 
-# 获取第二页左上角数据
-def get_l1_data():
+# 获取china-trend左上侧数据，全国累计趋势
+def get_china_trend_top_left():
     """
 
-    :return:
+    :return:返回全国累计趋势
     """
     sql = 'select ds,confirm,suspect,heal,dead from history'
     res = query(sql)
     return res
 
 
-# 获取第二页左下角数据
-def get_l2_data():
+# 获取china-trend左下侧数据，全国新增趋势
+def get_china_trend_bottom_left():
     """
 
-    :return:
+    :return:返回全国新增趋势
     """
     sql = 'select ds,confirm_add,suspect_add from history'
     res = query(sql)
     return res
 
 
-# 获取第二页右侧国外排行数据
-def get_r2_data():
+# 获取china-trend右侧数据，国家排行
+def get_china_trend_right():
     """
 
-    :return:返回国外数据
+    :return:返回国外排行数据
     """
     sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
           'where update_time =(select update_time from fforeign ' \
@@ -309,8 +309,8 @@ def get_r2_data():
     return res
 
 
-# 获取第三页世界地图数据
-def get_world_data():
+# 获取world数据，世界疫情地图
+def get_world():
     """
 
     :return:返回世界各国数据
@@ -327,11 +327,11 @@ def get_world_data():
     return global_dict
 
 
-# 获取第四页世界确诊数据
-def get_world_confirm():
+# 获取world-trend数据，世界趋势
+def get_world_trend():
     """
 
-    :return:返回世界各国数据
+    :return:返回世界趋势数据
     """
     # sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
     sql = 'SELECT * FROM global'
