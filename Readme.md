@@ -35,7 +35,7 @@ static目录存放各类静态文件
 * ##### china--中国疫情地图、国内城市排行
 * ##### china-trend--中国疫情趋势、外国累计确诊排行
 * ##### world--世界疫情地图
-* ##### world-trend--世界疫情趋势
+* ##### world-trend--国外疫情趋势，不含中国
  
 ***
 
@@ -101,7 +101,7 @@ static目录存放各类静态文件
     * 获取china-trend左下侧数据，全国新增趋势 -- get_china_trend_bottom_left
     * 获取china-trend右侧数据，国家排行 -- get_china_trend_right
     * 获取world数据，世界疫情地图 -- get_world
-    * 获取world-trend数据，世界趋势 -- get_world_trend
+    * 获取world-trend数据，国外趋势 -- get_world_trend
 
 ***
 
@@ -120,7 +120,7 @@ static目录存放各类静态文件
     
     * 世界疫情地图 -- '/world'
     
-    * 世界疫情趋势 -- '/world-trend'
+    * 国外疫情趋势 -- '/world-trend'
        
 * #### 数据库
     * 刷新数据库各表数据 -- '/update_sql'
@@ -142,7 +142,7 @@ static目录存放各类静态文件
     
     * 世界疫情地图数据 -- '/get_world'
     
-    * 世界疫情趋势 -- '/get_world_trend'
+    * 国外疫情趋势 -- '/get_world_trend'
 
 ***
 
@@ -179,7 +179,7 @@ static目录存放各类静态文件
 * 世界疫情地图
     * world.js, world-map.js
     
-* 世界累计、新增趋势
+* 国外累计、新增趋势
     * world-trend.js
 
 ***  

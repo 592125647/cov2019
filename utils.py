@@ -245,7 +245,7 @@ def get_china_top_right():
     :return:返回全国累计数据
     """
     sql = 'select sum(confirm),' \
-          '(select suspect from history order by ds desc limit 1),' \
+          '(select confirm_add from history order by ds desc limit 1),' \
           'sum(heal),' \
           'sum(dead)' \
           'from details ' \
@@ -300,7 +300,7 @@ def get_china_trend_bottom_left():
     return res
 
 
-# 获取china-trend右侧数据，国家排行
+# 获取china-trend右侧数据，国家排行，不含中国
 def get_china_trend_right():
     """
 
@@ -332,7 +332,7 @@ def get_world():
     return global_dict
 
 
-# 获取world-trend数据，世界趋势
+# 获取world-trend数据，国外趋势，不含中国
 def get_world_trend():
     """
 
