@@ -140,17 +140,17 @@ static目录存放各类静态文件
 
 * 使用ajax技术动态刷新各类数据 -- controller.js
 
-* 中国疫情地图 -- china.js, echart-c2.js
+* 中国疫情地图 -- china.js, china-left.js
 
-* 除湖北省外城市累计确诊排行图 -- echart-r1.js
+* 除湖北省外城市累计确诊排行图 -- china-right.js
 
-* 中国累计确诊数据图 -- echart-l1.js
+* 中国累计确诊数据图 -- china-trend-top-left.js
 
-* 中国新增确诊数据图 -- echart-l2.js
+* 中国新增确诊数据图 -- china-trend-bottom-left.js
 
-* 国外累计确诊排行数据图 -- echart-r2.js
+* 国外累计确诊排行数据图 -- china-trend-right.js
 
-* 世界疫情地图 -- world.js, echart-world.js
+* 世界疫情地图 -- world.js, world-map.js
 
 ***  
 ## 效果预览

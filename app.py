@@ -61,7 +61,7 @@ def get_r1_data():
 
 @app.route('/trend')
 def trend():
-    return render_template('trend.html')
+    return render_template('china-trend.html')
 
 
 @app.route('/l1')
@@ -125,7 +125,7 @@ def get_world_data():
 
 @app.route('/country')
 def country():
-    return render_template('country.html')
+    return render_template('world-trend.html')
 
 
 @app.route('/worldconfirm')
