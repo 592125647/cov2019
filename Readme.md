@@ -11,6 +11,10 @@
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign
+      
+      4月1日腾讯更新数据来源
+      
+      
 
 2、 使用Mysql建立数据库和关键表，存储爬取的数据
 
