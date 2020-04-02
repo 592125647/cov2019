@@ -124,6 +124,7 @@ def update_details():
 
 
 # 更新外国数据
+
 def update_fforeign():
     """
     插入国外数据，更新当日国外各数据
@@ -149,19 +150,18 @@ def update_fforeign():
     try:
         li = get_tencent_data()[2]  # 0是历史数据，1是当日更新具体数据, 2是外国数据
         conn, cursor = get_conn()
+        # 插入各国当日数据
         sql = 'insert into fforeign(update_time,country,confirm,confirm_add,suspect,heal,dead) ' \
               'values(%s,%s,%s,%s,%s,%s,%s)'
-        sql_query = 'select %s=(select update_time from fforeign ' \
-                    'where update_time=(select update_time from fforeign order by update_time desc limit 1)limit 1)'
-        cursor.execute(sql_query, li[0][0])
-        if not cursor.fetchone()[0]:
-            print(f'{time.asctime()}开始更新国外数据')
-            for item in li:
-                cursor.execute(sql, item)
-            conn.commit()  # 提交事务
-            print(f'{time.asctime()}国外数据更新完毕')
-        else:
-            print(f'{time.asctime()}已是国外最新数据')
+        # 查询是否为最新数据
+        sql_query = 'select confirm from fforeign where update_time= %s and country = %s'
+        print(f'{time.asctime()}开始更新国外数据')
+        for country in li:
+            cursor.execute(sql_query, [country[0], country[1]])
+            if not cursor.fetchone():
+                cursor.execute(sql, country)
+                conn.commit()  # 提交事务
+        print(f'{time.asctime()}已是国外最新数据')
     except:
         traceback.print_exc()
     finally:
