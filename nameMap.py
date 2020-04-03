@@ -6,6 +6,7 @@ china_city = [
 ]
 
 namemap = {
+    "China": "中国",
     "Afghanistan": "阿富汗",
     "Angola": "安哥拉",
     "Albania": "阿尔巴尼亚",
@@ -37,7 +38,6 @@ namemap = {
     "Central African Rep.": "中非共和国",
     "Chad": "乍得",
     "Chile": "智利",
-    "China": "中国",
     "Colombia": "哥伦比亚",
     "Congo": "刚果",
     "Costa Rica": "哥斯达黎加",

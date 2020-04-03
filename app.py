@@ -53,7 +53,6 @@ def get_china_left():
     # 获取中国各省累计确诊人数
     res = []
     for tup in utils.get_china_left():
-        # print(tup)
         res.append({'name': tup[0], 'value': int(tup[1])})
     return jsonify({'data': res})
 
@@ -76,7 +75,6 @@ def get_china_bottom_right():
     for i in data:
         city.append(i[0])  # 城市
         confirm.append(int(i[1]))  # 累计确诊人数
-        # print(city, confirm)
     return jsonify({'city': city, 'confirm': confirm})
 
 
@@ -141,7 +139,6 @@ def get_world():
     res = []
     global_dict = utils.get_world()
     for tup in global_dict:
-        # print(tup)
         res.append({'name': tup, 'value': global_dict[tup]})
     # 获取中国累计确诊人数
     china_data = utils.get_china_top_right()[0]
