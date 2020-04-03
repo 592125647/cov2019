@@ -48,5 +48,5 @@ get_world_trend();
 
 //停留页面时每一小时刷新一次数据
 setInterval(update_sql,1000*60*60);
-setInterval(get_time,1000);
+setInterval(get_time,1000*60*60);
 setInterval(get_world_trend,1000*60*60);

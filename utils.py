@@ -2,12 +2,7 @@ import traceback
 import pymysql
 from spider import *
 import nameMap
-
-
-# 获取时间
-def get_time():
-    time_str = time.strftime('%Y{}%m{}%d{} %X')
-    return time_str.format('年', '月', '日')
+import time
 
 
 # 连接数据库
@@ -339,3 +334,21 @@ def get_world_trend():
     sql = 'SELECT * FROM global'
     res = query(sql)
     return res
+
+
+# 获取最近一次更新时间
+def get_time():
+    sql = 'select update_time from details order by update_time desc limit 1'
+    res = query(sql)
+    res = res[0][0].strftime("%Y-%m-%d %H:%M:%S")
+    return res
+
+
+if __name__ == '__main__':
+    time = []
+    # print(get_time()[0][0])
+    # item = get_time()[0][0].strftime("%Y-%m-%d %H:%M:%S")
+    # time.append(item)
+    # print(item)
+    # print(type(item))
+    print(get_time())
