@@ -41,7 +41,7 @@ ul,li,i{
 #time{
     height: 8%;
     position: fixed;
-    top: 6%;
+    top: 5%;
     left: 1%;
     text-align: center;
     font-size: 20px;
@@ -134,7 +134,7 @@ ul,li,i{
 /* 外国排行 */
 #r2{
     width: 60%;
-    height: 95%;
+    height: 94.9%;
     position: absolute;
     top: 5%;
     right: 1%;

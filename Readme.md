@@ -12,9 +12,10 @@
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign
       
-* ##4月1日腾讯新闻更新数据源
+* ##4月1日更新国外各国的数据源
       
-      
+      https://api.inews.qq.com/newsqa/v1/automation/foreign/daily/list?country=美国
+      要查询各国，只需在'country='后替换国家名称即可
 
 2、 使用Mysql建立数据库和关键表，存储爬取的数据
 
@@ -112,7 +113,13 @@ static目录存放各类静态文件
 ### spider模块 -- 爬虫
 
 * 获取腾讯新闻数据，筛选并返回疫情的历史数据、当日数据、国外数据、境外输入数据
-
+* 请求数据 -- get_url
+* 返回历史数据 -- get_history_data 
+* 返回当日国内各省数据 -- get_details_data 
+* 请求某国的数据 -- get_url_country 
+* 返回某国的历史数据 -- get_country_data 
+* 返回全球的统计数据 -- get_global_data 
+* 返回境外输入数据 -- get_import_case
 ***
 
 ### app模块 -- 路由介绍
@@ -192,6 +199,8 @@ static目录存放各类静态文件
 
 ***  
 ## 效果预览
+
+### 4.1日更新
 
 ![imgs view1](https://raw.githubusercontent.com/huyinhao/cov2019/master/imgs/view1.png)
 

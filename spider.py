@@ -146,6 +146,3 @@ def get_import_case():
     return import_confirm, import_confirm_add
 
 
-if __name__ == '__main__':
-    print(get_global_data())
-
