@@ -135,7 +135,7 @@ static目录存放各类静态文件
        
 * #### 数据库
 
-    * 刷新数据库各表数据 -- '/update_china', update_china_trend, update_world, update_world_trend
+    * 刷新数据库各表数据 -- '/update_china', '/update_china_trend', '/update_world', '/update_world_trend'
 
 * #### 数据获取    
     * 刷新时间 -- '/get_time'
