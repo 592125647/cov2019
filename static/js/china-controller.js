@@ -46,13 +46,13 @@ function get_china_top_right() {
             $('.num h1').eq(1).text(data.heal)
             $('.num h1').eq(2).text(data.dead)
             $('.num h1').eq(3).text(data.now_confirm)
-            $('.num h1').eq(4).text(data.import_confirm)
+            $('.num h1').eq(4).text(data.imported_case)
             $('.num h1').eq(5).text(data.no_infect)
             $('.new h4').eq(0).text(data.confirm_add)
             $('.new h4').eq(1).text(data.heal_add)
             $('.new h4').eq(2).text(data.dead_add)
             $('.new h4').eq(3).text(data.now_confirm_add)
-            $('.new h4').eq(4).text(data.import_confirm_add)
+            $('.new h4').eq(4).text(data.imported_case_add)
             $('.new h4').eq(5).text(data.no_infect_add)
         },
         error:function f() {

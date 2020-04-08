@@ -57,15 +57,30 @@ function get_china_trend_bottom_left() {
     })
 }
 
-// 更新国外疫情排行
-function get_china_trend_right() {
+// 治愈、死亡趋势
+function get_china_trend_top_right() {
     $.ajax({
-        url:'/get_china_trend_right',
+        url:'/get_china_trend_top_right',
         success:function(data){
-            ec_r2_option.yAxis.data = data.country
-            ec_r2_option.series[0].data = data.confirm
-            ec_r2_option.series[1].data = data.heal
-            ec_r2_option.series[2].data = data.dead
+            ec_r1_option.xAxis[0].data = data.day
+            ec_r1_option.series[0].data = data.heal_add
+            ec_r1_option.series[1].data = data.dead_add
+		    ec_r1.setOption(ec_r1_option)
+        },
+        error:function f() {
+
+        }
+    })
+}
+
+// 更新境外输入、无症状感染者累计趋势
+function get_china_trend_bottom_right() {
+    $.ajax({
+        url:'/get_china_trend_bottom_right',
+        success:function(data){
+            ec_r2_option.xAxis[0].data = data.day
+            ec_r2_option.series[0].data = data.imported_case
+            ec_r2_option.series[1].data = data.no_infect
 		    ec_r2.setOption(ec_r2_option)
         },
         error:function f() {
@@ -74,16 +89,36 @@ function get_china_trend_right() {
     })
 }
 
+
+// 更新国外疫情排行
+// function get_china_trend_right() {
+//     $.ajax({
+//         url:'/get_china_trend_right',
+//         success:function(data){
+//             ec_r2_option.yAxis.data = data.country
+//             ec_r2_option.series[0].data = data.confirm
+//             ec_r2_option.series[1].data = data.heal
+//             ec_r2_option.series[2].data = data.dead
+// 		    ec_r2.setOption(ec_r2_option)
+//         },
+//         error:function f() {
+//
+//         }
+//     })
+// }
+
 //访问时获取数据
 update_sql();
 get_time();
 get_china_trend_top_left();
 get_china_trend_bottom_left();
-get_china_trend_right();
+get_china_trend_top_right();
+get_china_trend_bottom_right();
+// get_china_trend_right();
 
 //停留页面时每一小时刷新一次数据
-setInterval(update_sql,1000*60*60);
+// setInterval(update_sql,1000*60*60);
 setInterval(get_time,1000*60*60);
 setInterval(get_china_trend_top_left,1000*60*60);
 setInterval(get_china_trend_bottom_left,1000*60*60);
-setInterval(get_china_trend_right,1000*60*60);
+// setInterval(get_china_trend_right,1000*60*60);

@@ -115,7 +115,7 @@ ul,li,i{
     /*z-index:2;*/
 }
 /* 城市排行 */
-#r1{
+#city{
     width: 48%;
     height: 55%;
     position: absolute;
@@ -128,41 +128,50 @@ ul,li,i{
 }
 
 /* 中国累计趋势 */
-#l1{
-    width: 38%;
+.chinaTrendDiv{
+    width: 47%;
     height: 45%;
     position: absolute;
     top: 8%;
-    left: 0;
+    left: 1%;
     text-align: center;
     font-size: 24px;
     color: #efefef;
     z-index: 20;
 }
-/* 中国新增趋势 */
+/* 中国新增确诊疑似趋势 */
 #l2{
-    width: 38%;
+    top: 55%;
+}
+/* 中国累计境外输入、无症状感染者趋势 */
+.chinaTrendDiv2{
+    width: 47%;
     height: 45%;
     position: absolute;
-    top: 55%;
-    left:0%;
     text-align: center;
     font-size: 24px;
     color: #efefef;
-    z-index: 20;
+    z-index: 10;
+    top: 8%;
+    right: 1%;
+}
+/* 中国新增境外输入、无症状感染者趋势 */
+#r2{
+    top: 55%;
+    right: 0%;
 }
 
 /* 外国排行 */
-#r2{
-    width: 60%;
-    height: 94.9%;
-    position: absolute;
-    top: 5%;
-    right: 1%;
-    text-align: center;
-    font-size: 24px;
-    color: #efefef;
-}
+/*#r2{*/
+/*    width: 60%;*/
+/*    height: 94.9%;*/
+/*    position: absolute;*/
+/*    top: 5%;*/
+/*    right: 1%;*/
+/*    text-align: center;*/
+/*    font-size: 24px;*/
+/*    color: #efefef;*/
+/*}*/
 
 /* 世界疫情地图 */
 #world{
@@ -196,7 +205,7 @@ a{
     text-align: center;
     font-size: 22px;
     color: #f8c291;
-    z-index:6;
+    z-index:16;
 }
 /* 链接样式 */
 .china{
@@ -204,7 +213,7 @@ a{
     color: #63cdda;
     font-size: 20px;
     position: absolute;
-    top:60%;
+    top:35%;
     text-align:left;
     left: 6%;
 }

@@ -298,6 +298,28 @@ def get_china_trend_bottom_left():
     return res
 
 
+# 获取china-trend右上侧数据，全国治愈、死亡趋势
+def get_china_trend_top_right():
+    """
+
+    :return:返回全国境外输入、无症状感染者累计数据
+    """
+    sql = 'select ds,heal_add,dead_add from history'
+    res = query(sql)
+    return res
+
+
+# 获取china-trend右下侧数据，全国境外输入、无症状感染者趋势
+def get_china_trend_bottom_right():
+    """
+
+    :return:返回全国境外输入、无症状感染者累计数据
+    """
+    sql = 'select ds,imported_case,no_infect from history'
+    res = query(sql)
+    return res
+
+
 # 获取china-trend右侧数据，国家排行，不含中国
 def get_china_trend_right():
     """
@@ -357,4 +379,4 @@ if __name__ == '__main__':
     # time.append(item)
     # print(item)
     # print(type(item))
-    print(get_time())
+    print(get_china_trend_bottom_left())

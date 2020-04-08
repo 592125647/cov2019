@@ -1,8 +1,8 @@
-var ec_l1 = echarts.init(document.getElementById('l1'),'dark')
+var ec_r2 = echarts.init(document.getElementById('r2'),'dark')
 
-var ec_l1_option = {
+var ec_r2_option = {
     title:{
-        text:'全国累计确诊、疑似、治愈、死亡',
+        text:'全国境外输入、无症状感染者趋势',
         textStyle:{
 			fontSize:22,
 		},
@@ -18,7 +18,7 @@ var ec_l1_option = {
 		},
     },
 	legend:{
-		data:['累计确诊','现有疑似','累计治愈','累计死亡'],
+		data:['新增境外输入','新增无症状感染者'],
 		left:'right',
 		textStyle:{
             fontSize : 14,
@@ -31,7 +31,7 @@ var ec_l1_option = {
 		bottom:'8%',
 		top:50,
 		containLable:true
-	}, 
+	},
 	xAxis: [{
 	    type:'category',
 		data:['01.20','01.21','01.22']
@@ -63,28 +63,18 @@ var ec_l1_option = {
 		}
 	}],
 	series:[{
-		name:'累计确诊',
+		name:'新增境外输入',
 		type:'line',
 		smooth:true,
+		color:'#a55eea',
 		data:[260,406,529]
 	},{
-		name:'现有疑似',
+		name:'新增无症状感染者',
 		type:'line',
 		smooth:true,
+		color:'#eb3b5a',
 		data:[52,37,3935]
-	},
-	{
-		name:'累计治愈',
-		type:'line',
-		smooth:true,
-		data:[26,26,26]
-	},
-	{
-		name:'累计死亡',
-		type:'line',
-		smooth:true,
-		data:[6,9,17]
-	}],
+	}]
 };
-    
-ec_l1.setOption(ec_l1_option)
+
+ec_r2.setOption(ec_r2_option)

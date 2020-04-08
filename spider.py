@@ -46,7 +46,7 @@ def get_history_data():
         suspect = i['suspect']  # 新增确诊
         heal = i['heal']  # 新增治愈
         dead = i['dead']  # 新增死亡
-        history[ds].update({'confirm_add': confirm, 'suspect': suspect, 'heal_add': heal, 'dead_add': dead})
+        history[ds].update({'confirm_add': confirm, 'suspect_add': suspect, 'heal_add': heal, 'dead_add': dead})
 
     return history
 

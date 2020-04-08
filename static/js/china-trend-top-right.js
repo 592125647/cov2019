@@ -1,8 +1,8 @@
-var ec_l1 = echarts.init(document.getElementById('l1'),'dark')
+var ec_r1 = echarts.init(document.getElementById('r1'),'dark')
 
-var ec_l1_option = {
+var ec_r1_option = {
     title:{
-        text:'全国累计确诊、疑似、治愈、死亡',
+        text:'全国新增治愈、新增死亡趋势',
         textStyle:{
 			fontSize:22,
 		},
@@ -18,7 +18,7 @@ var ec_l1_option = {
 		},
     },
 	legend:{
-		data:['累计确诊','现有疑似','累计治愈','累计死亡'],
+		data:['新增治愈','新增死亡'],
 		left:'right',
 		textStyle:{
             fontSize : 14,
@@ -31,7 +31,7 @@ var ec_l1_option = {
 		bottom:'8%',
 		top:50,
 		containLable:true
-	}, 
+	},
 	xAxis: [{
 	    type:'category',
 		data:['01.20','01.21','01.22']
@@ -56,6 +56,7 @@ var ec_l1_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
+				// color:['#aaa', '#83bff6','#ddd'],
 				color:['#82ccdd','#b8e994','#78e08f','#38ada9','#079992'],
 				width:1,
 				type:'solid',
@@ -63,28 +64,18 @@ var ec_l1_option = {
 		}
 	}],
 	series:[{
-		name:'累计确诊',
+		name:'新增治愈',
 		type:'line',
 		smooth:true,
+		color:'#83bff6',
 		data:[260,406,529]
 	},{
-		name:'现有疑似',
+		name:'新增死亡',
 		type:'line',
 		smooth:true,
+		color:'#ff7675',
 		data:[52,37,3935]
-	},
-	{
-		name:'累计治愈',
-		type:'line',
-		smooth:true,
-		data:[26,26,26]
-	},
-	{
-		name:'累计死亡',
-		type:'line',
-		smooth:true,
-		data:[6,9,17]
-	}],
+	}]
 };
-    
-ec_l1.setOption(ec_l1_option)
+
+ec_r1.setOption(ec_r1_option);

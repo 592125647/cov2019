@@ -2,9 +2,9 @@ var ec_l2 = echarts.init(document.getElementById('l2'),'dark')
 
 var ec_l2_option = {
     title:{
-        text:'全国新增趋势',
+        text:'全国新增确诊、疑似趋势',
         textStyle:{
-            fontSize : 24,
+            fontSize : 22,
 		},
 		left:'left',
 	},
@@ -14,7 +14,6 @@ var ec_l2_option = {
 			type:'line',
 			lineStyle:{
 				color:'#7171C6',
-
 			}
 
 		},
@@ -58,9 +57,9 @@ var ec_l2_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
-				color:'#95afc0',
+				color:['#82ccdd','#b8e994','#78e08f','#38ada9','#079992'],
 				width:1,
-				type:'dashed'
+				type:'solid'
 			}
 		}
 	}],
@@ -68,11 +67,13 @@ var ec_l2_option = {
 		name:'新增确诊',
 		type:'line',
 		smooth:true,
+		color:'#B33771',
 		data:[260,406,529]
 	},{
 		name:'新增疑似',
 		type:'line',
 		smooth:true,
+		color:'#F8EFBA',
 		data:[52,37,3935]
 	}],
 };
