@@ -56,12 +56,13 @@ def update_history():
         dic = get_history_data()  # 历史数据
         print(f'{time.asctime()}开始更新历史数据')
         conn, cursor = get_conn()
-        sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from history where ds=%s'
         for k, v in dic.items():
             # item{'2020-1-20':{'confirm':,'suspect':,'heal':,'dead':}}
             if not cursor.execute(sql_query, k):
                 cursor.execute(sql, [k, v.get('confirm'), v.get('confirm_add'),
+                                     v.get('suspect'), v.get('suspect_add'),
                                      v.get('heal'), v.get('heal_add'),
                                      v.get('dead'), v.get('dead_add'),
                                      v.get('now_confirm'), v.get('imported_case'), v.get('no_infect')

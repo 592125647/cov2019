@@ -28,12 +28,13 @@ def get_history_data():
         tup = time.strptime(ds, '%Y%m.%d')
         ds = time.strftime('%Y-%m-%d', tup)  # 改变时间格式为'2020-01-20'，不然插入数据库会报错
         confirm = i['confirm']  # 累计确诊
+        suspect = i['suspect']  # 累计确诊
         heal = i['heal']  # 累计治愈
         dead = i['dead']  # 累计死亡
         now_confirm = i['nowConfirm']  # 现有确诊
         imported_case = i['importedCase']  # 累计境外输入
         no_infect = i['noInfect']  # 累计无症状感染者
-        history[ds] = {'confirm': confirm, 'heal': heal, 'dead': dead, 'now_confirm': now_confirm,
+        history[ds] = {'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead, 'now_confirm': now_confirm,
                        'imported_case': imported_case, 'no_infect': no_infect}
 
     # 用于更新历史数据
@@ -42,9 +43,10 @@ def get_history_data():
         tup = time.strptime(ds, '%Y%m.%d')
         ds = time.strftime('%Y-%m-%d', tup)  # 改变时间格式为'2020-01-20'，不然插入数据库会报错
         confirm = i['confirm']  # 新增确诊
+        suspect = i['suspect']  # 新增确诊
         heal = i['heal']  # 新增治愈
         dead = i['dead']  # 新增死亡
-        history[ds].update({'confirm_add': confirm, 'heal_add': heal, 'dead_add': dead})
+        history[ds].update({'confirm_add': confirm, 'suspect': suspect, 'heal_add': heal, 'dead_add': dead})
 
     return history
 
