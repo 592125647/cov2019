@@ -1,6 +1,6 @@
-var ec_l1 = echarts.init(document.getElementById('l1'),'dark')
+var l1 = echarts.init(document.getElementById('l1'),'dark')
 
-var ec_l1_option = {
+var l1_option = {
     title:{
         text:'全国累计确诊、疑似、治愈、死亡',
         textStyle:{
@@ -87,4 +87,4 @@ var ec_l1_option = {
 	}],
 };
     
-ec_l1.setOption(ec_l1_option)
+l1.setOption(l1_option)

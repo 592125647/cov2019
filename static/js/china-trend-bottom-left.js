@@ -1,6 +1,6 @@
-var ec_l2 = echarts.init(document.getElementById('l2'),'dark')
+var l2 = echarts.init(document.getElementById('l2'),'dark')
 
-var ec_l2_option = {
+var l2_option = {
     title:{
         text:'全国新增确诊、疑似趋势',
         textStyle:{
@@ -78,4 +78,4 @@ var ec_l2_option = {
 	}],
 };
 
-ec_l2.setOption(ec_l1_option)
+l2.setOption(l2_option)

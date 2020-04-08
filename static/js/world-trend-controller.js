@@ -49,11 +49,11 @@ function get_world_trend_right() {
     $.ajax({
         url:'/get_world_trend_right',
         success:function(data){
-            ec_countryRank_option.yAxis.data = data.country
-            ec_countryRank_option.series[0].data = data.confirm
-            ec_countryRank_option.series[1].data = data.heal
-            ec_countryRank_option.series[2].data = data.dead
-		    ec_countryRank.setOption(ec_countryRank_option)
+            countryRank_option.yAxis.data = data.country
+            countryRank_option.series[0].data = data.confirm
+            countryRank_option.series[1].data = data.heal
+            countryRank_option.series[2].data = data.dead
+		    countryRank.setOption(countryRank_option)
         },
         error:function f() {
 

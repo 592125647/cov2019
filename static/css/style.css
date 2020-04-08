@@ -62,7 +62,7 @@ ul,li,i{
 }
 .sl{
     position: absolute;
-    top: 29%;
+    top: 31%;
 }
 /* 各项新增div样式 */
 .newdiv{
@@ -75,7 +75,7 @@ ul,li,i{
     color: #efefef;
 }
 .newdiv2{
-    top:26%;
+    top:28%;
 }
 /* 数字 */
 .num{
@@ -96,14 +96,14 @@ ul,li,i{
 }
 /* 新增数字样式 */
 .new{
-    color: #a29bfe;
+    color: #b8e994;
 }
 .new h4{
     font-size: 16px;
     color: #d13cc0;
 }
 /* 中国疫情地图 */
-#c2{
+#chinaMap{
     width: 90%;
     height: 99%;
     position: absolute;
@@ -117,7 +117,7 @@ ul,li,i{
 /* 城市排行 */
 #city{
     width: 48%;
-    height: 55%;
+    height: 58%;
     position: absolute;
     top: 40%;
     right: 2px;

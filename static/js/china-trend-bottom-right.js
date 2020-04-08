@@ -1,6 +1,6 @@
-var ec_r2 = echarts.init(document.getElementById('r2'),'dark')
+var r2 = echarts.init(document.getElementById('r2'),'dark')
 
-var ec_r2_option = {
+var r2_option = {
     title:{
         text:'全国境外输入、无症状感染者趋势',
         textStyle:{
@@ -77,4 +77,4 @@ var ec_r2_option = {
 	}]
 };
 
-ec_r2.setOption(ec_r2_option)
+r2.setOption(r2_option)

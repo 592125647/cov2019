@@ -1,17 +1,17 @@
 // 基于准备好的dom，初始化echarts实例
-let world = echarts.init(document.getElementById('world'))
+let worldMap = echarts.init(document.getElementById('world'))
 // 监听屏幕变化自动缩放图表
 
 var mydata = [{'name':'China','value':318},{'name':'Italy','value':170}]
 
 window.addEventListener('resize', function () {
-world.resize()
+worldMap.resize()
 })
 data = {
 
 }
 // 绘制图表
-world_option = {
+worldMap_option = {
 // 图表主标题
     title: {
       // text: '世界疫情地图', // 主标题文本，支持使用 \n 换行
@@ -94,30 +94,30 @@ world_option = {
         ]
 };
 
-world.setOption(world_option)
+worldMap.setOption(worldMap_option)
 // 定时显示提示框和高亮效果
 let index = -1
 setInterval(function () {
   // 隐藏提示框
-  world.dispatchAction({
+  worldMap.dispatchAction({
     type: 'hideTip',
     seriesIndex: 0,
     dataIndex: index
   })
   // 显示提示框
-  world.dispatchAction({
+  worldMap.dispatchAction({
     type: 'showTip',
     seriesIndex: 0,
     dataIndex: index + 1
   })
   // 取消高亮指定的数据图形
-  world.dispatchAction({
+  worldMap.dispatchAction({
     type: 'downplay',
     seriesIndex: 0,
     dataIndex: index
   })
   // 高亮指定的数据图形
-  world.dispatchAction({
+  worldMap.dispatchAction({
     type: 'highlight',
     seriesIndex: 0,
     dataIndex: index + 1

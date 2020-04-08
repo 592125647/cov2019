@@ -1,6 +1,6 @@
-var ec_r1 = echarts.init(document.getElementById('r1'),'dark')
+var r1 = echarts.init(document.getElementById('r1'),'dark')
 
-var ec_r1_option = {
+var r1_option = {
     title:{
         text:'全国新增治愈、新增死亡趋势',
         textStyle:{
@@ -78,4 +78,4 @@ var ec_r1_option = {
 	}]
 };
 
-ec_r1.setOption(ec_r1_option);
+r1.setOption(r1_option);

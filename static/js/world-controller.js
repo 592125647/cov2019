@@ -28,9 +28,9 @@ function get_world() {
     $.ajax({
         url:'/get_world',
         success:function(data){
-            world_option.series[0].nameMap = data.name
-            world_option.series[0].data = data.data
-		    world.setOption(world_option)
+            worldMap_option.series[0].nameMap = data.name
+            worldMap_option.series[0].data = data.data
+		    worldMap.setOption(worldMap_option)
         },
         error:function f() {
 

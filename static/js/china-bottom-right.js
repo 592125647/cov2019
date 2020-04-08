@@ -1,18 +1,19 @@
-var ec_r1 = echarts.init(document.getElementById('r1'), 'dark')
+var city = echarts.init(document.getElementById('city'), 'dark')
 var dataAxis = ['点', '击', '柱', '子', '或', '两', '指', '缩', '放'];
 var data = [220, 182, 191, 234, 290, 330, 334, 198, 123, 125, 220];
 var yMax = 100;
 var dataShadow = [];
-ec_r1.data = [];
+city.data = [];
 
 for (var i = 0; i < data.length; i++) {
     dataShadow.push(yMax);
 }
 
-ec_r1_option = {
+city_option = {
     title: {
         text: '除湖北省外累计确诊最多的12城市',
         left:'center',
+        top:'8%',
         textStyle:{
             fontSize : 22,
 		},
@@ -32,8 +33,7 @@ ec_r1_option = {
 	grid: {
 		left: '1',
 		right:'1',
-		bottom:'2%',
-		top:-8,
+		bottom:'0%',
 		containLable:true
 	},
     xAxis: {
@@ -120,14 +120,14 @@ ec_r1_option = {
 
 // Enable data zoom when user click bar.
 var zoomSize = 6;
-ec_r1.on('click', function (params) {
+city.on('click', function (params) {
     console.log(params)
-    console.log(ec_r1.data[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+    console.log(city.data[Math.max(params.dataIndex - zoomSize / 2, 0)]);
 
-    ec_r1.dispatchAction({
+    city.dispatchAction({
         type: 'dataZoom',
-        startValue: ec_r1.data[Math.max(params.dataIndex - zoomSize / 2, 0)],
-        endValue: ec_r1.data[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        startValue: city.data[Math.max(params.dataIndex - zoomSize / 2, 0)],
+        endValue: city.data[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
     });
 });
-ec_r1.setOption(ec_r1_option)
+city.setOption(city_option)

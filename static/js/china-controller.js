@@ -28,8 +28,8 @@ function get_china_left() {
     $.ajax({
         url:'/get_china_left',
         success:function(data){
-           ec_center_option.series[0].data = data.data
-		   ec_center.setOption(ec_center_option)
+           chinaMap_option.series[0].data = data.data
+		   chinaMap.setOption(chinaMap_option)
         },
         error:function f() {
 
@@ -66,10 +66,10 @@ function get_china_bottom_right() {
     $.ajax({
         url:'/get_china_bottom_right',
         success:function(data){
-            ec_r1.data = data.city
-            ec_r1_option.xAxis.data = data.city
-            ec_r1_option.series[1].data = data.confirm
-		    ec_r1.setOption(ec_r1_option)
+            city.data = data.city
+            city_option.xAxis.data = data.city
+            city_option.series[1].data = data.confirm
+		    city.setOption(city_option)
         },
         error:function f() {
 

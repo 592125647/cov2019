@@ -1,8 +1,8 @@
-var ec_center = echarts.init(document.getElementById('c2'),'dark')
+var chinaMap = echarts.init(document.getElementById('chinaMap'),'dark')
 
 var mydata = [{'name':'上海','value':318},{'name':'北京','value':170}]
 
-var ec_center_option = {
+var chinaMap_option = {
     title:{
         text:'',
         subtext:'',
@@ -15,7 +15,7 @@ var ec_center_option = {
     visualMap:{
         show:true,
         x:'20%',
-        y:'76%',
+        y:'80%',
         textStyle:{
             fontSize:18,
         },
@@ -61,4 +61,4 @@ var ec_center_option = {
         data: mydata //数据
     }]
 };
-ec_center.setOption(ec_center_option)
+chinaMap.setOption(chinaMap_option)

@@ -1,4 +1,4 @@
-var ec_countryRank = echarts.init(document.getElementById('countryRank'),'dark')
+var countryRank = echarts.init(document.getElementById('countryRank'),'dark')
 
 var seriesLabel = {
     normal: {
@@ -8,7 +8,7 @@ var seriesLabel = {
     }
 }
 
-ec_countryRank_option = {
+countryRank_option = {
     title: {
         text: '外国疫情严重排行',
         left: 'right' ,
@@ -168,4 +168,4 @@ ec_countryRank_option = {
     ]
 };
 
-ec_countryRank.setOption(ec_countryRank_option)
+countryRank.setOption(countryRank_option)
