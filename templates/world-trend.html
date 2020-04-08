@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/echarts.min.js"></script>
     <script src="../static/js/jquery.min.js"></script>
+    <style>
+        .tips{
+            top: 3%;
+            right: 12.7%;
+        }
+    </style>
 </head>
 <body>
     <div id="title">Cov2019国外疫情追踪</div>
@@ -14,6 +20,7 @@
         <div id='time'>上次更新时间</div>
     </div>
     <div id="world_confirm">世界累计确诊</div>
+    <div id="world_else">世界累计治愈、死亡、新增</div>
     <div class="tips">
         更多疫情信息
         <a class='china' href="/">CHINA</a>
@@ -21,7 +28,10 @@
         <a class='world china' href="world">WORLD</a>
         <a class='worldTrend china' href="world-trend">WTREND</a>
     </div>
-    <script src="../static/js/world-trend.js"></script>
+    <div id="countryRank">国外累计确诊排行</div>
+    <script src="../static/js/world-trend-top-left.js"></script>
+    <script src="../static/js/world-trend-bottom-left.js"></script>
+    <script src="../static/js/world-trend-right.js"></script>
     <script src="../static/js/world-trend-controller.js"></script>
 </body>
 </html>

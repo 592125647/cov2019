@@ -142,20 +142,6 @@ def get_china_trend_bottom_right():
         no_infect.append(c)
     return jsonify({'day': day, 'imported_case': imported_case, 'no_infect': no_infect})
 
-# # 获取china-trend右侧数据，国家排行
-# @app.route('/get_china_trend_right')
-# def get_china_trend_right():
-#     # 获取国外确诊人数最多的10个国家
-#     data = utils.get_china_trend_right()
-#     country, confirm, confirm_add, heal, dead = [], [], [], [], []
-#     for i in data:
-#         country.append(i[0])  # 国家
-#         confirm.append(int(i[1]))  # 累计确诊
-#         confirm_add.append(int(i[2]))  # 新增确诊
-#         heal.append(int(i[3]))  # 治愈
-#         dead.append(int(i[4]))  # 死亡
-#     return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
-
 
 # 世界疫情地图
 @app.route('/world')
@@ -196,6 +182,21 @@ def get_world_trend():
         dead.append(int(e))
 
     return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
+
+
+# 获取china-trend右侧数据，国家排行
+@app.route('/get_world_trend_right')
+def get_world_trend_right():
+    # 获取国外确诊人数最多的10个国家
+    data = utils.get_world_trend_right()
+    country, confirm, confirm_add, heal, dead = [], [], [], [], []
+    for i in data:
+        country.append(i[0])  # 国家
+        confirm.append(int(i[1]))  # 累计确诊
+        confirm_add.append(int(i[2]))  # 新增确诊
+        heal.append(int(i[3]))  # 治愈
+        dead.append(int(i[4]))  # 死亡
+    return jsonify({'country': country, 'confirm': confirm, 'confirm_add': confirm_add, 'heal': heal, 'dead': dead})
 
 
 if __name__ == '__main__':

@@ -89,24 +89,6 @@ function get_china_trend_bottom_right() {
     })
 }
 
-
-// 更新国外疫情排行
-// function get_china_trend_right() {
-//     $.ajax({
-//         url:'/get_china_trend_right',
-//         success:function(data){
-//             ec_r2_option.yAxis.data = data.country
-//             ec_r2_option.series[0].data = data.confirm
-//             ec_r2_option.series[1].data = data.heal
-//             ec_r2_option.series[2].data = data.dead
-// 		    ec_r2.setOption(ec_r2_option)
-//         },
-//         error:function f() {
-//
-//         }
-//     })
-// }
-
 //访问时获取数据
 update_sql();
 get_time();
@@ -114,7 +96,6 @@ get_china_trend_top_left();
 get_china_trend_bottom_left();
 get_china_trend_top_right();
 get_china_trend_bottom_right();
-// get_china_trend_right();
 
 //停留页面时每一小时刷新一次数据
 // setInterval(update_sql,1000*60*60);

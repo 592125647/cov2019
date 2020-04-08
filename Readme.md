@@ -189,13 +189,13 @@ static目录存放各类静态文件
     * china-trend-bottom-left.js
 
 * 国外累计确诊排行数据图
-    * china-trend-right.js
+    * world-trend-right.js
 
 * 世界疫情地图
     * world.js, world-map.js
     
 * 国外累计、新增趋势
-    * world-trend.js
+    * world-trend-top-left.js
 
 ***  
 ## 效果预览

@@ -1,12 +1,14 @@
-var world_confirm = echarts.init(document.getElementById('world_confirm'),'dark')
-var world_confirm_option = {
+var world_else = echarts.init(document.getElementById('world_else'),'dark')
+
+var world_else_option = {
     title:{
-        text:'国外各项累计趋势',
+        text:'国外新增确诊、治愈、死亡趋势',
         textStyle:{
-			fontSize:28,
+			fontSize:20,
+			color:'#D4F2E7',
 		},
-		left:'5%',
-        top:'3%'
+		left:'2%',
+        top:'0%'
 	},
     backgroundColor:'#333',
     tooltip:{
@@ -18,25 +20,26 @@ var world_confirm_option = {
 			}
 		},
         textStyle:{
-            fontSize : 16,
+            fontSize : 14,
         } ,
     },
 	legend:{
-		data:['累计确诊','累计治愈','累计死亡','新增确诊'],
-		left:'center',
+		data:['累计治愈','累计死亡','新增确诊'],
 		textStyle:{
-            fontSize : 18,
+            fontSize : 14,
+			color:'#D4F2E7',
         } ,
-        top:'3%'
+        top:'0%',
+		left:'right',
 	},
 	//图形位置
 	grid: {
-		left: '6%',
-		right:'6%',
-        top:'3%',
+		left: '10%',
+		right:'0.5%',
+        top:'10%',
 		bottom:'6%',
-		top:100,
-		containLable:true
+		containLable:true,
+
 	},
 	xAxis: [{
 	    type:'category',
@@ -47,8 +50,8 @@ var world_confirm_option = {
 		type:'value',
 		axisLabel:{
 			show:true,
-			color:'black',
-			fontSize:16,
+			color:'#D4F2E7',
+			fontSize:14,
 			formatter: function(value){
 				if(value >= 1000)
 				{
@@ -59,23 +62,17 @@ var world_confirm_option = {
 		},
 		axisLine:{
 			show:true,
-
 		},
 		splitLine:{
 			show:true,
 			lineStyle:{
-				color:'#83bff6',
+				color:['#83bff6','#D4F2E7','#25F8CB','#EACD76'],
 				width:2,
-				type:'dashed',
+				type:'solid',
 			}
 		}
 	}],
-	series:[{
-		name:'累计确诊',
-		type:'line',
-		smooth:true,
-		data:[260,406,529]
-	},
+	series:[
 	{
 		name:'累计治愈',
 		type:'line',
@@ -96,4 +93,4 @@ var world_confirm_option = {
 	}],
 };
 
-world_confirm.setOption(world_confirm_option)
+world_else.setOption(world_else_option)

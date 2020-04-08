@@ -320,20 +320,6 @@ def get_china_trend_bottom_right():
     return res
 
 
-# 获取china-trend右侧数据，国家排行，不含中国
-def get_china_trend_right():
-    """
-
-    :return:返回国外排行数据
-    """
-    sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
-          'where update_time =(select update_time from fforeign ' \
-          'order by update_time desc limit 1) order by confirm  desc limit 7'
-
-    res = query(sql)
-    return res
-
-
 # 获取world数据，世界疫情地图
 def get_world():
     """
@@ -360,6 +346,20 @@ def get_world_trend():
     """
     # sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
     sql = 'SELECT * FROM global'
+    res = query(sql)
+    return res
+
+
+# 获取china-trend右侧数据，国家排行，不含中国
+def get_world_trend_right():
+    """
+
+    :return:返回国外排行数据
+    """
+    sql = 'select country, confirm ,confirm_add, heal, dead  from fforeign ' \
+          'where update_time =(select update_time from fforeign ' \
+          'order by update_time desc limit 1) order by confirm  desc limit 7'
+
     res = query(sql)
     return res
 
