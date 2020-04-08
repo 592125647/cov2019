@@ -62,7 +62,20 @@ ul,li,i{
 }
 .sl{
     position: absolute;
-    top: 26%;
+    top: 29%;
+}
+/* 各项新增div样式 */
+.newdiv{
+    width: 45%;
+    height: 40%;
+    position: absolute;
+    top: 12%;
+    right: 1%;
+    text-align: center;
+    color: #efefef;
+}
+.newdiv2{
+    top:26%;
 }
 /* 数字 */
 .num{
@@ -80,6 +93,14 @@ ul,li,i{
 /* 数字介绍 */
 .text{
     color: #d1ccc0;
+}
+/* 新增数字样式 */
+.new{
+    color: #a29bfe;
+}
+.new h4{
+    font-size: 16px;
+    color: #d13cc0;
 }
 /* 中国疫情地图 */
 #c2{

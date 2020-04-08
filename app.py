@@ -61,9 +61,13 @@ def get_china_left():
 @app.route('/get_china_top_right')
 def get_china_top_right():
     # 获取累计确诊疑似、治愈、死亡人数
-    data, import_confirm, import_confirm_add = utils.get_china_top_right()
-    return jsonify({'confirm': int(data[0]), 'heal': int(data[2]), 'dead': int(data[3]), 'confirm_add': int(data[1]),
-                    'import_confirm': int(import_confirm), 'import_confirm_add': int(import_confirm_add)})
+    data, today_new = utils.get_china_top_right()
+
+    return jsonify({'confirm': int(data[0]), 'heal': int(data[7]), 'dead': int(data[8]),
+                    'confirm_add': int(data[1]), 'heal_add': int(data[2]), 'dead_add': int(data[3]),
+                    'now_confirm': int(data[4]), 'import_confirm': int(data[5]), 'no_infect': int(data[6]),
+                    'now_confirm_add': int(today_new[0]), 'import_confirm_add': int(today_new[1]),
+                    'no_infect_add': int(today_new[2])})
 
 
 # 获取china右下侧数据，城市排行

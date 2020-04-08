@@ -9,12 +9,22 @@
     <script src="../static/js/echarts.min.js"></script>
     <script src="../static/js/china.js"></script>
     <script src="../static/js/jquery.min.js"></script>
+    <style>
+        .tips{
+            top:2%;
+        }
+    </style>
 </head>
 <body>
     <div id="title">Cov2019全国疫情追踪</div>
     <div class="timebox">
         <div>上次更新时间</div>
         <div id='time'>上次更新时间</div>
+    </div>
+    <div id="newdiv" class="newdiv">
+        <li class="num new">较昨日+<h4></h4></li>
+        <li class="num new">较昨日+<h4></h4></li>
+        <li class="num new">较昨日+<h4></h4></li>
     </div>
     <div id='c1' class="c1">
         <li class="num"><h1></h1></li>
@@ -24,13 +34,18 @@
         <li class="num text"><h3>累计出院</h3></li>
         <li class="num text"><h3>累计死亡</h3></li>
     </div>
+    <div id="newdiv2" class="newdiv newdiv2">
+        <li class="num new">较昨日+<h4></h4></li>
+        <li class="num new">较昨日+<h4></h4></li>
+        <li class="num new">较昨日+<h4></h4></li>
+    </div>
     <div id='sl' class="c1 sl">
         <li class="num"><h1></h1></li>
         <li class="num"><h1></h1></li>
         <li class="num"><h1></h1></li>
-        <li class="num text"><h3>新增确诊</h3></li>
+        <li class="num text"><h3>现存确诊</h3></li>
         <li class="num text"><h3>累计境外输入</h3></li>
-        <li class="num text"><h3>新增境外输入</h3></li>
+        <li class="num text"><h3>累计无症状感染者</h3></li>
     </div>
     <div id='c2'>中2</div>
     <div id='r1'>右1</div>

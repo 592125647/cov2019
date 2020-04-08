@@ -6,12 +6,13 @@ create table history(
 ds datetime not null comment'日期',
 confirm int(11) default null comment'累计确诊',
 confirm_add int(11) default null comment'当日新增确诊',
-suspect int(11) default null comment'剩余疑似',
-suspect_add int(11) default null comment'当日新增疑似',
 heal int(11) default null comment'累计治愈',
 heal_add int(11) default null comment'当日新增治愈',
 dead int(11) default null comment'累计死亡',
 dead_add int(11) default null comment'当日新增死亡',
+now_confirm int(11) default null comment'累计现有确诊',
+imported_case int(11) default null comment'累计境外输入',
+no_infect int(11) default null comment'累计无症状感染者',
 primary key(ds) using btree
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

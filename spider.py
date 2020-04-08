@@ -22,28 +22,30 @@ def get_history_data():
     data_history = json.loads(data_history['data'])  # 筛选历史数据
 
     history = {}  # 存放历史数据
-
     # 用于插入历史数据
     for i in data_history['chinaDayList']:
         ds = '2020' + i['date']  # data格式为'01.20'
         tup = time.strptime(ds, '%Y%m.%d')
         ds = time.strftime('%Y-%m-%d', tup)  # 改变时间格式为'2020-01-20'，不然插入数据库会报错
         confirm = i['confirm']  # 累计确诊
-        suspect = i['suspect']  # 累计疑似
         heal = i['heal']  # 累计治愈
         dead = i['dead']  # 累计死亡
-        history[ds] = {'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead}
+        now_confirm = i['nowConfirm']  # 现有确诊
+        imported_case = i['importedCase']  # 累计境外输入
+        no_infect = i['noInfect']  # 累计无症状感染者
+        history[ds] = {'confirm': confirm, 'heal': heal, 'dead': dead, 'now_confirm': now_confirm,
+                       'imported_case': imported_case, 'no_infect': no_infect}
 
     # 用于更新历史数据
     for i in data_history['chinaDayAddList']:
         ds = '2020' + i['date']  # data格式为'01.20'
         tup = time.strptime(ds, '%Y%m.%d')
         ds = time.strftime('%Y-%m-%d', tup)  # 改变时间格式为'2020-01-20'，不然插入数据库会报错
-        confirm = i['confirm']  # 累计确诊
-        suspect = i['suspect']  # 累计疑似
-        heal = i['heal']  # 累计治愈
-        dead = i['dead']  # 累计死亡
-        history[ds].update({'confirm_add': confirm, 'suspect_add': suspect, 'heal_add': heal, 'dead_add': dead})
+        confirm = i['confirm']  # 新增确诊
+        heal = i['heal']  # 新增治愈
+        dead = i['dead']  # 新增死亡
+        history[ds].update({'confirm_add': confirm, 'heal_add': heal, 'dead_add': dead})
+
     return history
 
 
@@ -138,11 +140,14 @@ def get_global_data():
 
 # 获取境外输入数据
 def get_import_case():
-    url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
-    data = get_url(url)
-    data = json.loads(data['data'])
-    import_confirm = data['chinaTotal']['importedCase']  # 累计境外输入
-    import_confirm_add = data['chinaAdd']['importedCase']  # 新增境外输入
-    return import_confirm, import_confirm_add
+    url_today = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5'
+    data_today = get_url(url_today)
+    data_today = json.loads(data_today['data'])  # 筛选当日数据
+
+    now_confirm_add = data_today['chinaAdd']['nowConfirm']  # 新增现有确诊
+    imported_case_add = data_today['chinaAdd']['importedCase']  # 新增境外输入
+    no_infect_add = data_today['chinaAdd']['noInfect']  # 新增无症状感染者
+    day_add = [now_confirm_add, imported_case_add, no_infect_add]
+    return day_add
 
 
