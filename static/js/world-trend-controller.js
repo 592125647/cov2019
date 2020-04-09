@@ -24,9 +24,9 @@ function update_sql(){
 }
 
 // 更新国外趋势图
-function get_world_trend() {
+function get_world_trend_left() {
     $.ajax({
-        url:'/get_world_trend',
+        url:'/get_world_trend_left',
         success:function(data){
             world_confirm_option.xAxis[0].data = data.day
             world_confirm_option.series[0].data = data.confirm
@@ -64,9 +64,10 @@ function get_world_trend_right() {
 //访问时获取数据
 update_sql();
 get_time();
-get_world_trend();
+get_world_trend_left();
 get_world_trend_right();
 //停留页面时每一小时刷新一次数据
 setInterval(update_sql,1000*60*60);
 setInterval(get_time,1000*60*60);
-setInterval(get_world_trend,1000*60*60);
+setInterval(get_world_trend_left,1000*60*60);
+setInterval(get_world_trend_right,1000*60*60);

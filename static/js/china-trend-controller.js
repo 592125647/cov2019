@@ -102,3 +102,5 @@ setInterval(update_sql,1000*60*60);
 setInterval(get_time,1000*60*60);
 setInterval(get_china_trend_top_left,1000*60*60);
 setInterval(get_china_trend_bottom_left,1000*60*60);
+setInterval(get_china_trend_top_right,1000*60*60);
+setInterval(get_china_trend_bottom_right,1000*60*60);

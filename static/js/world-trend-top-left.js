@@ -34,7 +34,7 @@ var world_confirm_option = {
 	//图形位置
 	grid: {
 		left: '10%',
-		right:'0.5%',
+		right:'2.6%',
         top:'10%',
 		// bottom:'6%',
 		containLable:true,
@@ -43,7 +43,6 @@ var world_confirm_option = {
 	xAxis: [{
 	    type:'category',
 		data:['01.20','01.21','01.22'],
-
 	}],
 	yAxis: [{
 		type:'value',

@@ -27,7 +27,7 @@ def update_world():
     utils.update_fforeign()
     return render_template('world.html')
 
-# 更新global表
+# 更新fforeign, global表
 @app.route('/update_world_trend')
 def update_world_trend():
     utils.update_fforeign()
@@ -124,7 +124,7 @@ def get_china_trend_bottom_left():
     return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
-# 获取china-trend左下侧数据，全国新增趋势
+# 获取china-trend右上侧数据，全国新增趋势
 @app.route('/get_china_trend_top_right')
 def get_china_trend_top_right():
     # 获取每日新增确诊、疑似人数
@@ -137,7 +137,7 @@ def get_china_trend_top_right():
     return jsonify({'day': day, 'heal_add': heal_add, 'dead_add': dead_add})
 
 
-# 获取china-trend左下侧数据，全国新增趋势
+# 获取china-trend右下侧数据，全国新增趋势
 @app.route('/get_china_trend_bottom_right')
 def get_china_trend_bottom_right():
     # 获取每日新增确诊、疑似人数
@@ -176,10 +176,10 @@ def world_trend():
 
 
 # 国外累计确诊、新增确诊、累计死亡、累计治愈数据
-@app.route('/get_world_trend')
-def get_world_trend():
+@app.route('/get_world_trend_left')
+def get_world_trend_left():
     # 获取国外累计确诊、新增确诊、累计治愈、累计死亡人数
-    data = utils.get_world_trend()
+    data = utils.get_world_trend_left()
     day, confirm, confirm_add, heal, dead = [], [], [], [], []
     for a, b, c, d, e in data:
         day.append(a.strftime('%m-%d'))  # a是datatime类型

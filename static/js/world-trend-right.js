@@ -34,7 +34,7 @@ countryRank_option = {
     grid: {
         left: 60,
         bottom:30,
-        right:40
+        right:'3%'
     },
 
     xAxis: {

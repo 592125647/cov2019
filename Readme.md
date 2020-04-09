@@ -29,6 +29,10 @@ static目录存放各类静态文件
 * 全球疫情地图、全球疫情趋势图、
 * 国内城市累计确诊排行图、国外累计确诊排行图
 
+>4.1日新增国内境外输入、无症状感染者，累计、新增趋势图
+
+>协程加快获取全球各国数据
+
 5、 部署项目定时刷新页面数据，1小时使用一次爬虫刷新数据库数据，也可以手动ctrl+f5清除浏览器缓存达到刷新页面的效果
 
 6、 启动项目前请仔细阅读注意事项！
@@ -58,19 +62,19 @@ static目录存放各类静态文件
 
 * 建立global表，用于存放全球疫情趋势数据
 
-* 上述所需建立表的sql语句，均存放tables.md文件中，也可于utils模块更新相应表方法中查找到
+* 上述所需建立表的sql语句，均存放于../database/tables.md文件中，也可于utils模块更新相应表更新操作注释中查找到
 
 * 当然可以自行修改表名，只需要修改utils模块中所有涉及的sql语句中相应的表名
 
 * 因此不推荐自定义表名
 
-* 第一次启动项目(执行app.py)会报错，提示数据不存在，是因为数据库操作还未执行，数据表内容为空，属于正常现象
+* 第一次启动项目(执行app.py)若出现报错，提示数据不存在，是因为数据库操作还未执行，数据表内容为空，属于正常现象
 
 * 等待出现提示"数据库更新数据成功"后，重新启动项目就解决了
 
-* 世界疫情地图(world)如若未显示数据，可能是数据加载缓慢，需要等待几秒，属于正常情况
+* 全球各国历史数据量比较大, 因此更新fforeign表需要等待一会
 
-* 数据刷新未生效，在浏览器中按 ctrl+f5 清除缓存，重新获取数据
+* 数据更新若未生效，可能是缓存的原因，在浏览器中按 ctrl+f5 可以清除缓存
 
 * 下面具体介绍各模块
 
@@ -82,12 +86,13 @@ static目录存放各类静态文件
 
 * 封装了所有的数据库操作和获取数据的方法
 
-* 刷新时间 -- get_time
+* 获取国内、国外最近的一次更新时间 -- get_time_china, get_time_global
 
-* 连接数据库和更新表数据
-    * 连接和关闭数据库 -- get_conn，close_conn
+* 数据库连接操作
+    
+    * 连接、关闭数据库 -- get_conn，close_conn
 
-    * 进行sql查询 -- query
+* 数据库更新操作
     
     * 更新history表，更新历史疫情数据  -- update_history
     
@@ -96,30 +101,31 @@ static目录存放各类静态文件
     * 更新fforeign表，更新国外疫情数据  -- update_fforeign
     
     * 更新global表，更新国外疫情数据  -- update_global
-    
-* 查询各项数据
-    * 执行sql语句，获取各页面对应区域所需的数据 
-    * 获取china左侧数据，中国疫情地图 -- get_china_left,
-    * 获取china右上侧数据，疫情数据 -- get_china_top_right
-    * 获取china右下侧数据，城市排行 -- get_china_bottom_right
-    * 获取china-trend左上侧数据，全国累计趋势 -- get_china_trend_top_left
-    * 获取china-trend左下侧数据，全国新增趋势 -- get_china_trend_bottom_left
-    * 获取china-trend右侧数据，国家排行 -- get_china_trend_right
-    * 获取world数据，世界疫情地图 -- get_world
-    * 获取world-trend数据，国外趋势 -- get_world_trend
 
+* 数据库查询操作
+    * 进行sql查询 -- query
+    * 获取china左侧数据，中国疫情地图 -- get_china_left
+    * 获取china右上侧数据，全国确诊、治愈、死亡、现有确诊、境外输入、无症状感染者的累计和新增数据 -- get_china_top_right
+    * 获取china右下侧数据，国内累计确诊城市排行 -- get_china_bottom_right
+    * 获取china-trend左上侧数据，全国累计确诊、疑似、治愈、死亡趋势图 -- get_china_trend_top_left
+    * 获取china-trend左下侧数据，全国新增确诊、疑似趋势图 -- get_china_trend_bottom_left
+    * 获取china-trend右上侧数据，全国新增治愈、死亡趋势图 -- get_china_trend_top_right
+    * 获取china-trend右下侧数据，全国新增境外输入、无症状感染者趋势图 -- get_china_trend_bottom_right
+    * 获取world数据，世界疫情地图 -- get_world
+    * 获取world-trend数据，国外累计确诊、治愈、死亡, 新增确诊趋势 -- get_world_trend_left
+    * 获取world-trend数据，国外累计确诊国家排行 -- get_world_trend_right
 ***
 
 ### spider模块 -- 爬虫
 
 * 获取腾讯新闻数据，筛选并返回疫情的历史数据、当日数据、国外数据、境外输入数据
-* 请求数据 -- get_url
-* 返回历史数据 -- get_history_data 
+* 请求全国历史、全国当日、全球数据 -- get_url
+* 返回全国历史数据 -- get_history_data 
 * 返回当日国内各省数据 -- get_details_data 
 * 请求某国的数据 -- get_url_country 
-* 返回某国的历史数据 -- get_country_data 
-* 返回全球的统计数据 -- get_global_data 
-* 返回境外输入数据 -- get_import_case
+* 返回全球各国的历史数据 -- get_country_data 
+* 返回全球的累计数据 -- get_global_data 
+* 返回境外输入、无症状感染者数据 -- get_import_case
 ***
 
 ### app模块 -- 路由介绍
@@ -138,30 +144,34 @@ static目录存放各类静态文件
     * 刷新数据库各表数据 -- '/update_china', '/update_china_trend', '/update_world', '/update_world_trend'
 
 * #### 数据获取    
-    * 刷新时间 -- '/get_time'
+    * 获取国内、国外最近的一次更新时间 -- get_time_china, get_time_global
     
-    * 主页-国内累计确诊疑似、治愈、死亡人数 -- '/get_china_top_right'
+    * china页-中国各省累计确诊数据 -- '/get_china_left'
     
-    * 主页-中国各省累计确诊数据 -- '/get_china_left'
+    * china页-国内累计确诊疑似、治愈、死亡人数 -- '/get_china_top_right'
     
-    * 主页-除湖北省外城市累计确诊排行数据 -- '/get_china_bottom_right'
+    * china页-国内累计确诊城市排行 -- '/get_china_bottom_right'
     
-    * 中国累计确诊趋势 -- '/get_china_trend_top_left'
+    * china-trend页-中国累计确诊、疑似、治愈、死亡趋势 -- '/get_china_trend_top_left'
     
-    * 中国新增确诊趋势 -- '/get_china_trend_bottom_left'
+    * china-trend页-中国新增确诊、疑似趋势 -- '/get_china_trend_bottom_left'
     
-    * 国外累计确诊排行 -- '/get_china_trend_right'
+    * china-trend页-中国新增治愈、死亡趋势 -- '/get_china_trend_top_right'
     
-    * 世界疫情地图数据 -- '/get_world'
+    * china-trend页-中国新增境外输入、无症状感染者趋势 -- '/get_china_trend_bottom_right'
     
-    * 国外疫情趋势 -- '/get_world_trend'
+    * world页-世界疫情地图数据 -- '/get_world'
+    
+    * world-trend页-国外累计确诊、治愈、死亡，新增确诊趋势 -- '/get_world_trend_left'
+    
+    * world-trend页-国外累计确诊排行 -- '/get_world_trend_right'
 
 ***
 
 ## 静态文件介绍
 
 * 各页面模板 
-    * china.html, trend.html, world.html, country.html
+    * china.html, china-trend.html, world.html, world-trend.html
     * 位于templates目录
     
 * jquery资源 
@@ -170,7 +180,7 @@ static目录存放各类静态文件
 * echarts资源 
     * echarts.min.js, dark.js
 
-* 数据动态刷新 
+* 控制各页面数据的动态获取 
     * china-controller.js
     * china-trend-controller.js
     * world-controller.js
@@ -182,21 +192,23 @@ static目录存放各类静态文件
 * 除湖北省外城市累计确诊排行 
     * china-bottom-right.js
 
-* 中国累计确诊趋势
+* 中国各项累计趋势
     * china-trend-top-left.js
 
-* 中国新增确诊趋势
+* 中国各项新增趋势
     * china-trend-bottom-left.js
-
-* 国外累计确诊排行数据图
-    * world-trend-right.js
+    * china-trend-top-left.js
+    * china-trend-bottom-right.js
 
 * 世界疫情地图
     * world.js, world-map.js
     
-* 国外累计、新增趋势
+* 国外累计确诊、治愈、死亡以及新增趋势
     * world-trend-top-left.js
+    * world-trend-top-right.js
 
+* 国外累计确诊排行数据图
+    * world-trend-right.js
 ***  
 ## 效果预览
 

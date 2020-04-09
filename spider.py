@@ -1,6 +1,12 @@
+import asyncio
+import aiohttp
 import requests
 import json
 import time
+from nameMap import namemap
+
+# 存放国外各国信息的字典
+country_dict = {}
 
 
 # 发送请求
@@ -76,41 +82,56 @@ def get_details_data():
     return details
 
 
-# 发送请求，获取各国数据
-def get_url_country(url, country):
-    url = url + country  # 拼接url
-    #     print(url)
+# 异步协程，发送请求，获取各国数据
+async def get_url_country(country_name, url):
     header = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/80.0.3987.132 Safari/537.36 '
     }
-    res = requests.get(url, headers=header)
-    res = json.loads(res.text)  # 转换json内容为字典
-    return res['data']
+    async with aiohttp.ClientSession() as session:
+        async with await session.get(url, headers=header) as response:
+            # 请求各国数据, 获取响应，获取 {'ret': , 'info': '', 'data': ....}里的'data'值
+            res = json.loads(await response.text())
+            res = res['data']
+            if res:  # 不为空
+                country_dict[country_name] = res  # 返回添加各国数据，存储到字典
 
 
 # 处理外国各国数据
-def get_country_data(country):
-    url = 'https://api.inews.qq.com/newsqa/v1/automation/foreign/daily/list?country='
-    country_dict = {}
-    # 请求各国数据
-    data = get_url_country(url, country)  # url 拼接
-    country_dict[country] = data  # 返回各国数据，存储到字典
-    country_daily_data = []
-    if country_dict.get(country):  # 不为空则进行数据处理
-        for value in country_dict.get(country):  # 数据处理
+def get_country_data(*country_list):
+    # 未特指国家，默认指世界各国
+    start_time = time.time()
+    if not country_list:
+        country_list = list(namemap.values())[1:]  # 各国列表
+    else:
+        country_list = country_list[0]
+
+    task_list = []
+    new_loop = asyncio.new_event_loop()  # 指定event loop对象
+    asyncio.set_event_loop(new_loop)  # 指定event loop对象
+    for country in country_list:
+        url = 'https://api.inews.qq.com/newsqa/v1/automation/foreign/daily/list?country=' + country
+        request = get_url_country(country, url)  # 协程请求各国数据
+        task = asyncio.ensure_future(request)
+        task_list.append(task)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(task_list))
+
+    # 返回数据经过筛选的各国字典
+    country_data = {}
+    for country in country_dict:
+        daily_data = []
+        for value in country_dict.get(country):  # 各国数据处理
             # value 格式{'date': '02.01', 'confirm_add': 0, 'confirm': 2, 'heal': 0, 'dead': 0}
             ds = '2020' + value['date']
             tup = time.strptime(ds, '%Y%m.%d')
             update_time = time.strftime('%Y-%m-%d', tup)  # 改变时间格式，不然插入数据库会报错
             value['date'] = update_time
-            country_daily_data.append(list(value.values()))
-        country_daily_data.append(country)  # 添加国家
-    else:  # 为空跳过
-        pass
-    # 将最新日期放在首部，以便数据库更新查询
-    country_daily_data.reverse()
-    return country_daily_data
+            daily_data.append(list(value.values()))
+        daily_data.reverse()  # 倒序，将最新日期置为首部，提高数据库操作效率
+        country_data[country] = daily_data
+    print("spider getting foreign country data :", time.time() - start_time)
+    return country_data
 
 
 # 获取全球统计数据
@@ -156,3 +177,4 @@ def get_import_case():
     no_infect_add = data_today['chinaAdd']['noInfect']  # 新增无症状感染者
     day_add = [now_confirm_add, imported_case_add, no_infect_add]
     return day_add
+

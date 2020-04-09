@@ -171,7 +171,7 @@ ul,li,i{
 
 /* 世界累计确诊趋势 */
 #world_confirm{
-    width: 39%;
+    width: 40%;
     height: 50%;
     position: absolute;
     top: 8%;
@@ -180,7 +180,7 @@ ul,li,i{
 }
 /* 世界累计确诊趋势 */
 #world_else{
-    width: 39%;
+    width: 40%;
     height: 45%;
     position: absolute;
     top: 54%;
@@ -194,7 +194,7 @@ ul,li,i{
     height: 94.9%;
     position: absolute;
     top: 5%;
-    right: 1%;
+    right: 0.2%;
     text-align: center;
     font-size: 24px;
     color: #efefef;

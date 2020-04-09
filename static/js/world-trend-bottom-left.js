@@ -35,7 +35,7 @@ var world_else_option = {
 	//图形位置
 	grid: {
 		left: '10%',
-		right:'0.5%',
+		right:'2.6%',
         top:'10%',
 		bottom:'6%',
 		containLable:true,

@@ -1,8 +1,7 @@
 import traceback
 import pymysql
-from spider import *
 import nameMap
-import time
+from spider import *
 
 
 # 连接数据库
@@ -39,12 +38,15 @@ def update_history():
     ds datetime not null comment'日期',
     confirm int(11) default null comment'累计确诊',
     confirm_add int(11) default null comment'当日新增确诊',
-    suspect int(11) default null comment'剩余疑似',
+    suspect int(11) default null comment'累计疑似',
     suspect_add int(11) default null comment'当日新增疑似',
     heal int(11) default null comment'累计治愈',
     heal_add int(11) default null comment'当日新增治愈',
     dead int(11) default null comment'累计死亡',
     dead_add int(11) default null comment'当日新增死亡',
+    now_confirm int(11) default null comment'累计现有确诊',
+    imported_case int(11) default null comment'累计境外输入',
+    no_infect int(11) default null comment'累计无症状感染者',
     primary key(ds) using btree
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -54,7 +56,7 @@ def update_history():
     conn = None
     try:
         dic = get_history_data()  # 历史数据
-        print(f'{time.asctime()}开始更新历史数据')
+        print(f'{time.asctime()} -- 开始更新历史数据')
         conn, cursor = get_conn()
         sql = 'insert into history values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from history where ds=%s'
@@ -68,7 +70,7 @@ def update_history():
                                      v.get('now_confirm'), v.get('imported_case'), v.get('no_infect')
                                      ])
         conn.commit()  # 提交事务
-        print(f'{time.asctime()}历史数据更新完毕')
+        print(f'{time.asctime()} -- 历史数据更新完毕')
     except:
         traceback.print_exc()
 
@@ -106,14 +108,13 @@ def update_details():
         sql_query = 'select %s=(select update_time from details order by id desc limit 1)'
         cursor.execute(sql_query, li[0][0])
         if not cursor.fetchone()[0]:
-            print(f'{time.asctime()}开始更新今日最新数据')
+            print(f'{time.asctime()} -- 开始更新今日最新数据')
             for item in li:
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
-            print(f'{time.asctime()}今日最'
-                  f'新数据更新完毕')
+            print(f'{time.asctime()} -- 今日最新数据更新完毕')
         else:
-            print(f'{time.asctime()}已是今日最新数据')
+            print(f'{time.asctime()} -- 已是今日最新数据')
     except:
         traceback.print_exc()
     finally:
@@ -124,7 +125,6 @@ def update_details():
 def update_fforeign(*country_list):
     """
     插入国外数据，更新当日国外各数据
-
     mysql建立表fforeign的sql语句：
 
     create table fforeign(
@@ -133,7 +133,6 @@ def update_fforeign(*country_list):
     country varchar(50) not null comment'国',
     confirm int(11) default null comment'累计确诊',
     confirm_add int(11) default null comment'新增确诊',
-    suspect int(11) default null comment'累计疑似',
     heal int(11) default null comment'累计治愈',
     dead int(11) default null comment'累计死亡',
     primary key(id)
@@ -149,24 +148,19 @@ def update_fforeign(*country_list):
               'values(%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from fforeign where country = %s and update_time= %s'
         # 未特指国家，默认指世界各国
-        if not country_list:
-            country_list = [list(nameMap.namemap.values())[1:]]
-        print(f'{time.asctime()}开始更新国外数据')
-        for country in country_list[0]:  # 迭代国家列表
-            country_data = get_country_data(country)  # 获取该国数据
-            # 该国有疫情数据
-            if country_data:  # country 格式 ['美国', [['2020-01-28', 0, 5, 0, 0]...]]
-                for item in country_data[1:]:  # 获取该国每日数据, item 格式['2020-01-28', 0, 5, 0, 0]
-                    cursor.execute(sql_query, [country, item[0]])  # country代表国家, item[0]代表日期
-                    if not cursor.fetchone():  # 未更新数据
-                        print([country, item[0]], ' 正在更新 ')
-                        cursor.execute(sql, [country, item[0], item[1], item[2], item[3], item[4]])  # 插入数据
-                        conn.commit()  # 提交事务
-                    else:
-                        print(country, '已最新')
-                        break
+        print(f'{time.asctime()} -- 更新国外数据，数据量较大请等待一会')
+        country_data = get_country_data(*country_list)
 
-        print(f'{time.asctime()}已是国外最新数据')
+        for country, dailyData in country_data.items():  # 迭代国家列表
+            # 该国有疫情数据
+            for item in dailyData:  # 获取该国每日数据, item 格式['2020-01-28', 0, 5, 0, 0]
+                cursor.execute(sql_query, [country, item[0]])  # country代表国家, item[0]代表日期
+                if not cursor.fetchone():  # 未更新数据
+                    print([country, item[0]], ' 正在更新 ')
+                    cursor.execute(sql, [country, item[0], item[1], item[2], item[3], item[4]])  # 插入数据
+                    conn.commit()  # 提交事务
+
+        print(f'{time.asctime()} -- 已是国外最新数据')
     except:
         traceback.print_exc()
     finally:
@@ -183,6 +177,7 @@ def update_global():
     confirm_add int(11) default null comment'新增确诊',
     heal int(11) default null comment'累计治愈',
     dead int(11) default null comment'累计死亡',
+    last_update_time datetime  comment '数据最后更新时间',
     primary key(update_time)
     )engine=InnoDB default charset=utf8mb4;
     """
@@ -198,7 +193,7 @@ def update_global():
         update = 'update global set last_update_time=%s where update_time=%s'  # 更新最近更新数据
         update_query = 'select %s=(select last_update_time from global group by update_time desc limit 1)'
 
-        print(f'{time.asctime()}开始更新全球趋势数据')
+        print(f'{time.asctime()} -- 开始更新全球趋势数据')
         # 更新全球历史数据
         for item in li:  # 每日数据
             cursor.execute(sql_query, item[0])
@@ -211,7 +206,7 @@ def update_global():
         if cursor.fetchone()[0] == 0:  # 最近更新时间不一致
             cursor.execute(update, [last_update_time, today])
         conn.commit()  # 提交事务
-        print(f'{time.asctime()}全球趋势数据更新完毕')
+        print(f'{time.asctime()} -- 全球趋势数据更新完毕')
     except:
         traceback.print_exc()
     finally:
@@ -352,7 +347,7 @@ def get_world():
 
 
 # 获取world-trend数据，国外趋势，不含中国
-def get_world_trend():
+def get_world_trend_left():
     """
 
     :return:返回世界趋势数据
@@ -392,12 +387,3 @@ def get_time_global():
     res = res[0][0].strftime("%Y-%m-%d %H:%M:%S")
     return res
 
-
-if __name__ == '__main__':
-    time = []
-    # print(get_time()[0][0])
-    # item = get_time()[0][0].strftime("%Y-%m-%d %H:%M:%S")
-    # time.append(item)
-    # print(item)
-    # print(type(item))
-    print(get_china_trend_bottom_left())
