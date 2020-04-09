@@ -34,7 +34,7 @@ ul,li,i{
     left: 1%;
     text-align: center;
     font-size: 22px;
-    color: #63cdda;
+    color: #D4F2E7;
     z-index: 55;
 }
 /* 时间戳 */
@@ -45,8 +45,7 @@ ul,li,i{
     left: 1%;
     text-align: center;
     font-size: 20px;
-    /*color: #ffffff;*/
-    color: #63cdda;
+    color: #D4F2E7;
     z-index: 56;
 }
 
