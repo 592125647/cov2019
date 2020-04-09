@@ -62,5 +62,3 @@ primary key(update_time)
 )engine=InnoDB default charset=utf8mb4;
 
 ***
-
-update global set last_update_time='2020-04-09 07:00：00' where update_time='2020-04-09'
