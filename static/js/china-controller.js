@@ -1,7 +1,7 @@
 // 更新时间戳
 function get_time(){
     $.ajax({
-        url:'/get_time',
+        url:'/get_time_china',
         timeout: 10000,
         success:function (data) {
             $('#time').html(data)

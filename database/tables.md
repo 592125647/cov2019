@@ -57,7 +57,10 @@ confirm int(11) default null comment'累计确诊',
 confirm_add int(11) default null comment'新增确诊',
 heal int(11) default null comment'累计治愈',
 dead int(11) default null comment'累计死亡',
+last_update_time datetime  comment '数据最后更新时间',
 primary key(update_time)
 )engine=InnoDB default charset=utf8mb4;
 
 ***
+
+update global set last_update_time='2020-04-09 07:00：00' where update_time='2020-04-09'

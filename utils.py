@@ -110,7 +110,8 @@ def update_details():
             for item in li:
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
-            print(f'{time.asctime()}今日最新数据更新完毕')
+            print(f'{time.asctime()}今日最'
+                  f'新数据更新完毕')
         else:
             print(f'{time.asctime()}已是今日最新数据')
     except:
@@ -188,16 +189,28 @@ def update_global():
     cursor = None
     conn = None
     try:
-        li = get_global_data()  # 获取全球统计数据
+        li = get_global_data()[0]  # 获取全球统计数据
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from global where update_time=%s'
+        today = li[len(li) - 1][0]  # 获取最新日期
+        last_update_time = get_global_data()[1]  # 获取最近更新时间
+        update = 'update global set last_update_time=%s where update_time=%s'  # 更新最近更新数据
+        update_query = 'select %s=(select last_update_time from global group by update_time desc limit 1)'
+
         print(f'{time.asctime()}开始更新全球趋势数据')
-        for item in li:  # 更新当日数据
+        # 更新全球历史数据
+        for item in li:  # 每日数据
             cursor.execute(sql_query, item[0])
             if not cursor.fetchone():
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
+        cursor.execute(update_query, last_update_time)
+
+        # 更新最近一次更新时间
+        if cursor.fetchone()[0] == 0:  # 最近更新时间不一致
+            cursor.execute(update, [last_update_time, today])
+        conn.commit()  # 提交事务
         print(f'{time.asctime()}全球趋势数据更新完毕')
     except:
         traceback.print_exc()
@@ -345,7 +358,7 @@ def get_world_trend():
     :return:返回世界趋势数据
     """
     # sql = 'select update_time,sum(confirm),sum(heal),sum(dead) from fforeign group by update_time'
-    sql = 'SELECT * FROM global'
+    sql = 'SELECT update_time,confirm,confirm_add,heal,dead FROM global'
     res = query(sql)
     return res
 
@@ -364,9 +377,17 @@ def get_world_trend_right():
     return res
 
 
-# 获取最近一次更新时间
-def get_time():
+# 获取国内最近一次更新时间
+def get_time_china():
     sql = 'select update_time from details order by update_time desc limit 1'
+    res = query(sql)
+    res = res[0][0].strftime("%Y-%m-%d %H:%M:%S")
+    return res
+
+
+# 获取全球最近一次更新时间
+def get_time_global():
+    sql = 'select last_update_time from global order by update_time desc limit 1'
     res = query(sql)
     res = res[0][0].strftime("%Y-%m-%d %H:%M:%S")
     return res

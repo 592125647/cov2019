@@ -115,6 +115,11 @@ def get_country_data(country):
 
 # 获取全球统计数据
 def get_global_data():
+    # 获取最近的更新时间
+    url_update_time = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign'
+    update_time_data = get_url(url_update_time)
+    last_update_time = json.loads(update_time_data['data'])['globalStatis']['lastUpdateTime']
+
     # 请求全球数据
     url_global = 'https://api.inews.qq.com/newsqa/v1/automation/modules/list?modules=FAutoGlobalStatis,' \
                  'FAutoGlobalDailyList '
@@ -137,7 +142,7 @@ def get_global_data():
     global_list.append(
         [today, global_today_data['confirm'], global_today_data['nowConfirmAdd'], global_today_data['heal'],
          global_today_data['dead'], ])
-    return global_list
+    return global_list, last_update_time
 
 
 # 获取境外输入数据
@@ -151,5 +156,3 @@ def get_import_case():
     no_infect_add = data_today['chinaAdd']['noInfect']  # 新增无症状感染者
     day_add = [now_confirm_add, imported_case_add, no_infect_add]
     return day_add
-
-

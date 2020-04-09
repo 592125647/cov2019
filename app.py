@@ -19,7 +19,6 @@ def update_china():
 def update_china_trend():
     utils.update_history()
     utils.update_details()
-    # utils.update_fforeign()
     return render_template('china-trend.html')
 
 # 更新fforeign表
@@ -31,6 +30,7 @@ def update_world():
 # 更新global表
 @app.route('/update_world_trend')
 def update_world_trend():
+    utils.update_fforeign()
     utils.update_global()
     return render_template('world-trend.html')
 
@@ -41,11 +41,18 @@ def hello_index():
     return render_template('china.html')
 
 
-# 动态刷新时间
-@app.route('/get_time')
-def get_time():
+# 刷新国内更新时间
+@app.route('/get_time_china')
+def get_time_china():
     # 获取当地时间
-    return utils.get_time()
+    return utils.get_time_china()
+
+
+# 刷新国外更新时间
+@app.route('/get_time_global')
+def get_time_global():
+    # 获取当地时间
+    return utils.get_time_global()
 
 
 # 获取china左侧数据，中国疫情地图

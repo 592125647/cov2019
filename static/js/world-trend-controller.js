@@ -1,7 +1,7 @@
 // 更新时间戳
 function get_time(){
     $.ajax({
-        url:'/get_time',
+        url:'/get_time_global',
         timeout: 10000,
         success:function (data) {
             $('#time').html(data)
@@ -62,7 +62,7 @@ function get_world_trend_right() {
 }
 
 //访问时获取数据
-// update_sql();
+update_sql();
 get_time();
 get_world_trend();
 get_world_trend_right();
