@@ -148,7 +148,7 @@ def update_fforeign(*country_list):
               'values(%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from fforeign where country = %s and update_time= %s'
         # 未特指国家，默认指世界各国
-        print(f'{time.asctime()} -- 更新国外数据，数据量较大请等待一会')
+        print(f'{time.asctime()} -- 正在更新国外数据，数据量较大请等待一会')
         country_data = get_country_data(*country_list)
 
         for country, dailyData in country_data.items():  # 迭代国家列表
@@ -156,7 +156,6 @@ def update_fforeign(*country_list):
             for item in dailyData:  # 获取该国每日数据, item 格式['2020-01-28', 0, 5, 0, 0]
                 cursor.execute(sql_query, [country, item[0]])  # country代表国家, item[0]代表日期
                 if not cursor.fetchone():  # 未更新数据
-                    print([country, item[0]], ' 正在更新 ')
                     cursor.execute(sql, [country, item[0], item[1], item[2], item[3], item[4]])  # 插入数据
                     conn.commit()  # 提交事务
 
@@ -188,25 +187,23 @@ def update_global():
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from global where update_time=%s'
-        today = li[len(li) - 1][0]  # 获取最新日期
-        last_update_time = get_global_data()[1]  # 获取最近更新时间
-        update = 'update global set last_update_time=%s where update_time=%s'  # 更新最近更新数据
-        update_query = 'select %s=(select last_update_time from global group by update_time desc limit 1)'
 
-        print(f'{time.asctime()} -- 开始更新全球趋势数据')
+        print(f'{time.asctime()} -- 开始更新全球数据')
         # 更新全球历史数据
-        for item in li:  # 每日数据
+        for item in li:  # 当日之前每日数据
             cursor.execute(sql_query, item[0])
             if not cursor.fetchone():
                 cursor.execute(sql, item)
             conn.commit()  # 提交事务
-        cursor.execute(update_query, last_update_time)
 
-        # 更新最近一次更新时间
-        if cursor.fetchone()[0] == 0:  # 最近更新时间不一致
-            cursor.execute(update, [last_update_time, today])
+        today = li[-1]  # 获取当日数据
+        last_update_time = get_global_data()[1]  # 获取最近一次更新时间
+        # 更新当日数据
+        update = 'update global set confirm=%s,confirm_add=%s,heal=%s,dead=%s,last_update_time=%s where update_time=%s'
+        # 添加最近一次更新时间
+        cursor.execute(update, [today[1], today[2], today[3], today[4], last_update_time, today[0]])
         conn.commit()  # 提交事务
-        print(f'{time.asctime()} -- 全球趋势数据更新完毕')
+        print(f'{time.asctime()} -- 已经是全球最新数据')
     except:
         traceback.print_exc()
     finally:
@@ -387,3 +384,6 @@ def get_time_global():
     res = res[0][0].strftime("%Y-%m-%d %H:%M:%S")
     return res
 
+
+if __name__ == '__main__':
+    update_global()
