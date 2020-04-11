@@ -163,6 +163,7 @@ def get_global_data():
     global_list.append(
         [today, global_today_data['confirm'], global_today_data['nowConfirmAdd'], global_today_data['heal'],
          global_today_data['dead'], ])
+    global_list.reverse()
     return global_list, last_update_time
 
 
