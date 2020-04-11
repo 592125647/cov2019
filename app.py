@@ -30,8 +30,8 @@ def update_world():
 # 更新fforeign, global表
 @app.route('/update_world_trend')
 def update_world_trend():
-    utils.update_fforeign()
     utils.update_global()
+    utils.update_fforeign()
     return render_template('world-trend.html')
 
 
@@ -187,7 +187,6 @@ def get_world_trend_left():
         confirm_add.append(int(c))
         heal.append(int(d))
         dead.append(int(e))
-
     return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
 
 

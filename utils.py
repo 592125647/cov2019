@@ -147,10 +147,10 @@ def update_fforeign(*country_list):
         sql = 'insert into fforeign(country,update_time,confirm_add,confirm,heal,dead) ' \
               'values(%s,%s,%s,%s,%s,%s)'
         sql_query = 'select confirm from fforeign where country = %s and update_time= %s'
-        # 未特指国家，默认指世界各国
-        print(f'{time.asctime()} -- 正在更新国外数据，数据量较大请等待一会')
+        # 请求各国数据，未特指国家，默认指世界各国
         country_data = get_country_data(*country_list)
-
+        print(f'{time.asctime()} -- 正在更新国外数据，数据量较大请稍微等待一会')
+        # 更新数据库
         for country, dailyData in country_data.items():  # 迭代国家列表
             # 该国有疫情数据
             for item in dailyData:  # 获取该国每日数据, item 格式['2020-01-28', 0, 5, 0, 0]
@@ -158,7 +158,9 @@ def update_fforeign(*country_list):
                 if not cursor.fetchone():  # 未更新数据
                     cursor.execute(sql, [country, item[0], item[1], item[2], item[3], item[4]])  # 插入数据
                     conn.commit()  # 提交事务
-
+                    print(country, item[0], '正在更新')
+                else:
+                    break
         print(f'{time.asctime()} -- 已是国外最新数据')
     except:
         traceback.print_exc()
@@ -184,24 +186,26 @@ def update_global():
     conn = None
     try:
         li = get_global_data()[0]  # 获取全球统计数据
+        today = li[-1]  # 获取当日数据
+        last_update_time = get_global_data()[1]  # 获取最近一次更新时间
         conn, cursor = get_conn()
         sql = 'insert into global(update_time,confirm,confirm_add,heal,dead) values(%s,%s,%s,%s,%s)'
-        sql_query = 'select confirm from global where update_time=%s'
-
+        sql_query1 = 'select confirm from global where update_time=%s'
+        sql_query2 = 'select %s=(select confirm_add from global where update_time=%s)'
+        update = 'update global set confirm=%s,confirm_add=%s,heal=%s,dead=%s,last_update_time=%s where update_time=%s'
         print(f'{time.asctime()} -- 开始更新全球数据')
         # 更新全球历史数据
         for item in li:  # 当日之前每日数据
-            cursor.execute(sql_query, item[0])
+            # 该日确诊为null, 则插入数据
+            cursor.execute(sql_query1, item[0])
             if not cursor.fetchone():
                 cursor.execute(sql, item)
+            # 更新该日最终累计数据
+            cursor.execute(sql_query2, [item[2], item[0]])
+            if not cursor.fetchone()[0]:
+                cursor.execute(update, [item[1], item[2], item[3], item[4], last_update_time, item[0]])
             conn.commit()  # 提交事务
 
-        today = li[-1]  # 获取当日数据
-        last_update_time = get_global_data()[1]  # 获取最近一次更新时间
-        # 更新当日数据
-        update = 'update global set confirm=%s,confirm_add=%s,heal=%s,dead=%s,last_update_time=%s where update_time=%s'
-        # 添加最近一次更新时间
-        cursor.execute(update, [today[1], today[2], today[3], today[4], last_update_time, today[0]])
         conn.commit()  # 提交事务
         print(f'{time.asctime()} -- 已经是全球最新数据')
     except:

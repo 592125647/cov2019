@@ -130,7 +130,7 @@ def get_country_data(*country_list):
             daily_data.append(list(value.values()))
         daily_data.reverse()  # 倒序，将最新日期置为首部，提高数据库操作效率
         country_data[country] = daily_data
-    print("spider getting foreign country data :", time.time() - start_time)
+    print("各国数据请求完毕:", time.time() - start_time, '秒')
     return country_data
 
 
