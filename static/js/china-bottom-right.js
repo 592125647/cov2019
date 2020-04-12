@@ -11,7 +11,7 @@ for (var i = 0; i < data.length; i++) {
 
 city_option = {
     title: {
-        text: '除湖北省外累计确诊最多的12城市',
+        text: '除湖北省外累计确诊最多的12城市(不含境外输入)',
         left:'center',
         top:'8%',
         textStyle:{

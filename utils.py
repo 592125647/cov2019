@@ -289,10 +289,10 @@ def get_china_bottom_right():
     sql = 'select city,confirm from ' \
           '(select city,confirm from details where update_time =' \
           '(select update_time from details order by update_time desc limit 1)' \
-          'and province not in ("湖北","北京","上海","重庆","天津")and city != "地区待确认" ' \
+          'and province not in ("湖北","北京","上海","重庆","天津")and city not in ("地区待确认","境外输入") ' \
           'union all select province as city,sum(confirm) as confirm from details ' \
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
-          'and province in("北京","上海","重庆","天津") group by province) ' \
+          'and province in("北京","上海","重庆","天津") and city not in ("地区待确认","境外输入") group by province) ' \
           'as a order by confirm desc limit 12'
 
     res = query(sql)
