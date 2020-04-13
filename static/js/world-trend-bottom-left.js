@@ -2,7 +2,7 @@ var world_else = echarts.init(document.getElementById('world_else'),'dark')
 
 var world_else_option = {
     title:{
-        text:'国外新增确诊、治愈、死亡趋势',
+        text:'海外新增确诊、治愈、死亡趋势',
         textStyle:{
 			fontSize:20,
 			color:'#D4F2E7',

@@ -10,7 +10,7 @@ var seriesLabel = {
 
 countryRank_option = {
     title: {
-        text: '外国疫情严重排行',
+        text: '海外疫情排行',
         left: 'right' ,
         top:'3%',
         textStyle:{

@@ -1,7 +1,7 @@
 var world_confirm = echarts.init(document.getElementById('world_confirm'),'dark')
 var world_confirm_option = {
     title:{
-        text:'国外各项累计趋势',
+        text:'海外累计确诊趋势',
         textStyle:{
 			fontSize:20,
 			color:'#D4F2E7',

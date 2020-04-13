@@ -30,6 +30,8 @@ def update_world():
 # 更新fforeign, global表
 @app.route('/update_world_trend')
 def update_world_trend():
+    # utils.update_history()
+    # utils.update_details()
     utils.update_global()
     utils.update_fforeign()
     return render_template('world-trend.html')
@@ -102,7 +104,7 @@ def get_china_trend_top_left():
     # 获取累计新增、疑似、治愈、死亡人数
     data = utils.get_china_trend_top_left()
     day, confirm, suspect, heal, dead = [], [], [], [], []
-    for a, b, c, d, e in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
+    for a, b, c, d, e, f in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
         day.append(a.strftime('%m-%d'))  # a是datatime类型
         confirm.append(b)
         suspect.append(c)
@@ -182,11 +184,30 @@ def get_world_trend_left():
     data = utils.get_world_trend_left()
     day, confirm, confirm_add, heal, dead = [], [], [], [], []
     for a, b, c, d, e in data:
-        day.append(a.strftime('%m-%d'))  # a是datatime类型
+        day.append(a.strftime('%m-%d'))
         confirm.append(int(b))
         confirm_add.append(int(c))
         heal.append(int(d))
         dead.append(int(e))
+    # 添加国内疫情数据
+    # china_data = utils.get_china_trend_top_left()
+    # for a, b, c, d, e, f in china_data[15:]:
+    #     i = day.index(a.strftime('%m-%d'))
+    #     confirm[i] = confirm[i] + int(b)
+    #     confirm_add[i] = confirm_add[i] + int(c)
+    #     heal[i] = heal[i] + int(d)
+    #     dead[i] = dead[i] + int(e)
+    #     # confirm.append(int(b))
+    #     # confirm_add.append(int(f))
+    #     # heal.append(int(d))
+    #     # dead.append(int(e))
+    #
+    # today = utils.get_china_top_right()[0]
+    # i = day.index(data[-1][0].strftime('%m-%d'))
+    # confirm[i] = confirm[i] + int(today[0])
+    # confirm_add[i] = confirm_add[i] + int(today[1])
+    # heal[i] = heal[i] + int(today[-2])
+    # dead[i] = dead[i] + int(today[-1])
     return jsonify({'day': day, 'confirm': confirm, 'confirm_add': confirm_add,  'heal': heal, 'dead': dead})
 
 

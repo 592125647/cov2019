@@ -305,7 +305,7 @@ def get_china_trend_top_left():
 
     :return:返回全国累计趋势
     """
-    sql = 'select ds,confirm,suspect,heal,dead from history'
+    sql = 'select ds,confirm,suspect,heal,dead,confirm_add from history'
     res = query(sql)
     return res
 

@@ -14,7 +14,7 @@ data = {
 worldMap_option = {
 // 图表主标题
     title: {
-      // text: '世界疫情地图', // 主标题文本，支持使用 \n 换行
+      // text: '全球疫情地图', // 主标题文本，支持使用 \n 换行
       top: 20, // 定位 值: 'top', 'middle', 'bottom' 也可以是具体的值或者百分比
       left: 'center', // 值: 'left', 'center', 'right' 同上
       textStyle: { // 文本样式
