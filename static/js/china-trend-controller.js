@@ -122,20 +122,20 @@ function get_china_trend_bottom_right() {
 }
 
 //访问时获取数据
-// update_sql();
-// get_time();
-// get_china_trend_top_left();
-// get_china_trend_top_center();
-// get_china_trend_top_right();
-// get_china_trend_bottom_left();
+update_sql();
+get_time();
+get_china_trend_top_left();
+get_china_trend_top_center();
+get_china_trend_top_right();
+get_china_trend_bottom_left();
 get_china_trend_bottom_center();
 get_china_trend_bottom_right();
 
 //停留页面时每一小时刷新一次数据
-// setInterval(update_sql,1000*60*60);
-// setInterval(get_time,1000*60*60);
-// setInterval(get_china_trend_top_left,1000*60*60);
-// setInterval(get_china_trend_top_center,1000*60*60);
-// setInterval(get_china_trend_top_right,1000*60*60);
-// setInterval(get_china_trend_bottom_center,1000*60*60);
-// setInterval(get_china_trend_bottom_right,1000*60*60);
+setInterval(update_sql,1000*60*60);
+setInterval(get_time,1000*60*60);
+setInterval(get_china_trend_top_left,1000*60*60);
+setInterval(get_china_trend_top_center,1000*60*60);
+setInterval(get_china_trend_top_right,1000*60*60);
+setInterval(get_china_trend_bottom_center,1000*60*60);
+setInterval(get_china_trend_bottom_right,1000*60*60);

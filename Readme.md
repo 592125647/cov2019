@@ -2,6 +2,10 @@
 
 ### Python使用flask、echarts框架，搭配Mysql数据库
 
+## 更新历史
+* ###4月1日更新海外各国的数据源, 新增境外输入、无症状感染者数据
+* ###4月14日更新国内境外输入城市排行
+
 ## 项目基本介绍
 
 1、 爬虫爬取腾讯新闻数据并筛选关键数据
@@ -9,11 +13,7 @@
 * 数据来源 
    
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
-      https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5
       https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign
-      
-* ##4月1日更新海外各国的数据源
-      
       https://api.inews.qq.com/newsqa/v1/automation/foreign/daily/list?country=美国
       要查询各国，只需在'country='后替换国家名称即可
 
@@ -27,11 +27,7 @@ static目录存放各类静态文件
 
 * 中国疫情地图、中国疫情趋势图、
 * 全球疫情地图、全球疫情趋势图、
-* 国内城市累计确诊排行图、海外累计确诊排行图
-
->4.1日新增国内境外输入、无症状感染者，累计、新增趋势图
-
->协程加快获取全球各国数据
+* 国内城市累计确诊排行图、国内累计境外输入城市排行、海外累计确诊排行图
 
 5、 部署项目定时刷新页面数据，1小时使用一次爬虫刷新数据库数据，也可以手动ctrl+f5清除浏览器缓存达到刷新页面的效果
 
@@ -40,9 +36,9 @@ static目录存放各类静态文件
 ***
 ### 基本函数名、文件名定义介绍
 
-* ##### left--左侧、right--右侧、top-left--左上侧、bottom-left--左下侧、bottom-right--右下侧
+* ##### left--左侧、center--中部、right--右侧、top-left--左上侧、bottom-left--左下侧...
 * ##### china--中国疫情地图、国内城市排行
-* ##### china-trend--中国疫情趋势、外国累计确诊排行
+* ##### china-trend--中国疫情趋势、累计确诊海外排行
 * ##### world--全球疫情地图
 * ##### world-trend--海外疫情趋势，不含中国
  
@@ -111,12 +107,15 @@ static目录存放各类静态文件
     * 获取china右上侧数据，全国确诊、治愈、死亡、现有确诊、境外输入、无症状感染者的累计和新增数据 -- get_china_top_right
     * 获取china右下侧数据，国内累计确诊城市排行 -- get_china_bottom_right
     * 获取china-trend左上侧数据，全国累计确诊、疑似、治愈、死亡趋势图 -- get_china_trend_top_left
-    * 获取china-trend左下侧数据，全国新增确诊、疑似趋势图 -- get_china_trend_bottom_left
+    * 获取china-trend中上侧数据，全国新增确诊、疑似趋势图 -- get_china_trend_top_center
     * 获取china-trend右上侧数据，全国新增治愈、死亡趋势图 -- get_china_trend_top_right
-    * 获取china-trend右下侧数据，全国新增境外输入、无症状感染者趋势图 -- get_china_trend_bottom_right
+    * 获取china-trend左下侧数据，全国新增境外输入、无症状感染者趋势图 -- get_china_trend_bottom_left
+    * 获取china-trend中下侧数据，国内累计境外输入城市排行 -- get_china_trend_bottom_center
+    * 获取china-trend右下侧数据，国内累计境外输入城市排行饼图 -- get_china_trend_bottom_right
     * 获取world数据，世界疫情地图 -- get_world
-    * 获取world-trend数据，海外累计确诊、治愈、死亡, 新增确诊趋势 -- get_world_trend_left
-    * 获取world-trend数据，海外累计确诊国家排行 -- get_world_trend_right
+    * 获取world-trend数据，海外累计确诊趋势 -- get_world_trend_top_left
+    * 获取world-trend数据，海外累计治愈、死亡, 新增确诊趋势 -- get_world_trend_bottom_left
+    * 获取world-trend数据，海外国家累计确诊排行 -- get_world_trend_right
 ***
 
 ### spider模块 -- 爬虫
@@ -157,11 +156,15 @@ static目录存放各类静态文件
     
     * china-trend页-中国累计确诊、疑似、治愈、死亡趋势 -- '/get_china_trend_top_left'
     
-    * china-trend页-中国新增确诊、疑似趋势 -- '/get_china_trend_bottom_left'
+    * china-trend页-中国新增确诊、疑似趋势 -- '/get_china_trend_top_center'
     
     * china-trend页-中国新增治愈、死亡趋势 -- '/get_china_trend_top_right'
     
-    * china-trend页-中国新增境外输入、无症状感染者趋势 -- '/get_china_trend_bottom_right'
+    * china-trend页-中国新增境外输入、无症状感染者趋势 -- '/get_china_trend_bottom_left'
+    
+    * china-trend页-国内累计境外输入城市排行 -- '/get_china_trend_bottom_center'
+    
+    * china-trend页-国内累计境外输入城市排行饼图 -- '/get_china_trend_bottom_right'
     
     * world页-世界疫情地图数据 -- '/get_world'
     
@@ -199,9 +202,12 @@ static目录存放各类静态文件
     * china-trend-top-left.js
 
 * 中国各项新增趋势
-    * china-trend-top-center.js
     * china-trend-top-left.js
+    * china-trend-top-center.js
+    * china-trend-top-right.js
     * china-trend-bottom-left.js
+    * china-trend-bottom-center.js
+    * china-trend-bottom-right.js
 
 * 世界疫情地图
     * world.js, world-map.js

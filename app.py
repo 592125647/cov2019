@@ -166,7 +166,6 @@ def get_china_trend_bottom_center():
     for i in data:
         city.append(i[2])  # 城市
         imported_case.append(int(i[1]))  # 累计境外输入人数
-    print(imported_case)
     return jsonify({'city': city, 'imported_case': imported_case})
 
 

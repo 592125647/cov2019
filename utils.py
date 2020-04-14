@@ -165,15 +165,18 @@ def update_fforeign(*country_list):
                 if not cursor.fetchone():
                     cursor.execute(sql_insert, [country, item[0], item[1], item[2], item[3], item[4]])  # 插入数据
                     conn.commit()  # 提交事务
-                else:
-                    break
+                    continue
+                break
+        close_conn(conn, cursor)
+        conn, cursor = get_conn()
+        for country, dailyData in country_data.items():  # 迭代国家列表
             # 该日数据存在，但未更新
             # 更新昨日的最终数据和今日的暂时数据
-            # for day in dailyData[:2]:
-            #     cursor.execute(sql_query_update, [day[2], country, day[0]])
-            #     if not cursor.fetchone()[0]:
-            #         cursor.execute(sql_update, [day[1], day[2], day[3], day[4], country, day[0]])  # 更新数据
-            #         conn.commit()  # 提交事务
+            for day in dailyData[:2]:
+                cursor.execute(sql_query_update, [day[2], country, day[0]])
+                if not cursor.fetchone()[0]:
+                    cursor.execute(sql_update, [day[1], day[2], day[3], day[4], country, day[0]])  # 更新数据
+                    conn.commit()  # 提交事务
         print(f'{time.asctime()} -- 已是国外最新数据')
     except:
         traceback.print_exc()
@@ -217,6 +220,8 @@ def update_global():
                 conn.commit()  # 提交事务
             else:
                 break
+        close_conn(conn, cursor)
+        conn, cursor = get_conn()
         # 更新昨日最终累计数据和今日暂时数据
         for item in li[:2]:
             cursor.execute(sql_update, [item[1], item[2], item[3], item[4], last_update_time, item[0]])
@@ -423,5 +428,4 @@ def get_time_global():
 
 
 if __name__ == '__main__':
-    res = get_china_bottom_center()
-    print(res)
+    update_fforeign()
