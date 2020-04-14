@@ -1,10 +1,10 @@
-var l3 = echarts.init(document.getElementById('l3'),'dark')
+var l2 = echarts.init(document.getElementById('l2'),'dark')
 
-var l3_option = {
+var l2_option = {
     title:{
-        text:'全国新增治愈、新增死亡趋势',
+        text:'全国新增确诊、疑似趋势',
         textStyle:{
-			fontSize:22,
+            fontSize : 22,
 		},
 		left:'left',
 	},
@@ -13,12 +13,13 @@ var l3_option = {
 		axisPointer:{
 			type:'line',
 			lineStyle:{
-				color:'#7171C6'
+				color:'#7171C6',
 			}
+
 		},
     },
 	legend:{
-		data:['新增治愈','新增死亡'],
+		data:['新增确诊','新增疑似'],
 		left:'right',
 		top:'8%',
 		textStyle:{
@@ -27,7 +28,7 @@ var l3_option = {
 	},
 	//图形位置
 	grid: {
-		left: '8%',
+		left: '7%',
 		right:'4%',
 		bottom:'8%',
 		top:50,
@@ -57,26 +58,25 @@ var l3_option = {
 		splitLine:{
 			show:true,
 			lineStyle:{
-				// color:['#aaa', '#83bff6','#ddd'],
 				color:['#82ccdd','#b8e994','#78e08f','#38ada9','#079992'],
 				width:1,
-				type:'solid',
+				type:'solid'
 			}
 		}
 	}],
 	series:[{
-		name:'新增治愈',
+		name:'新增确诊',
 		type:'line',
 		smooth:true,
-		color:'#83bff6',
+		color:'#B33771',
 		data:[260,406,529]
 	},{
-		name:'新增死亡',
+		name:'新增疑似',
 		type:'line',
 		smooth:true,
-		color:'#ff7675',
+		color:'#F8EFBA',
 		data:[52,37,3935]
-	}]
+	}],
 };
 
-l3.setOption(l3_option);
+l2.setOption(l2_option)

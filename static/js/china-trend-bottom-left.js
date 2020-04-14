@@ -1,10 +1,10 @@
-var l2 = echarts.init(document.getElementById('l2'),'dark')
+var r1 = echarts.init(document.getElementById('r1'),'dark')
 
-var l2_option = {
+var r1_option = {
     title:{
-        text:'全国新增确诊、疑似趋势',
+        text:'全国境外输入、无症状感染者趋势',
         textStyle:{
-            fontSize : 22,
+			fontSize:22,
 		},
 		left:'left',
 	},
@@ -13,21 +13,21 @@ var l2_option = {
 		axisPointer:{
 			type:'line',
 			lineStyle:{
-				color:'#7171C6',
+				color:'#7171C6'
 			}
-
 		},
     },
 	legend:{
-		data:['新增确诊','新增疑似'],
+		data:['新增境外输入','新增无症状感染者'],
 		left:'right',
+		top:'8%',
 		textStyle:{
             fontSize : 14,
         } ,
 	},
 	//图形位置
 	grid: {
-		left: '7%',
+		left: '8%',
 		right:'4%',
 		bottom:'8%',
 		top:50,
@@ -59,23 +59,23 @@ var l2_option = {
 			lineStyle:{
 				color:['#82ccdd','#b8e994','#78e08f','#38ada9','#079992'],
 				width:1,
-				type:'solid'
+				type:'solid',
 			}
 		}
 	}],
 	series:[{
-		name:'新增确诊',
+		name:'新增境外输入',
 		type:'line',
 		smooth:true,
-		color:'#B33771',
+		color:'#a55eea',
 		data:[260,406,529]
 	},{
-		name:'新增疑似',
+		name:'新增无症状感染者',
 		type:'line',
 		smooth:true,
-		color:'#F8EFBA',
+		color:'#eb3b5a',
 		data:[52,37,3935]
-	}],
+	}]
 };
 
-l2.setOption(l2_option)
+r1.setOption(r1_option)

@@ -199,9 +199,9 @@ static目录存放各类静态文件
     * china-trend-top-left.js
 
 * 中国各项新增趋势
-    * china-trend-bottom-left.js
+    * china-trend-top-center.js
     * china-trend-top-left.js
-    * china-trend-bottom-right.js
+    * china-trend-bottom-left.js
 
 * 世界疫情地图
     * world.js, world-map.js

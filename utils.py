@@ -169,11 +169,11 @@ def update_fforeign(*country_list):
                     break
             # 该日数据存在，但未更新
             # 更新昨日的最终数据和今日的暂时数据
-            for day in dailyData[:2]:
-                cursor.execute(sql_query_update, [day[2], country, day[0]])
-                if not cursor.fetchone()[0]:
-                    cursor.execute(sql_update, [day[1], day[2], day[3], day[4], country, day[0]])  # 更新数据
-                    conn.commit()  # 提交事务
+            # for day in dailyData[:2]:
+            #     cursor.execute(sql_query_update, [day[2], country, day[0]])
+            #     if not cursor.fetchone()[0]:
+            #         cursor.execute(sql_update, [day[1], day[2], day[3], day[4], country, day[0]])  # 更新数据
+            #         conn.commit()  # 提交事务
         print(f'{time.asctime()} -- 已是国外最新数据')
     except:
         traceback.print_exc()
@@ -310,8 +310,8 @@ def get_china_trend_top_left():
     return res
 
 
-# 获取china-trend左下侧数据，全国新增趋势
-def get_china_trend_bottom_left():
+# 获取china-trend中上侧数据，全国新增确诊、疑似趋势
+def get_china_trend_top_center():
     """
 
     :return:返回全国新增趋势
@@ -332,13 +332,32 @@ def get_china_trend_top_right():
     return res
 
 
-# 获取china-trend右下侧数据，全国境外输入、无症状感染者趋势
-def get_china_trend_bottom_right():
+# 获取china-trend左下侧数据，全国境外输入、无症状感染者趋势
+def get_china_trend_bottom_left():
     """
 
     :return:返回全国境外输入、无症状感染者累计数据
     """
     sql = 'select ds,imported_case,no_infect from history'
+    res = query(sql)
+    return res
+
+
+# 获取china-trend中下侧数据，累计境外输入城市排行
+def get_china_trend_bottom_center():
+    """
+
+    :return:返回城市排行数据
+    """
+    sql = 'select city,confirm, province from ' \
+          '(select city,confirm,province from details where update_time =' \
+          '(select update_time from details order by update_time desc limit 1)' \
+          'and province not in ("湖北","北京","上海","重庆","天津")and city in ("境外输入") ' \
+          'union all select province as city,sum(confirm) as confirm,province from details ' \
+          'where update_time =(select update_time from details order by update_time desc limit 1) ' \
+          'and province in("北京","上海","重庆","天津") and city in ("境外输入") group by province) ' \
+          'as a order by confirm desc limit 8'
+
     res = query(sql)
     return res
 
@@ -404,4 +423,5 @@ def get_time_global():
 
 
 if __name__ == '__main__':
-    update_global()
+    res = get_china_bottom_center()
+    print(res)

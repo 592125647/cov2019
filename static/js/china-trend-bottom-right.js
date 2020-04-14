@@ -1,80 +1,55 @@
-var r2 = echarts.init(document.getElementById('r2'),'dark')
-
-var r2_option = {
-    title:{
-        text:'全国境外输入、无症状感染者趋势',
+var r3 = echarts.init(document.getElementById('r3'),'dark')
+r3_option = {
+    title: {
+        text: '累计境外输入城市排行',
+        left: 'center',
         textStyle:{
-			fontSize:22,
-		},
-		left:'left',
-	},
-    tooltip:{
-        trigger:'axis',
-		axisPointer:{
-			type:'line',
-			lineStyle:{
-				color:'#7171C6'
-			}
+            fontSize : 22,
 		},
     },
-	legend:{
-		data:['新增境外输入','新增无症状感染者'],
-		left:'right',
-		textStyle:{
-            fontSize : 14,
-        } ,
-	},
-	//图形位置
-	grid: {
-		left: '8%',
-		right:'4%',
-		bottom:'8%',
-		top:50,
-		containLable:true
-	},
-	xAxis: [{
-	    type:'category',
-		data:['01.20','01.21','01.22']
-	}],
-	yAxis: [{
-		type:'value',
-		axisLabel:{
-			show:true,
-			color:'white',
-			fontSize:12,
-			formatter: function(value){
-				if(value >= 1000)
-				{
-					value = value / 1000 + 'k'
-				}
-				return value;
-			}
-		},
-		axisLine:{
-			show:true
-		},
-		splitLine:{
-			show:true,
-			lineStyle:{
-				color:['#82ccdd','#b8e994','#78e08f','#38ada9','#079992'],
-				width:1,
-				type:'solid',
-			}
-		}
-	}],
-	series:[{
-		name:'新增境外输入',
-		type:'line',
-		smooth:true,
-		color:'#a55eea',
-		data:[260,406,529]
-	},{
-		name:'新增无症状感染者',
-		type:'line',
-		smooth:true,
-		color:'#eb3b5a',
-		data:[52,37,3935]
-	}]
-};
+    //图形位置
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    // 图注
+    legend: {
+        type: 'scroll',
+        orient: 'vertical',
+        right: 5,
+        top: '32%',
+        bottom: 20,
+        data: ['上海','黑龙江'],
+    },
+    series: [
+        {
+            name: '城市',
+            type: 'pie',
+            radius: '75%',
+            center: ['47%', '58%'],
+            label: {
+                fontSize: 16,
+                color: '#83bff6'
+            },
+            labelLine: {
+                lineStyle: {
+                    color: '#235894'
+                }
+            },
+            data:[{name:'上海',value:90},{name:'黑龙江',value:67}],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                },
+                label: {
+                    fontSize : 22,
+                    color:'#F8EFBA',
+                }
+            },
 
-r2.setOption(r2_option)
+        }
+    ]
+};
+r3.setOption(r3_option)

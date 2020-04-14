@@ -83,7 +83,7 @@ def get_china_top_right():
 # 获取china右下侧数据，城市排行
 @app.route('/get_china_bottom_right')
 def get_china_bottom_right():
-    # 获取除湖北省外累计确诊最多的10个城市
+    # 获取除湖北省外累计确诊最多的12个城市
     data = utils.get_china_bottom_right()
     city, confirm = [], []
     for i in data:
@@ -96,6 +96,11 @@ def get_china_bottom_right():
 @app.route('/china-trend')
 def china_trend():
     return render_template('china-trend.html')
+
+# 中国新增、累计确诊趋势，国外累计确诊排行
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 # 获取china-trend左上侧数据，全国累计趋势
@@ -113,11 +118,11 @@ def get_china_trend_top_left():
     return jsonify({'day': day, 'confirm': confirm, 'suspect': suspect, 'heal': heal, 'dead': dead})
 
 
-# 获取china-trend左下侧数据，全国新增趋势
-@app.route('/get_china_trend_bottom_left')
-def get_china_trend_bottom_left():
+# 获取china-trend左下侧数据，全国新增疑似、确诊趋势
+@app.route('/get_china_trend_top_center')
+def get_china_trend_top_center():
     # 获取每日新增确诊、疑似人数
-    data = utils.get_china_trend_bottom_left()
+    data = utils.get_china_trend_top_center()
     day, confirm_add, suspect_add = [], [], []
     for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
         day.append(a.strftime('%m-%d'))  # a是datatime类型
@@ -126,10 +131,10 @@ def get_china_trend_bottom_left():
     return jsonify({'day': day, 'confirm_add': confirm_add, 'suspect_add': suspect_add})
 
 
-# 获取china-trend右上侧数据，全国新增趋势
+# 获取china-trend右上侧数据，全国新增死亡、治愈趋势
 @app.route('/get_china_trend_top_right')
 def get_china_trend_top_right():
-    # 获取每日新增确诊、疑似人数
+    # 获取每日新增死亡、治愈人数
     data = utils.get_china_trend_top_right()
     day, heal_add, dead_add = [], [], []
     for a, b, c in data[7:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
@@ -139,17 +144,45 @@ def get_china_trend_top_right():
     return jsonify({'day': day, 'heal_add': heal_add, 'dead_add': dead_add})
 
 
-# 获取china-trend右下侧数据，全国新增趋势
-@app.route('/get_china_trend_bottom_right')
-def get_china_trend_bottom_right():
-    # 获取每日新增确诊、疑似人数
-    data = utils.get_china_trend_bottom_right()
+# 获取china-trend左下侧数据，全国境外输入、无症状感染者趋势
+@app.route('/get_china_trend_bottom_left')
+def get_china_trend_bottom_left():
+    # 获取每日境外输入、无症状感染者
+    data = utils.get_china_trend_bottom_left()
     day, imported_case, no_infect = [], [], []
     for a, b, c in data[50:]:  # 前七天为0,去掉前7天,从1.20号开始获取数据
         day.append(a.strftime('%m-%d'))  # a是datatime类型
         imported_case.append(b)
         no_infect.append(c)
     return jsonify({'day': day, 'imported_case': imported_case, 'no_infect': no_infect})
+
+
+# 获取china-trend中下侧数据，累计境外输入城市排行
+@app.route('/get_china_trend_bottom_center')
+def get_china_trend_bottom_center():
+    # 获取累计境外输入最多的8个城市排行
+    data = utils.get_china_trend_bottom_center()
+    city, imported_case = [], []
+    for i in data:
+        city.append(i[2])  # 城市
+        imported_case.append(int(i[1]))  # 累计境外输入人数
+    print(imported_case)
+    return jsonify({'city': city, 'imported_case': imported_case})
+
+
+# 获取china-trend右下侧数据，城市排行
+@app.route('/get_china_trend_bottom_right')
+def get_china_trend_bottom_right():
+    # 获取累计境外输入饼图排行
+    data = utils.get_china_trend_bottom_center()
+    city, imported_case = [], []
+    for i in data:
+        temp_dict = {}
+        city.append(i[2])  # 城市
+        temp_dict['name'] = i[2]
+        temp_dict['value'] = int(i[1])
+        imported_case.append(temp_dict)  # 累计境外输入人数
+    return jsonify({'city': city, 'imported_case': imported_case})
 
 
 # 世界疫情地图

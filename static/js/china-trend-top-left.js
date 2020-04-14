@@ -23,6 +23,7 @@ var l1_option = {
 		textStyle:{
             fontSize : 14,
         } ,
+		top:'8%',
 	},
 	//图形位置
 	grid: {
