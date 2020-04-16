@@ -11,7 +11,7 @@ for (var i = 0; i < data.length; i++) {
 
 r2_option = {
     title: {
-        text: '累计境外输入城市排行',
+        text: '累计境外输入省市排行',
         left:'center',
         top:'1%',
         textStyle:{

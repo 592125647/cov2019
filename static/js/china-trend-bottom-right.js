@@ -1,7 +1,7 @@
 var r3 = echarts.init(document.getElementById('r3'),'dark')
 r3_option = {
     title: {
-        text: '累计境外输入城市排行',
+        text: '累计境外输入省市排行',
         left: 'center',
         textStyle:{
             fontSize : 22,

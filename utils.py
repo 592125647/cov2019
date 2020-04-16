@@ -348,7 +348,7 @@ def get_china_trend_bottom_left():
     return res
 
 
-# 获取china-trend中下侧数据，累计境外输入城市排行
+# 获取china-trend中下侧数据，累计境外输入省市排行
 def get_china_trend_bottom_center():
     """
 
@@ -362,6 +362,25 @@ def get_china_trend_bottom_center():
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
           'and province in("北京","上海","重庆","天津") and city in ("境外输入") group by province) ' \
           'as a order by confirm desc limit 8'
+
+    res = query(sql)
+    return res
+
+
+# 获取china-trend右下侧数据，累计境外输入省市排行饼图
+def get_china_trend_bottom_right():
+    """
+
+    :return:返回城市排行数据
+    """
+    sql = 'select city,confirm, province from ' \
+          '(select city,confirm,province from details where update_time =' \
+          '(select update_time from details order by update_time desc limit 1)' \
+          'and province not in ("湖北","北京","上海","重庆","天津")and city in ("境外输入") ' \
+          'union all select province as city,sum(confirm) as confirm,province from details ' \
+          'where update_time =(select update_time from details order by update_time desc limit 1) ' \
+          'and province in("北京","上海","重庆","天津") and city in ("境外输入") group by province) ' \
+          'as a order by confirm desc'
 
     res = query(sql)
     return res

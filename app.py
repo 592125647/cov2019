@@ -157,7 +157,7 @@ def get_china_trend_bottom_left():
     return jsonify({'day': day, 'imported_case': imported_case, 'no_infect': no_infect})
 
 
-# 获取china-trend中下侧数据，累计境外输入城市排行
+# 获取china-trend中下侧数据，累计境外输入省市排行
 @app.route('/get_china_trend_bottom_center')
 def get_china_trend_bottom_center():
     # 获取累计境外输入最多的8个城市排行
@@ -169,11 +169,11 @@ def get_china_trend_bottom_center():
     return jsonify({'city': city, 'imported_case': imported_case})
 
 
-# 获取china-trend右下侧数据，城市排行
+# 获取china-trend右下侧数据，累计境外输入省市排行饼图
 @app.route('/get_china_trend_bottom_right')
 def get_china_trend_bottom_right():
     # 获取累计境外输入饼图排行
-    data = utils.get_china_trend_bottom_center()
+    data = utils.get_china_trend_bottom_right()
     city, imported_case = [], []
     for i in data:
         temp_dict = {}

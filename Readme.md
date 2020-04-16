@@ -27,7 +27,7 @@ static目录存放各类静态文件
 
 * 中国疫情地图、中国疫情趋势图、
 * 全球疫情地图、全球疫情趋势图、
-* 国内城市累计确诊排行图、国内累计境外输入城市排行、海外累计确诊排行图
+* 国内城市累计确诊排行图、国内累计境外输入省市排行、海外累计确诊排行图
 
 5、 部署项目定时刷新页面数据，1小时使用一次爬虫刷新数据库数据，也可以手动ctrl+f5清除浏览器缓存达到刷新页面的效果
 
@@ -38,7 +38,7 @@ static目录存放各类静态文件
 
 * ##### left--左侧、center--中部、right--右侧、top-left--左上侧、bottom-left--左下侧...
 * ##### china--中国疫情地图、国内城市排行
-* ##### china-trend--中国疫情趋势、累计确诊海外排行
+* ##### china-trend--中国疫情累计趋势、新增趋势、累计境外输入省市排行
 * ##### world--全球疫情地图
 * ##### world-trend--海外疫情趋势，不含中国
  
@@ -110,8 +110,8 @@ static目录存放各类静态文件
     * 获取china-trend中上侧数据，全国新增确诊、疑似趋势图 -- get_china_trend_top_center
     * 获取china-trend右上侧数据，全国新增治愈、死亡趋势图 -- get_china_trend_top_right
     * 获取china-trend左下侧数据，全国新增境外输入、无症状感染者趋势图 -- get_china_trend_bottom_left
-    * 获取china-trend中下侧数据，国内累计境外输入城市排行 -- get_china_trend_bottom_center
-    * 获取china-trend右下侧数据，国内累计境外输入城市排行饼图 -- get_china_trend_bottom_right
+    * 获取china-trend中下侧数据，国内累计境外输入省市排行 -- get_china_trend_bottom_center
+    * 获取china-trend右下侧数据，国内累计境外输入省市排行饼图 -- get_china_trend_bottom_right
     * 获取world数据，世界疫情地图 -- get_world
     * 获取world-trend数据，海外累计确诊趋势 -- get_world_trend_top_left
     * 获取world-trend数据，海外累计治愈、死亡, 新增确诊趋势 -- get_world_trend_bottom_left
@@ -135,11 +135,11 @@ static目录存放各类静态文件
 * #### 模板
     * 主页，即中国疫情地图、国内城市排行 -- '/'
     
-    * 中国疫情趋势、外国累计确诊排行 -- '/china-trend'
+    * 中国疫情累计趋势、新增趋势, 累计境外输入省市排行 -- '/china-trend'
     
     * 世界疫情地图 -- '/world'
     
-    * 海外疫情趋势 -- '/world-trend'
+    * 海外疫情趋势, 海外国家累计确诊排行-- '/world-trend'
        
 * #### 数据库
 
@@ -162,9 +162,9 @@ static目录存放各类静态文件
     
     * china-trend页-中国新增境外输入、无症状感染者趋势 -- '/get_china_trend_bottom_left'
     
-    * china-trend页-国内累计境外输入城市排行 -- '/get_china_trend_bottom_center'
+    * china-trend页-国内累计境外输入省市排行 -- '/get_china_trend_bottom_center'
     
-    * china-trend页-国内累计境外输入城市排行饼图 -- '/get_china_trend_bottom_right'
+    * china-trend页-国内累计境外输入省市排行饼图 -- '/get_china_trend_bottom_right'
     
     * world页-世界疫情地图数据 -- '/get_world'
     
@@ -198,14 +198,19 @@ static目录存放各类静态文件
 * 除湖北省外城市累计确诊排行 
     * china-bottom-right.js
 
-* 中国各项累计趋势
+* 中国累计确诊、疑似、治愈、死亡趋势
     * china-trend-top-left.js
-
-* 中国各项新增趋势
-    * china-trend-top-left.js
-    * china-trend-top-center.js
-    * china-trend-top-right.js
+    
+* 中国累计境外输入、无症状感染者趋势
     * china-trend-bottom-left.js
+
+* 中国新增确诊、疑似趋势
+    * china-trend-top-center.js
+    
+* 中国新增治愈、死亡趋势
+    * china-trend-top-right.js
+    
+* 累计境外输入省市排行
     * china-trend-bottom-center.js
     * china-trend-bottom-right.js
 
