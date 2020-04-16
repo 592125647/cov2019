@@ -18,15 +18,17 @@ r3_option = {
         orient: 'vertical',
         right: 5,
         top: '32%',
-        bottom: 20,
+        bottom: '10%',
         data: ['上海','黑龙江'],
+        pageButtonGap:30,
+        pageIconColor:'#81D9E0',
     },
     series: [
         {
             name: '城市',
             type: 'pie',
             radius: '75%',
-            center: ['47%', '58%'],
+            center: ['50%', '58%'],
             label: {
                 fontSize: 16,
                 color: '#83bff6'

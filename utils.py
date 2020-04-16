@@ -361,7 +361,7 @@ def get_china_trend_bottom_center():
           'union all select province as city,sum(confirm) as confirm,province from details ' \
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
           'and province in("北京","上海","重庆","天津") and city in ("境外输入") group by province) ' \
-          'as a order by confirm desc limit 8'
+          'as a order by confirm desc limit 10'
 
     res = query(sql)
     return res
@@ -380,7 +380,7 @@ def get_china_trend_bottom_right():
           'union all select province as city,sum(confirm) as confirm,province from details ' \
           'where update_time =(select update_time from details order by update_time desc limit 1) ' \
           'and province in("北京","上海","重庆","天津") and city in ("境外输入") group by province) ' \
-          'as a order by confirm desc'
+          'as a order by confirm desc limit 14'
 
     res = query(sql)
     return res
