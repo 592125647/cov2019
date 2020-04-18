@@ -18,9 +18,9 @@ r3_option = {
         orient: 'vertical',
         right: 5,
         top: '32%',
-        bottom: '10%',
+        bottom: '8%',
         data: ['上海','黑龙江'],
-        pageButtonGap:30,
+        pageButtonGap:26,
         pageIconColor:'#81D9E0',
     },
     series: [
